@@ -12,51 +12,51 @@ Dependency checklist:
 
 The main dependency for being able to make an Angular application is node version 6+. The latest stable version of node is best to get if you do not have it already installed.
 
-## Check you have the right node and git
+### Check you have the right node and git
 
 You can check your version of node by running the following command in the terminal.
 
-```text
+```
 node -v
 ```
 
-If you would like to use source control and check out completed work then it is recommended to have git installed on your machine. You can download git from[ https://git-scm.com/downloads ](https://git-scm.com/downloads%20)
+If you would like to use source control and check out completed work then it is recommended to have git installed on your machine. You can download git from[ https://git-scm.com/downloads ](https://git-scm.com/downloads )
 
 You can check your version of node by running the following command in the terminal.
 
-```text
+```
 git --version
 ```
 
-If you do not have node installed or you are using a version lower than v4 then I you can get the latest stable version from [www.nodejs.org](https://github.com/duncanhunter/Enterprise-Angular-Applications-With-NgRx-and-Nx-Book/tree/c180ff2f255906954d2a81055d876d57bfe05508/www.nodejs.org).
+If you do not have node installed or you are using a version lower than v4 then I you can get the latest stable version from [www.nodejs.org](/www.nodejs.org).
 
-## Install Angular CLI and NX
+### Install Angular CLI and NX
 
 We need to have both the Angular CLI and the nrwl schematics installed globally. Run the following commands.
 
-```text
+```
 npm install -g @angular/cli
 ```
 
-```text
+```
 npm install -g @nrwl/schematics
 ```
 
-## **Get Visual Studio Code  **
+### **Get Visual Studio Code  **
 
 [**https://code.visualstudio.com/**](https://code.visualstudio.com/)
 
-![](https://github.com/duncanhunter/Enterprise-Angular-Applications-With-NgRx-and-Nx-Book/tree/c180ff2f255906954d2a81055d876d57bfe05508/assets/vscode.png)
+![](/.gitbook/assets/vscode.png)
 
-## Get **Visual Studio Code ** Extensions![](https://github.com/duncanhunter/Enterprise-Angular-Applications-With-NgRx-and-Nx-Book/tree/c180ff2f255906954d2a81055d876d57bfe05508/assets/2016-11-09_17-02-23.png)![](https://github.com/duncanhunter/Enterprise-Angular-Applications-With-NgRx-and-Nx-Book/tree/c180ff2f255906954d2a81055d876d57bfe05508/assets/angularessentials-img.jpg)
+### Get **Visual Studio Code ** Extensions![](/.gitbook/assets/2016-11-09_17-02-23.png)![](/.gitbook/assets/angularessentials-img.jpg)
 
-## Optionally turn on **Visual Studio Code  autosave**
+### Optionally turn on **Visual Studio Code  autosave**
 
-![](https://github.com/duncanhunter/Enterprise-Angular-Applications-With-NgRx-and-Nx-Book/tree/c180ff2f255906954d2a81055d876d57bfe05508/assets/2017-07-25_21-00-24.jpg)
+![](/.gitbook/assets/2017-07-25_21-00-24.jpg)
 
-### 7. Install redux dev tools chrome extension
+#### 7. Install redux dev tools chrome extension
 
 [https://github.com/zalmoxisus/redux-devtools-extension](https://github.com/zalmoxisus/redux-devtools-extension)
 
-![](https://github.com/duncanhunter/Enterprise-Angular-Applications-With-NgRx-and-Nx-Book/tree/c180ff2f255906954d2a81055d876d57bfe05508/assets/redux-dev-tools.png)
+![](/.gitbook/assets/redux-dev-tools.png)
 

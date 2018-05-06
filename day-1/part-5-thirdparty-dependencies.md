@@ -1,26 +1,18 @@
 # Part 5 - Thirdparty dependencies
 
-<<<<<<< Updated upstream:day-1/part-5-thirdparty-dependencies.md
-![](https://github.com/duncanhunter/Enterprise-Angular-Applications-With-NgRx-and-Nx-Book/tree/c180ff2f255906954d2a81055d876d57bfe05508/assets/material-site.png)
-=======
-<<<<<<< HEAD:part-5-thirdparty-dependencies.md
-![](.gitbook/assets/material-site.png)
-=======
-![](https://github.com/duncanhunter/Enterprise-Angular-Applications-With-NgRx-and-Nx-Book/tree/c180ff2f255906954d2a81055d876d57bfe05508/assets/material-site.png)
->>>>>>> 27deda11f6fd2bafdd4d7805be1cb52bb774afc8:day-1/part-5-thirdparty-dependencies.md
->>>>>>> Stashed changes:day-1/part-5-thirdparty-dependencies.md
+![](/.gitbook/assets/material-site.png)
 
 [https://material.angular.io/](https://material.angular.io/)
 
-## 1.Install angular material, angular animations and angular flex layout
+#### 1.Install angular material, angular animations and angular flex layout
 
-```text
+```
 npm install --save @angular/material @angular/cdk @angular/flex-layout @angular/animations
 ```
 
 * Add animations module to the main app module.
 
-```typescript
+```ts
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
@@ -31,9 +23,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 export class AppModule { }
 ```
 
-## 2.Add a new nx lib to hold all the common material components we will use in our app
+#### 2.Add a new nx lib to hold all the common material components we will use in our app
 
-```text
+```
 ng g lib material
 ```
 
@@ -41,7 +33,7 @@ ng g lib material
 
 _**libs/material/src/material.module.ts**_
 
-```typescript
+```ts
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -90,13 +82,14 @@ import {
   ]
 })
 export class MaterialModule {}
+
 ```
 
 * Add material module to auth module
 
 _**libs/auth/src/auth.module.ts**_
 
-```typescript
+```ts
 import { MaterialModule } from '@demo-app/material';
 
 @NgModule({
@@ -107,7 +100,7 @@ imports: [CommonModule, RouterModule, HttpClientModule, MaterialModule],
 export class AuthModule { }
 ```
 
-## 3. Add material default styles
+#### 3. Add material default styles
 
 _**apps/customer-portal/src/styles.scss**_
 
@@ -119,7 +112,7 @@ _**apps/customer-portal/src/styles.scss**_
 
 _**libs/auth/src/components/login-form/login-form.component.html**_
 
-```markup
+```html
 <mat-card>
     <mat-card-title>Login</mat-card-title>
     <mat-card-content>
@@ -136,7 +129,7 @@ _**libs/auth/src/components/login-form/login-form.component.html**_
 </mat-card>
 ```
 
-## 4. Go and explore flex layout docs
+#### 4. Go and explore flex layout docs
 
 [https://tburleson-layouts-demos.firebaseapp.com/\#/docs](https://tburleson-layouts-demos.firebaseapp.com/#/docs)
 
