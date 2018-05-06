@@ -1,6 +1,14 @@
 # Part 5 - Thirdparty dependencies
 
+<<<<<<< Updated upstream:day-1/part-5-thirdparty-dependencies.md
 ![](https://github.com/duncanhunter/Enterprise-Angular-Applications-With-NgRx-and-Nx-Book/tree/c180ff2f255906954d2a81055d876d57bfe05508/assets/material-site.png)
+=======
+<<<<<<< HEAD:part-5-thirdparty-dependencies.md
+![](.gitbook/assets/material-site.png)
+=======
+![](https://github.com/duncanhunter/Enterprise-Angular-Applications-With-NgRx-and-Nx-Book/tree/c180ff2f255906954d2a81055d876d57bfe05508/assets/material-site.png)
+>>>>>>> 27deda11f6fd2bafdd4d7805be1cb52bb774afc8:day-1/part-5-thirdparty-dependencies.md
+>>>>>>> Stashed changes:day-1/part-5-thirdparty-dependencies.md
 
 [https://material.angular.io/](https://material.angular.io/)
 

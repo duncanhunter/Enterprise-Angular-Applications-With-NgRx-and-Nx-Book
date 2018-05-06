@@ -2,7 +2,15 @@
 
 We will be building out the beginning of two applications a customer portal and an admin portal.
 
+<<<<<<< Updated upstream:day-1/part-1-creating-an-nx-workspace.md
 ![](https://github.com/duncanhunter/Enterprise-Angular-Applications-With-NgRx-and-Nx-Book/tree/c180ff2f255906954d2a81055d876d57bfe05508/assets/workspaces-demoapp.png)_**figure: nx workspaces diagram**_
+=======
+<<<<<<< HEAD:part-1-.md
+![](.gitbook/assets/workspaces-demoapp.png)_**figure: nx workspaces diagram**_
+=======
+![](https://github.com/duncanhunter/Enterprise-Angular-Applications-With-NgRx-and-Nx-Book/tree/c180ff2f255906954d2a81055d876d57bfe05508/assets/workspaces-demoapp.png)_**figure: nx workspaces diagram**_
+>>>>>>> 27deda11f6fd2bafdd4d7805be1cb52bb774afc8:day-1/part-1-creating-an-nx-workspace.md
+>>>>>>> Stashed changes:day-1/part-1-creating-an-nx-workspace.md
 
 ## 1 .Create a new nx workspace
 
@@ -80,7 +88,18 @@ ng g ngrx app --module=apps/customer-portal/src/app/app.module.ts  --onlyEmptyRo
 ng s -a=customer-portal -o
 ```
 
+<<<<<<< Updated upstream:day-1/part-1-creating-an-nx-workspace.md
 * See the default state of the app in the redux dev tools![](https://github.com/duncanhunter/Enterprise-Angular-Applications-With-NgRx-and-Nx-Book/tree/c180ff2f255906954d2a81055d876d57bfe05508/assets/default-ngrx-state.png)
+=======
+<<<<<<< HEAD:part-1-.md
+* See the default state of the app in the redux dev tools![](.gitbook/assets/default-ngrx-state.png)
+
+#### 8. Commit to repo for the class \(Instructor only\)
+
+=======
+* See the default state of the app in the redux dev tools![](https://github.com/duncanhunter/Enterprise-Angular-Applications-With-NgRx-and-Nx-Book/tree/c180ff2f255906954d2a81055d876d57bfe05508/assets/default-ngrx-state.png)
+>>>>>>> 27deda11f6fd2bafdd4d7805be1cb52bb774afc8:day-1/part-1-creating-an-nx-workspace.md
+>>>>>>> Stashed changes:day-1/part-1-creating-an-nx-workspace.md
 
 ## 8. Commit to repo for the class \(Instructor only\)
 
