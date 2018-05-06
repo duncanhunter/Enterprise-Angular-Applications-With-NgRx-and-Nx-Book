@@ -4,22 +4,22 @@
 
 ## Introduction
 
-* [Resources](introduction/resource-links.md)
-* [Course Description](introduction/course-description.md)
 * [Introduction](introduction/introduction.md)
+* [Course Description](introduction/course-description.md)
+* [Resources](introduction/resource-links.md)
 
 ## Day 1
 
-* [0 - Environment setup](day1/part-0-environment-setup.md)
-* [1 -  Creating an nx workspace](day1/part-1-.md)
-* [2 - Generating components and nx lib](day1/part-3-generating-components.md)
-* [3 - RxJS and Angulars HTTP Module](day1/part-4-.md)
-* [4 - Angular Services ](day1/part-3-angular-services.md)
-* [5 - Thirdparty dependencies](day1/part-5-thirdparty-dependencies.md)
-* [6 - Reactive Forms](day1/part-6-reactive-forms.md)
-* [7 - Routing and interceptors](day1/part-7-routing-and-interceptors.md)
-* [8 - ngrx introduction](day1/part-8-angular-services.md)
-* [9 - nx state libs](day1/part-9-nx-state-libs.md)
+* [0 - Environment setup](day-1/part-0-environment-setup.md)
+* [1 -  Creating an nx workspace](day-1/part-1-creating-an-nx-workspace.md)
+* [2 - Generating components and nx lib](day-1/part-3-generating-components.md)
+* [3 - RxJS and Angulars HTTP Module](day-1/part-3-rxjs-and-angulars-http-module.md)
+* [4 - Angular Services ](day-1/part-4-angular-services.md)
+* [5 - Thirdparty dependencies](day-1/part-5-thirdparty-dependencies.md)
+* [6 - Reactive Forms](day-1/part-6-reactive-forms.md)
+* [7 - Routing and interceptors](day-1/part-7-routing-and-interceptors.md)
+* [8 - ngrx introduction](day-1/part-8-angular-services.md)
+* [9 - nx state libs](day-1/part-9-nx-state-libs.md)
 
 ## Day 2
 
