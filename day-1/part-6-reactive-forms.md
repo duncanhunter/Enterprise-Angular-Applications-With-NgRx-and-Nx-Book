@@ -1,26 +1,26 @@
 # Part 6 - Reactive Forms
 
-#### 1.Add ngx-errors library to make it easier to display form errors
+## 1.Add ngx-errors library to make it easier to display form errors
 
 [https://github.com/UltimateAngular/ngx-errors](https://github.com/UltimateAngular/ngx-errors)
 
-```
+```text
 npm i @ultimate/ngxerrors
 ```
 
 1. Add ravtice forms module to auth module imports
 
-```ts
+```typescript
 imports: [CommonModule, RouterModule, HttpClientModule, MaterialModule, ReactiveFormsModule],
 ```
 
-#### 2. Add a reactive FormGroup to login form
+## 2. Add a reactive FormGroup to login form
 
 Note: To save injecting the formBuilder and keeping this a presentational component with no injected dependancies we can just new up a simple FormGroup. You can read more about it here[ https://angular.io/api/forms/FormBuilder](https://angular.io/api/forms/FormBuilder).
 
 _**libs/auth/src/components/login-form/login-form.component.ts**_
 
-```ts
+```typescript
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Authenticate } from '@demo-app/data-models';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -51,7 +51,7 @@ export class LoginFormComponent {
 
 _**libs/auth/src/components/login-form/login-form.component.html**_
 
-```html
+```markup
 <mat-card>
     <mat-card-title>Login</mat-card-title>
     <mat-card-content>
@@ -80,7 +80,7 @@ _**libs/auth/src/components/login-form/login-form.component.html**_
 
 _**libs/data-models/src/data-models.ts**_
 
-```ts
+```typescript
 export interface User {
     username: string;
     id: number;
@@ -92,9 +92,7 @@ export interface User {
 
 _**libs/data-models/index.ts**_
 
-```ts
+```typescript
 export { Authenticate, User } from './src/data-models';
 ```
-
-
 

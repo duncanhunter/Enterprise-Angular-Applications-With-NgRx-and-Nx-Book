@@ -1,14 +1,14 @@
 # Part 13 - Router actions and effects
 
-#### 1 .Add a new presentational components for users
+## 1 .Add a new presentational components for users
 
-```
+```text
 ng g c components/users-table -a=admin-portal/users
 ```
 
 * Add a toolbar module
 
-```
+```text
 ng g c components/users-table-toolbar -a=admin-portal/users
 ```
 
@@ -16,7 +16,7 @@ ng g c components/users-table-toolbar -a=admin-portal/users
 
 _**libs/admin-portal/users/src/components/users-table-toolbar/users-table-toolbar.component.html**_
 
-```html
+```markup
 <mat-toolbar>
   <mat-form-field >
     <mat-select [value]="selectedCountry" (selectionChange)="filter($event.value)" >
@@ -31,7 +31,7 @@ _**libs/admin-portal/users/src/components/users-table-toolbar/users-table-toolba
 
 _**libs/admin-portal/users/src/components/users-table-toolbar/users-table-toolbar.component.ts**_
 
-```ts
+```typescript
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -53,7 +53,7 @@ export class UsersTableToolbarComponent {
 
 _**libs/admin-portal/users/src/components/users-table/users-table.component.ts**_
 
-```ts
+```typescript
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { User } from '@demo-app/data-models';
 import { MatTableDataSource } from '@angular/material';
@@ -84,7 +84,7 @@ export class UsersTableComponent implements OnChanges {
 
 _**libs/admin-portal/users/src/components/users-table/users-table.component.html**_
 
-```html
+```markup
 <div class="mat-elevation-z8">
   <mat-table #table [dataSource]="dataSource">
 
@@ -104,9 +104,9 @@ _**libs/admin-portal/users/src/components/users-table/users-table.component.html
 </div>
 ```
 
-#### 2. Add filter actions to update state
+## 2. Add filter actions to update state
 
-```ts
+```typescript
 import { Action } from '@ngrx/store';
 import { User } from '@demo-app/data-models';
 
@@ -145,7 +145,7 @@ export type UsersActions =
 
 * Update the users state to have a selectedCountry 
 
-```ts
+```typescript
 import { EntityState } from '@ngrx/entity';
 import { User } from '@demo-app/data-models';
 
@@ -164,7 +164,7 @@ export interface UsersState {
 
 _**libs/admin-portal/users/src/+state/users.interface.ts**_
 
-```ts
+```typescript
 import { Users } from './users.interfaces';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { User } from '@demo-app/data-models';
@@ -182,25 +182,25 @@ export const usersInitialState: Users = adapter.getInitialState({
 
 _**libs/admin-portal/users/src/+state/users.init.ts**_
 
-```ts
+```typescript
 ngOnInit() {
   // this.store.dispatch(new usersActions.LoadUsersAction());
   this.users$ = this.store.select(selectAllUsers);
 }
 ```
 
-#### 3. Add router method to user-list component
+## 3. Add router method to user-list component
 
 _**libs/admin-portal/users/src/containers/user-list/user-list.component.html**_
 
-```
+```text
 <users-table-toolbar (onFilter)="updateUrlFilters($event)"></users-table-toolbar>
 <app-users-table [users]="users$ | async"></app-users-table>
 ```
 
 _**libs/admin-portal/users/src/containers/user-list/user-list.component.ts**_
 
-```ts
+```typescript
 updateUrlFilters(country: string): void {
   const navigationExtras: NavigationExtras = {
     replaceUrl: true,
@@ -212,7 +212,7 @@ updateUrlFilters(country: string): void {
 
 * Add an effect to listen for the route change
 
-```ts
+```typescript
   @Effect()
   loadUsersFromRoute = this.dataPersistence.navigation(UserListComponent, {
     run: (a: ActivatedRouteSnapshot, state: UsersState) => {
@@ -230,7 +230,7 @@ updateUrlFilters(country: string): void {
 
 * Update the user service
 
-```ts
+```typescript
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -247,6 +247,4 @@ export class UsersService {
   }
 }
 ```
-
-
 

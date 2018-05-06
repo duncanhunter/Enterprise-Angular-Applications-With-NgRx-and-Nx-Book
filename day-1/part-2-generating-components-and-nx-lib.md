@@ -1,30 +1,30 @@
-# Part 2 - Generating components and nx libs
+# Part 2 - Generating components and nx lib
 
-#### 1. Generate a lib
+## 1. Generate a lib
 
 * Run the below command to see all the lib options
 
-```
+```text
 ng g lib --help
 ```
 
 * Add a new lib called auth. We will not lazy load this lib as auth will always be used by our app
 
-```
+```text
 ng g lib auth --routing --parent-module=apps/customer-portal/src/app/app.module.ts
 ```
 
-#### 2. Add container and presentational components
+## 2. Add container and presentational components
 
 * Add a new container component to the auth lib
 
-```
+```text
 ng g c containers/login -a=auth
 ```
 
 * Add a new presentational component to the auth lib
 
-```
+```text
 ng g c components/login-form -a=auth
 ```
 
@@ -34,7 +34,7 @@ You may decide not to make this a presentational component but it makes it easie
 
 _**libs/auth/src/auth.module.ts**_
 
-```ts
+```typescript
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Route } from '@angular/router';
@@ -53,14 +53,12 @@ export class AuthModule {}
 ```
 
 * Inspect the index.ts file which is for exporting public api surface for the lib.
-
 * Inspect .angular-cli.json libs array allow us to use -a with libs to get cli scaffolding and code generation
-
 * Delete everything but the router-outlet on the apps app.component.html file
 
 _**apps/customer-portal/src/app.components.ts**_
 
-```ts
+```typescript
 <router-outlet></router-outlet>
 ```
 
@@ -68,7 +66,7 @@ _**apps/customer-portal/src/app.components.ts**_
 
 _**libs/auth/src/containers/login/login.component.html**_
 
-```html
+```markup
 <login-form (submit)="login($event)"></login-form>
 ```
 
@@ -76,7 +74,7 @@ _**libs/auth/src/containers/login/login.component.html**_
 
 _**libs/auth/src/containers/login/login.component.ts**_
 
-```ts
+```typescript
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -95,11 +93,11 @@ export class LoginComponent implements OnInit {
 }
 ```
 
-#### 3. Add new nx lib for data models
+## 3. Add new nx lib for data models
 
 * Make another lib but this time with a --nomodule flag as we just want to export our files not register a module with angular.
 
-```
+```text
 ng generate lib data-models --nomodule
 ```
 
@@ -107,7 +105,7 @@ ng generate lib data-models --nomodule
 
 _**libs/data-models/src/data-models.ts**_
 
-```ts
+```typescript
 export interface Authenticate {
     username: string;
     password: string;
@@ -118,7 +116,7 @@ export interface Authenticate {
 
 _**libs/data-models**_
 
-```ts
+```typescript
 export { Authenticate} from './src/data-models'
 ```
 
@@ -126,7 +124,7 @@ export { Authenticate} from './src/data-models'
 
 _**libs/auth/src/components/login-form/login-form.component.html**_
 
-```html
+```markup
 <input #username placeholder="username" type="text">
 <input #password placeholder="password" type="text">
 <button (click)="login({username: username.value, password: password.value})">Login</button>
@@ -136,7 +134,7 @@ _**libs/auth/src/components/login-form/login-form.component.html**_
 
 _**libs/auth/src/components/login-form/login-form.component.ts**_
 
-```ts
+```typescript
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Authenticate } from '@demo-app/data-models';
 
@@ -153,6 +151,4 @@ export class LoginFormComponent {
   }
 }
 ```
-
-
 

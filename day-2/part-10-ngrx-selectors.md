@@ -2,23 +2,23 @@
 
 Lets add a main menu to our customer portal to show the name of the logged in user.
 
-1. #### Add a new layout lib to a customer-portal directory
+1. **Add a new layout lib to a customer-portal directory**
 
-```
+```text
 ng g lib layout --directory=customer-portal
 ```
 
-#### 2. Add a layout container component
+## 2. Add a layout container component
 
-```
+```text
 ng g c containers/layout -a=customer-portal/layout
 ```
 
-#### 3. Add Material and Router module
+## 3. Add Material and Router module
 
 _**libs/customer-portal/layout/src/layout.module.ts**_
 
-```ts
+```typescript
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '@demo-app/material';
@@ -35,11 +35,11 @@ export class LayoutModule {
 }
 ```
 
-#### 3. Add a material toolbar
+## 3. Add a material toolbar
 
 _**libs/customer-portal/layout/src/containers/layout/layout.component.html**_
 
-```ts
+```typescript
 <mat-toolbar color="primary" fxLayout="row">
   <span>Customer Portal</span>
   <div class="right-nav">
@@ -69,11 +69,11 @@ _**libs/customer-portal/layout/src/containers/layout/layout.component.scss**_
 }
 ```
 
-#### 4. Update layout component to select user from the store
+## 4. Update layout component to select user from the store
 
 _**libs/customer-portal/layout/src/containers/layout/layout.component.ts**_
 
-```ts
+```typescript
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AuthState } from '@demo-app/auth';
@@ -100,7 +100,7 @@ export class LayoutComponent implements OnInit {
 
 _**apps/customer-portal/src/app/app.module.ts**_
 
-```ts
+```typescript
 import { LayoutModule } from '@demo-app/customer-portal/layout';
 
 @NgModule({
@@ -119,19 +119,19 @@ export class AppModule {}
 
 _**apps/customer-portal/src/app/app.component.html**_
 
-```html
+```markup
 <app-layout>
     <router-outlet></router-outlet>
 </app-layout>
 ```
 
-#### 5. Add selector file
+## 5. Add selector file
 
 * Add a file called index.ts to the +state folder of your auth state lib
 
 _**libs/auth/src/+state/index.ts**_
 
-```ts
+```typescript
 import { createSelector, createFeatureSelector } from '@ngrx/store';
 import { Auth } from './auth.interfaces';
 
@@ -143,18 +143,18 @@ export const getUser = createSelector(getAuthState, state => state.user);
 
 _**libs/auth/index.ts**_
 
-```ts
+```typescript
 export { AuthModule , authRoutes } from './src/auth.module';
 export { AuthGuard } from './src/guards/auth.guard';
 export { AuthState } from './src/+state/auth.interfaces';
 export * from './src/+state';
 ```
 
-#### 6. Use selector in Layout component
+## 6. Use selector in Layout component
 
 _**libs/customer-portal/layout/src/containers/layout/layout.component.ts**_
 
-```ts
+```typescript
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AuthState, getUser } from '@demo-app/auth';
@@ -176,6 +176,4 @@ export class LayoutComponent implements OnInit {
 
 }
 ```
-
-
 

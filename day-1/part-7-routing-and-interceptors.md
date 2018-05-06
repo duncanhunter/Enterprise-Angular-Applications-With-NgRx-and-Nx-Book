@@ -1,31 +1,28 @@
-
----
-
----
-
 # Part 7 - Routing and interceptors
 
-#### 1.Add a lib for a users profile page
+## Part 7 - Routing and interceptors
+
+### 1.Add a lib for a users profile page
 
 * Add a lazy loaded lib with routing. Note this will add linting rules to .angular-cli.json to stop adding this module to other modules.
 
-```
+```text
 ng g lib user-profile --routing --lazy --parent-module=apps/customer-portal/src/app/app.module.ts
 ```
 
 * Add a user-profile container component.
 
-```
+```text
 ng g c containers/user-profile -a=user-profile
 ```
 
-#### 2. Add a method in the subscription to navigate to the login page on login
+### 2. Add a method in the subscription to navigate to the login page on login
 
 * Run the following command to navigate
 
 _**libs/auth/src/containers/login/login.component.ts**_
 
-```ts
+```typescript
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './../../services/auth.service';
 import { Authenticate, User } from '@demo-app/data-models';
@@ -55,7 +52,7 @@ export class LoginComponent implements OnInit {
 
 _**apps/customer-portal/src/app/app.module.ts**_
 
-```ts
+```typescript
 RouterModule.forRoot(
     [
       { path: '', pathMatch: 'full', redirectTo: 'user-profile' },
@@ -73,7 +70,7 @@ RouterModule.forRoot(
 
 _**libs/user-profile/src/user-profile.module.ts**_
 
-```ts
+```typescript
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserProfileComponent } from './containers/user-profile/user-profile.component';
@@ -89,11 +86,11 @@ import { RouterModule } from '@angular/router';
 export class UserProfileModule {}
 ```
 
-#### 3. Add a route guard to protect profile page
+### 3. Add a route guard to protect profile page
 
 * Generate a guard wit the CLI
 
-```
+```text
 ng g guard guards/auth/auth -a=auth
 ```
 
@@ -101,7 +98,7 @@ ng g guard guards/auth/auth -a=auth
 
 _**libs/auth/src/auth.module.ts**_
 
-```ts
+```typescript
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Route } from '@angular/router';
@@ -144,7 +141,7 @@ export class AuthModule {
 
 _**libs/auth/src/services/auth.service.ts**_
 
-```ts
+```typescript
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Authenticate } from '@demo-app/data-models';
@@ -167,7 +164,7 @@ export class AuthService {
 
 _**libs/auth/src/guards/auth/auth.guard.ts**_
 
-```ts
+```typescript
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
@@ -197,7 +194,7 @@ export class AuthGuard implements CanActivate {
 
 _**apps/customer-portal/src/app/app.module.ts**_
 
-```ts
+```typescript
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
@@ -243,13 +240,13 @@ import { AuthGuard } from '@demo-app/auth';
 export class AppModule {}
 ```
 
-#### 4. Add angular interceptor
+### 4. Add angular interceptor
 
 * Update auth service to set a token in local storage
 
 _**libs/auth/src/services/auth.service.ts**_
 
-```ts
+```typescript
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
@@ -292,7 +289,7 @@ export class AuthService {
 
 _**libs/auth/src/interceptors/auth.interceptor.ts**_
 
-```ts
+```typescript
 import { Injectable, Injector } from '@angular/core';
 import {
   HttpEvent,
@@ -333,7 +330,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
 _**libs/auth/src/auth.module.ts**_
 
-```ts
+```typescript
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Route } from '@angular/router';
@@ -382,6 +379,4 @@ export class AuthModule {
   }
 }
 ```
-
-
 

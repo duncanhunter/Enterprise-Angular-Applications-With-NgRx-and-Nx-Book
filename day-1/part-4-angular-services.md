@@ -1,18 +1,18 @@
 # Part 4 - Angular Services
 
-#### 1. Generate a new angular service
+## 1. Generate a new angular service
 
 * Run the following command to make a new service in the auth lib
 
-```
+```text
 ng g service services/auth -a=auth
 ```
 
-#### 2. Add login method and http post for the login
+## 2. Add login method and http post for the login
 
 _**libs/auth/src/services/auth.service.ts**_
 
-```ts
+```typescript
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Authenticate } from '@demo-app/data-models';
@@ -31,7 +31,7 @@ export class AuthService {
 
 _**libs/auth/src/auth.module.ts**_
 
-```ts
+```typescript
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Route } from '@angular/router';
@@ -64,13 +64,13 @@ export class AuthModule {
 
 _**apps/customer-portal/src/app/app.module.ts**_
 
-```ts
+```typescript
 AuthModule.forRoot()
 ```
 
-#### 3. Update login component to call the service
+## 3. Update login component to call the service
 
-```ts
+```typescript
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './../../services/auth.service';
 import { Authenticate } from '@demo-app/data-models';
@@ -91,15 +91,13 @@ export class LoginComponent implements OnInit {
 }
 ```
 
-#### 4. Add a json-server to be able to make http requests and mock a real server
+## 4. Add a json-server to be able to make http requests and mock a real server
 
 * Add a folder called server to the root directory
-
 * Add a file called db.json and server.ts to the new server folder
-
 * add json-server and ts-node
 
-```
+```text
 npm i json-server ts-node --save-dev
 ```
 
@@ -107,7 +105,7 @@ npm i json-server ts-node --save-dev
 
 _**package.json**_
 
-```json
+```javascript
 scripts: {
    ...
     "server": "ts-node ./server/server.ts"
@@ -119,7 +117,7 @@ scripts: {
 
 _**server/db.json**_
 
-```json
+```javascript
 {
     "users": [
       {
@@ -170,7 +168,7 @@ _**server/db.json**_
 
 _**server/server.ts**_
 
-```ts
+```typescript
 const jsonServer = require('json-server');
 const server = jsonServer.create();
 const router = jsonServer.router('server/db.json');
@@ -250,9 +248,7 @@ function readUsers() {
 
 * Start the server and leave it running whenever you use the apps.
 
-```
+```text
 npm run server
 ```
-
-
 

@@ -16,9 +16,9 @@
 14. Unit and e2e testing
 15. Deploying your nx monorepo
 
-### Finished Workshop Code {#finishedcodeforthecrmmodule}
+## Finished Workshop Code {#finishedcodeforthecrmmodule}
 
-```
+```text
 git clone "https://github.com/duncanhunter/Demo-App-Enterprise-Angular-applications-with-ngrx-and-nx.git"
 
 cd demo-app
@@ -26,9 +26,9 @@ cd demo-app
 npm install
 ```
 
-### WIP Workshop Code {#wipcoursecode}
+## WIP Workshop Code {#wipcoursecode}
 
-```
+```text
 git clone "https://github.com/duncanhunter/Demo-App-NDC-London-2018-Enterprise-Angular-applications-with-ngrx-and-nx”
 
 cd demo-app
@@ -36,7 +36,7 @@ cd demo-app
 npm install
 ```
 
-### Course Slides {#courseslides}
+## Course Slides {#courseslides}
 
 [https://docs.google.com/presentation/d/1MknPww1MdwzreFvDh086TzqaB5yyQga0PaoRR9bgCXs/edit?usp=sharing](https://docs.google.com/presentation/d/1MknPww1MdwzreFvDh086TzqaB5yyQga0PaoRR9bgCXs/edit?usp=sharing)
 

@@ -1,8 +1,8 @@
 # Part 12 - Entity state adapter
 
-#### 1. Add a new route guard
+## 1. Add a new route guard
 
-```
+```text
 ng g guard guards/auth-admin/auth-admin -a=auth
 ```
 
@@ -10,7 +10,7 @@ ng g guard guards/auth-admin/auth-admin -a=auth
 
 _**libs/auth/src/guards/auth-admin/auth-admin.guard.ts**_
 
-```ts
+```typescript
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
@@ -44,21 +44,21 @@ export class AuthAdminGuard implements CanActivate {
 }
 ```
 
-#### 2. Make a users lib in an admin directory
+## 2. Make a users lib in an admin directory
 
-```
+```text
 ng g lib users --directory=admin-portal --routing --lazy --parent-module=apps/admin-portal/src/app/app.module.ts
 ```
 
 * Add a UserList container component
 
-```
+```text
 ng g c containers/user-list -a=admin-portal/users
 ```
 
 * Add ngrx feature state to the new lib
 
-```
+```text
 ng g ngrx users --module=libs/admin-portal/users/src/users.module.ts
 ```
 
@@ -66,7 +66,7 @@ ng g ngrx users --module=libs/admin-portal/users/src/users.module.ts
 
 _**libs/admin-portal/users/src/containers/user-list**_
 
-```ts
+```typescript
 @NgModule({
   imports: [
     CommonModule,
@@ -88,7 +88,7 @@ export class UsersModule {}
 
 _**apps/admin-portal/src/app/app.module.ts**_
 
-```ts
+```typescript
  RouterModule.forRoot([
   { path: '', pathMatch: 'full', redirectTo: 'user-profile' },
   { path: 'auth', children: authRoutes },
@@ -105,9 +105,9 @@ _**apps/admin-portal/src/app/app.module.ts**_
 ]),
 ```
 
-#### 3. Update auth module to use new guard
+## 3. Update auth module to use new guard
 
-```ts
+```typescript
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Route } from '@angular/router';
@@ -172,7 +172,7 @@ export class AuthModule {
 
 _**libs/admin-portal/layout/src/containers/layout/layout.component.html**_
 
-```html
+```markup
 <mat-toolbar color="primary" fxLayout="row">
   <span>Admin Portal</span>
   <div class="right-nav">
@@ -183,15 +183,15 @@ _**libs/admin-portal/layout/src/containers/layout/layout.component.html**_
 <ng-content></ng-content>
 ```
 
-#### 4. Make a new service for users
+## 4. Make a new service for users
 
-```
+```text
 ng g service services/users -a=admin-portal/users
 ```
 
 * add a new method to the service to get users
 
-```ts
+```typescript
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -207,16 +207,16 @@ export class UsersService {
 }
 ```
 
-#### 5. Configure ngrx state for users
+## 5. Configure ngrx state for users
 
 * Delete the actions file for users and use the ngrx teams generator to make it.
 * Change directory in the file path of your terminal before you run this command to be where you want the file 
 
-```
+```text
 cd libs/admin-portal/users/src/+state/
 ```
 
-```ts
+```typescript
 ng g action users --collection @ngrx/schematics
 ```
 
@@ -224,7 +224,7 @@ ng g action users --collection @ngrx/schematics
 
 _**libs/admin-portal/users/src/+state/users.actions.ts**_
 
-```ts
+```typescript
 import { Action } from '@ngrx/store';
 import { User } from '@demo-app/data-models';
 
@@ -258,7 +258,7 @@ export type UsersActions =
 
 _**libs/admin-portal/users/src/+state/users.effects.ts**_
 
-```ts
+```typescript
 import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
 import { DataPersistence } from '@nrwl/nx';
@@ -301,7 +301,7 @@ export class UsersEffects {
 
 * Install ngrx's entity library
 
-```
+```text
 npm install @ngrx/entity
 ```
 
@@ -309,7 +309,7 @@ npm install @ngrx/entity
 
 _**libs/admin-portal/users/+state/interfaces.init.ts**_
 
-```ts
+```typescript
 import { EntityState } from '@ngrx/entity';
 import { User } from '@demo-app/data-models';
 
@@ -327,7 +327,7 @@ export interface UsersState {
 
 _**libs/admin-portal/users/+state/users.init.ts**_
 
-```ts
+```typescript
 import { Users } from './users.interfaces';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { User } from '@demo-app/data-models';
@@ -344,7 +344,7 @@ export const usersInitialState: Users = adapter.getInitialState({
 
 _**libs/admin-portal/users/+state/users.reducer.ts**_
 
-```ts
+```typescript
 import { Users } from './users.interfaces';
 import * as usersActions from './users.actions';
 import { adapter } from './users.init';
@@ -389,7 +389,7 @@ export const {
 
 _**libs/admin-portal/users/src/+state/index.ts**_
 
-```ts
+```typescript
 import { createSelector, createFeatureSelector, ActionReducerMap } from '@ngrx/store';
 import * as fromUsers from './users.reducer';
 import { Users } from './users.interfaces';
@@ -413,9 +413,7 @@ export const selectCurrentUser = createSelector(
 
 _**libs/admin-portal/users/containers/user-list.component.html**_
 
-```ts
+```typescript
 {{users$ | async | json}}
 ```
-
-
 

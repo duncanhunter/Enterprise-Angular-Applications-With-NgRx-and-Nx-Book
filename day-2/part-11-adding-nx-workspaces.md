@@ -1,22 +1,22 @@
-# Part 11 - Adding more nx workspaces
+# Part 11 - Adding nx workspaces
 
-#### 1. Add another app to our nx workspace called admin-portal
+## 1. Add another app to our nx workspace called admin-portal
 
-```
+```text
 ng g app admin-portal --style scss --routing
 ```
 
 * add default ngrx setup to our new app
 
-```
+```text
 ng g ngrx app --module=apps/admin-portal/src/app/app.module.ts  --onlyEmptyRoot
 ```
 
-#### 2. Add scripts to start each app more easily to package.json
+## 2. Add scripts to start each app more easily to package.json
 
 _**package.json**_
 
-```json
+```javascript
 "scripts": {
    ...
    "customer-portal": "ng serve -a=customer-portal -p=4200",
@@ -27,7 +27,7 @@ _**package.json**_
 
 * Add auth module to the new app
 
-```ts
+```typescript
 @NgModule({
   imports: [
   ...
@@ -41,15 +41,15 @@ _**package.json**_
 export class AppModule { }
 ```
 
-#### 3. Add a new layout lib and component
+## 3. Add a new layout lib and component
 
-```
+```text
 ng g lib layout --directory=admin-portal
 ```
 
 * Add a layout container component
 
-```
+```text
 ng g c containers/layout -a=admin-portal/layout
 ```
 
@@ -57,7 +57,7 @@ ng g c containers/layout -a=admin-portal/layout
 
 _**libs/admin-portal/layout/src/containers/layout/layout.component.html**_
 
-```html
+```markup
 <mat-toolbar color="primary" fxLayout="row">
 <span>Admin Portal</span>
   <div class="right-nav">
@@ -71,7 +71,7 @@ _**libs/admin-portal/layout/src/containers/layout/layout.component.html**_
 
 _**apps/admin-portal/src/app/app.component.html**_
 
-```html
+```markup
 <app-layout>
     <router-outlet></router-outlet>
 </app-layout>
@@ -95,7 +95,7 @@ NOTE: When we re-use a module we need to manually configure the routing
 
 _**apps/admin-portal/src/app/app.module.ts**_
 
-```ts
+```typescript
 @NgModule({
   imports: [
   BrowserModule,
@@ -118,7 +118,7 @@ _**apps/admin-portal/src/app/app.module.ts**_
 
 _**apps/admin-portal/src/tsconfig.app.json**_
 
-```ts
+```typescript
 {
   "extends": "../../../tsconfig.json",
   "compilerOptions": {
@@ -135,8 +135,4 @@ _**apps/admin-portal/src/tsconfig.app.json**_
   ]
 }
 ```
-
-
-
-
 
