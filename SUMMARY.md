@@ -4,7 +4,7 @@
 
 ## Introduction
 
-* Resource Links
+* [Resources](introduction/resource-links.md)
 * [Course Description](introduction/course-description.md)
 * [Introduction](introduction/introduction.md)
 
