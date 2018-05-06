@@ -1,6 +1,6 @@
 # Part 5 - Thirdparty dependencies
 
-![](/.gitbook/assets/material-site.png)
+![/.gitbook/assets/material-site.png](/.gitbook/assets/material-site.png)
 
 [https://material.angular.io/](https://material.angular.io/)
 

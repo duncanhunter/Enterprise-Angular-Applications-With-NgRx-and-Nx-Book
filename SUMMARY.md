@@ -12,7 +12,7 @@
 
 * [0 - Environment setup](day-1/part-0-environment-setup.md)
 * [1 -  Creating an nx workspace](day-1/part-1-creating-an-nx-workspace.md)
-* [2 - Generating components and nx lib](day-1/part-3-generating-components.md)
+* [2 - Generating components and nx lib](day-1/part-3-generating-components-and-nx-lib.md)
 * [3 - RxJS and Angulars HTTP Module](day-1/part-3-rxjs-and-angulars-http-module.md)
 * [4 - Angular Services ](day-1/part-4-angular-services.md)
 * [5 - Thirdparty dependencies](day-1/part-5-thirdparty-dependencies.md)
@@ -28,5 +28,5 @@
 * [12 - Entity state adapter](day-2/part-12-entity-state-adapter.md)
 * [13 - Router actions and effects](day-2/part-13-router-actions-and-effects.md)
 * [14 - Unit and e2e tests](day-2/part-14-unit-and-e2e-tests.md)
-* [15 - Deploying your nx monorepo](day-2/part-15-ci-and-deployment.md)
+* [15 - Deploying your nx monorepo](day-2/part-15-deploying-your-nx-monorepo.md)
 
