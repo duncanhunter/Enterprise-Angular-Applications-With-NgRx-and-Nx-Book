@@ -29,7 +29,7 @@ npm install
 ## WIP Workshop Code {#wipcoursecode}
 
 ```text
-git clone "https://github.com/duncanhunter/Demo-App-NDC-London-2018-Enterprise-Angular-applications-with-ngrx-and-nx”
+git clone "https://github.com/duncanhunter/Demo-App-NDC-Minnesota-2018-Enterprise-Angular-applications-with-ngrx-and-nx”
 
 cd demo-app
 
