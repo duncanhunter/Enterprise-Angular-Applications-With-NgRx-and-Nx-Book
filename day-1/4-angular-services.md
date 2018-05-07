@@ -10,8 +10,8 @@ ng g service services/auth --flat=false -a=auth
 
 ## 2. Add login method and http post for the login
 
-_**libs/auth/src/services/auth.service.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/src/services/auth.service.ts" %}
 ```typescript
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -26,6 +26,22 @@ export class AuthService {
   }
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% hint style="info" %}
+As of Angular v6 you can register your providers in your service which makes them tree shack-able leading to smaller bundles loaded into the browser. 
+
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/src/services/auth.service.ts" %}
+```typescript
+@Injectable({
+    provideIn: AuthModule
+})
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+{% endhint %}
 
 * Export the auth service from the auth lib and add a static for root method.
 
