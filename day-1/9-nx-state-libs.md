@@ -82,30 +82,22 @@ LoginAction
 * Update state interface
 
 {% code-tabs %}
-{% code-tabs-item title="libs/auth/src/+state/auth.interfaces.ts" %}
+{% code-tabs-item title="libs/auth/src/+state/auth.reducer.ts" %}
 ```typescript
-import { User } from "@demo-app/data-models";
+import { Action } from '@ngrx/store';
+import { AuthStateActions, AuthStateActionTypes } from './auth.actions';
+import { User } from '@demo-app/data-models';
 
-export interface Auth {
+export interface AuthData {
   user: User,
   loading: boolean
 }
 
 export interface AuthState {
-  readonly auth: Auth;
+  readonly auth: AuthData;
 }
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
 
-* Update state init
-
-{% code-tabs %}
-{% code-tabs-item title="libs/auth/src/+state/auth.init.ts" %}
-```typescript
-import { Auth } from './auth.interfaces';
-
-export const authInitialState: Auth = {
+export const initialState: AuthData = {
   user: null,
   loading: false
 };
@@ -195,21 +187,36 @@ export class AuthEffects {
 {% code-tabs %}
 {% code-tabs-item title="libs/auth/src/+state/auth.reducer.ts" %}
 ```typescript
-import { Auth } from './auth.interfaces';
-import * as authActions from './auth.actions';
+import { Action } from '@ngrx/store';
+import { AuthStateActions, AuthStateActionTypes } from './auth.actions';
+import { User } from '@demo-app/data-models';
+
+export interface AuthData {
+  user: User,
+  loading: boolean
+}
+
+export interface AuthState {
+  readonly auth: AuthData;
+}
+
+export const initialState: AuthData = {
+  user: null,
+  loading: false
+};
 
 export function authReducer(
-  state: Auth,
-  action: authActions.AuthStateActions
-): Auth {
+  state: AuthData,
+  action: AuthStateActions
+): AuthData {
   switch (action.type) {
-    case authActions.AuthStateActionTypes.Login: {
+    case AuthStateActionTypes.Login: {
       return {
         ...state,
         loading: true
       };
     }
-    case authActions.AuthStateActionTypes.LoginSuccess: {
+    case AuthStateActionTypes.LoginSuccess: {
       return {
         ...state,
         loading: false,
@@ -221,6 +228,7 @@ export function authReducer(
     }
   }
 }
+
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -231,10 +239,11 @@ export function authReducer(
 {% code-tabs-item title="libs/auth/src/containers/login/login.component.ts" %}
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';import { User, Authenticate } from '@demo-app/data-models';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { User, Authenticate } from '@demo-app/data-models';
 import { Store } from '@ngrx/store';
-import { AuthState } from './../../+state/auth.interfaces';
 import * as authActions from './../../+state/auth.actions';
+import { AuthData } from '@demo-app/auth/src/+state/auth.reducer';
 
 @Component({
   selector: 'app-login',
@@ -242,15 +251,15 @@ import * as authActions from './../../+state/auth.actions';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  constructor(private store: Store<AuthState>) {}
+  constructor(private store: Store<AuthData>) {}
 
   ngOnInit() {}
 
   login(authenticate: Authenticate): void {
     this.store.dispatch(new authActions.LoginAction(authenticate));
   }
- }
 }
+
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
