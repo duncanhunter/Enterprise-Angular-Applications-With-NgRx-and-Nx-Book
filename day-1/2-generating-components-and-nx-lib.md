@@ -113,7 +113,7 @@ export class AppModule {}
 {% code-tabs %}
 {% code-tabs-item title="libs/auth/src/containers/login/login.component.html" %}
 ```markup
-<login-form (submit)="login($event)"></login-form>
+<app-login-form (submit)="login($event)"></app-login-form>
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -195,7 +195,7 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Authenticate } from '@demo-app/data-models';
 
 @Component({
-  selector: 'login-form',
+  selector: 'app-login-form',
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss']
 })
