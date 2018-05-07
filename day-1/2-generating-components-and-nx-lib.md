@@ -4,7 +4,7 @@
 
 * Run the below command to see all the lib options
 
-```text
+```bash
 ng g lib --help
 ```
 
@@ -79,6 +79,7 @@ export class AuthModule {}
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+* Run the app `ng s` and navigate to [http://localhost:4200/auth/login](http://localhost:4200/auth/login)
 * Add the presentational component to the container component.
 
 {% code-tabs %}
