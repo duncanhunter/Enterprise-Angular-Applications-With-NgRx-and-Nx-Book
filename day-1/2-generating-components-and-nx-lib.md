@@ -80,6 +80,9 @@ export class AuthModule {}
 {% endcode-tabs %}
 
 * Run the app `ng s` and navigate to [http://localhost:4200/auth/login](http://localhost:4200/auth/login)
+
+## 3. Add presentational component to container component
+
 * Add the presentational component to the container component.
 
 {% code-tabs %}
@@ -115,7 +118,7 @@ export class LoginComponent implements OnInit {
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## 3. Add new nx lib for data models
+## 4. Add new nx lib for data models
 
 * Make another lib but this time with a --nomodule flag as we just want to export our files not register a module with angular.
 
