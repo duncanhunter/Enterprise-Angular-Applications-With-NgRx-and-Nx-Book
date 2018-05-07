@@ -45,8 +45,8 @@ As of Angular v6 you can register your providers in your service which makes the
 
 * Export the auth service from the auth lib and add a static for root method.
 
-_**libs/auth/src/auth.module.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/src/auth.module.ts" %}
 ```typescript
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -75,17 +75,23 @@ export class AuthModule {
   }
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 * update the app module to import the auth lib
 
-_**apps/customer-portal/src/app/app.module.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="apps/customer-portal/src/app/app.module.ts" %}
 ```typescript
 AuthModule.forRoot()
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ## 3. Update login component to call the service
 
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/src/containers/login/login.component.html" %}
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './../../services/auth.service';
@@ -106,6 +112,8 @@ export class LoginComponent implements OnInit {
   }
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ## 4. Add a json-server to be able to make http requests and mock a real server
 
@@ -119,8 +127,8 @@ npm i json-server ts-node --save-dev
 
 * Add the below script to the scripts in the package.json
 
-_**package.json**_
-
+{% code-tabs %}
+{% code-tabs-item title="package.json" %}
 ```javascript
 scripts: {
    ...
@@ -128,11 +136,13 @@ scripts: {
    ...
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 * Add the default mock data to the db.json file
 
-_**server/db.json**_
-
+{% code-tabs %}
+{% code-tabs-item title="server/db.json" %}
 ```javascript
 {
     "users": [
@@ -179,11 +189,13 @@ _**server/db.json**_
     ]
   }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 * Add the mock server code below
 
-_**server/server.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="server/server.ts" %}
 ```typescript
 const jsonServer = require('json-server');
 const server = jsonServer.create();
@@ -261,10 +273,14 @@ function readUsers() {
   return users;
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 * Start the server and leave it running whenever you use the apps.
 
-```text
+```bash
 npm run server
 ```
+
+
 
