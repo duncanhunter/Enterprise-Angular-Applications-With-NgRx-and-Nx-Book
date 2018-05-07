@@ -92,6 +92,8 @@ export class UserProfileModule {}
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+* Login again to check the routing is correctly configured.
+
 ### 3. Add a route guard to protect profile page
 
 * Generate a guard wit the CLI
