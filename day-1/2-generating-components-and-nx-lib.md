@@ -215,3 +215,7 @@ export class LoginComponent implements OnInit {
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+## 6. Add the lib to the App Module
+
+
+
