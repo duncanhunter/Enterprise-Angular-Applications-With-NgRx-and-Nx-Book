@@ -2,17 +2,17 @@
 
 ## Part 7 - Routing and interceptors
 
-### 1.Add a lib for a users profile page
+### 1. Add a lib for a users profile page
 
 * Add a lazy loaded lib with routing. Note this will add linting rules to .angular-cli.json to stop adding this module to other modules.
 
-```text
+```bash
 ng g lib user-profile --routing --lazy --parent-module=apps/customer-portal/src/app/app.module.ts
 ```
 
 * Add a user-profile container component.
 
-```text
+```bash
 ng g c containers/user-profile -a=user-profile
 ```
 
@@ -24,7 +24,7 @@ ng g c containers/user-profile -a=user-profile
 {% code-tabs-item title="libs/auth/src/containers/login/login.component.ts" %}
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from './../../services/auth.service';
+import { AuthService } from './../../services/auth/auth.service';
 import { Authenticate, User } from '@demo-app/data-models';
 import { Router } from '@angular/router';
 
