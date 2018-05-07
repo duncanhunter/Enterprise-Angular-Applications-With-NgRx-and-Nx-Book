@@ -152,22 +152,25 @@ export class AuthModule {
 {% code-tabs %}
 {% code-tabs-item title="libs/auth/src/services/auth.service.ts" %}
 ```typescript
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Authenticate } from '@demo-app/data-models';
+import { Authenticate, User } from '@demo-app/data-models';
+import { Observable } from 'rxjs/Observable';
+import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class AuthService {
   isAuthenticated: boolean;
+
   constructor(private httpClient: HttpClient) {}
 
-  login(authenticate: Authenticate) {
+  login(authenticate: Authenticate): Observable<User> {
     return this.httpClient
-      .post('http://localhost:3000/login', authenticate)
+      .post<User>('http://localhost:3000/login', authenticate)
       .pipe(tap(user => (this.isAuthenticated = true)));
   }
 }
+
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
