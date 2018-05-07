@@ -71,24 +71,28 @@ export class AuthModule {}
 * Inspect .angular-cli.json libs array allow us to use -a with libs to get cli scaffolding and code generation
 * Delete everything but the router-outlet on the apps app.component.html file
 
-_**apps/customer-portal/src/app.components.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="apps/customer-portal/src/app.components.ts" %}
 ```typescript
 <router-outlet></router-outlet>
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 * Add the presentational component to the container component.
 
-_**libs/auth/src/containers/login/login.component.html**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/src/containers/login/login.component.html" %}
 ```markup
 <login-form (submit)="login($event)"></login-form>
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 * Add login function to container component class
 
-_**libs/auth/src/containers/login/login.component.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/src/containers/login/login.component.ts" %}
 ```typescript
 import { Component, OnInit } from '@angular/core';
 
@@ -107,6 +111,8 @@ export class LoginComponent implements OnInit {
   }
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ## 3. Add new nx lib for data models
 
@@ -118,37 +124,43 @@ ng generate lib data-models --nomodule
 
 * Add the following file to the lib and export the added data models from the index.ts file
 
-_**libs/data-models/src/data-models.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/data-models/src/data-models.ts" %}
 ```typescript
 export interface Authenticate {
     username: string;
     password: string;
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 * Export the interface
 
-_**libs/data-models**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/data-models" %}
 ```typescript
 export { Authenticate} from './src/data-models'
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 * Add basic login form to presentational component
 
-_**libs/auth/src/components/login-form/login-form.component.html**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/src/components/login-form/login-form.component.html" %}
 ```markup
 <input #username placeholder="username" type="text">
 <input #password placeholder="password" type="text">
 <button (click)="login({username: username.value, password: password.value})">Login</button>
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 * Add an angular @Output to emit the event of a form submission
 
-_**libs/auth/src/components/login-form/login-form.component.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/src/components/login-form/login-form.component.ts" %}
 ```typescript
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Authenticate } from '@demo-app/data-models';
@@ -166,4 +178,6 @@ export class LoginFormComponent {
   }
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
