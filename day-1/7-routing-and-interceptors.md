@@ -207,7 +207,7 @@ export class AuthGuard implements CanActivate {
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-* add auth guard to main routes
+* Add auth guard to main routes
 
 {% code-tabs %}
 {% code-tabs-item title="apps/customer-portal/src/app/app.module.ts" %}
@@ -309,7 +309,7 @@ export class AuthService {
 * Add an angular interceptor in a new folder in the auth lib
 
 {% code-tabs %}
-{% code-tabs-item title="libs/auth/src/interceptors/auth.interceptor.ts" %}
+{% code-tabs-item title="libs/auth/src/interceptors/auth/auth.interceptor.ts" %}
 ```typescript
 import { Injectable, Injector } from '@angular/core';
 import {
@@ -345,6 +345,12 @@ export class AuthInterceptor implements HttpInterceptor {
     }
   }
 }
+```
+{% endcode-tabs-item %}
+
+{% code-tabs-item title=undefined %}
+```
+
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -404,4 +410,6 @@ export class AuthModule {
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
+
+![Authorization header on all requests](../.gitbook/assets/image.png)
 
