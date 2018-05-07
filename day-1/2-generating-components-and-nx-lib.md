@@ -185,3 +185,33 @@ export class LoginFormComponent {
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+## 5. Change the ChangeDetectionStrategy to OnPush
+
+* Now that we are using the presentation and container component pattern and we know that we only need to check the child components for changes if a DOM event or a @Input or @Output passes new primitives or reference values. In this way we can tell Angular not check the whole component tree which can cause performance issues in larger applications.
+
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/src/containers/login/login.component.ts" %}
+```typescript
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Authenticate } from '@demo-app/data-models';
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class LoginComponent implements OnInit {
+  constructor() {}
+
+  ngOnInit() {}
+
+  login(authenticate: Authenticate) {
+    console.log(authenticate);
+  }
+}
+
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
