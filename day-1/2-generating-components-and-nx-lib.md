@@ -88,7 +88,7 @@ export class AuthModule {}
   imports: [
     BrowserModule,
     NxModule.forRoot(),
-    RouterModule.forRoot([], { initialNavigation: 'enabled' }),
+    RouterModule.forRoot([{path: 'auth', children: authRoutes}], { initialNavigation: 'enabled' }),
     // Note: Issue with storeFreeze to be fixed in NgRx v6https://github.com/nrwl/nx/issues/436
     //StoreModule.forRoot({},{ metaReducers : !environment.production ? [storeFreeze] : [] }),
     StoreModule.forRoot({}),    EffectsModule.forRoot([]),
