@@ -20,8 +20,8 @@ ng g c containers/user-profile -a=user-profile
 
 * Run the following command to navigate
 
-_**libs/auth/src/containers/login/login.component.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/src/containers/login/login.component.ts" %}
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './../../services/auth.service';
@@ -47,11 +47,13 @@ export class LoginComponent implements OnInit {
   }
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 * Add default routes to app module
 
-_**apps/customer-portal/src/app/app.module.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="apps/customer-portal/src/app/app.module.ts" %}
 ```typescript
 RouterModule.forRoot(
     [
@@ -67,9 +69,11 @@ RouterModule.forRoot(
     }
 ),
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-_**libs/user-profile/src/user-profile.module.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/user-profile/src/user-profile.module.ts" %}
 ```typescript
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -85,6 +89,8 @@ import { RouterModule } from '@angular/router';
 })
 export class UserProfileModule {}
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ### 3. Add a route guard to protect profile page
 
@@ -96,8 +102,8 @@ ng g guard guards/auth/auth -a=auth
 
 * Add a static forRoot method and register services and the guard
 
-_**libs/auth/src/auth.module.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/src/auth.module.ts" %}
 ```typescript
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -136,11 +142,13 @@ export class AuthModule {
   }
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 * update the authService to set a local flag before we add ngrx later
 
-_**libs/auth/src/services/auth.service.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/src/services/auth.service.ts" %}
 ```typescript
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -159,11 +167,13 @@ export class AuthService {
   }
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 * Add auth guard logic
 
-_**libs/auth/src/guards/auth/auth.guard.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/src/guards/auth/auth.guard.ts" %}
 ```typescript
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
@@ -189,11 +199,13 @@ export class AuthGuard implements CanActivate {
   }
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 * add auth guard to main routes
 
-_**apps/customer-portal/src/app/app.module.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="apps/customer-portal/src/app/app.module.ts" %}
 ```typescript
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
@@ -239,13 +251,15 @@ import { AuthGuard } from '@demo-app/auth';
 })
 export class AppModule {}
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ### 4. Add angular interceptor
 
 * Update auth service to set a token in local storage
 
-_**libs/auth/src/services/auth.service.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/src/services/auth.service.ts" %}
 ```typescript
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -284,11 +298,13 @@ export class AuthService {
   }
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 * Add an angular interceptor in a new folder in the auth lib
 
-_**libs/auth/src/interceptors/auth.interceptor.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/src/interceptors/auth.interceptor.ts" %}
 ```typescript
 import { Injectable, Injector } from '@angular/core';
 import {
@@ -325,11 +341,13 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 * Export auth interceptors from the auth module
 
-_**libs/auth/src/auth.module.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/src/auth.module.ts" %}
 ```typescript
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -379,4 +397,6 @@ export class AuthModule {
   }
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
