@@ -23,7 +23,7 @@
 
 ## Day 2
 
-* [10 - ngrx selectors](day-2/10-ngrx-selectors.md)
+* [10 - NgRx selectors](day-2/10-ngrx-selectors.md)
 * [11 - Adding nx workspaces](day-2/11-adding-nx-workspaces.md)
 * [12 - Entity state adapter](day-2/12-entity-state-adapter.md)
 * [13 - Router actions and effects](day-2/13-router-actions-and-effects.md)
