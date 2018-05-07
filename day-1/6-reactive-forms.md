@@ -8,11 +8,15 @@
 npm i @ultimate/ngxerrors
 ```
 
-1. Add ravtice forms module to auth module imports
+1. Add reactive forms module to auth module imports
 
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/src/auth.module.ts" %}
 ```typescript
 imports: [CommonModule, RouterModule, HttpClientModule, MaterialModule, ReactiveFormsModule],
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ## 2. Add a reactive FormGroup to login form
 
@@ -26,7 +30,7 @@ import { Authenticate } from '@demo-app/data-models';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'login-form',
+  selector: 'app-login-form',
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss']
 })
@@ -42,9 +46,10 @@ export class LoginFormComponent {
     this.submit.emit({
       username: this.loginForm.value.username,
       password: this.loginForm.value.password
-    });
+    } as Authenticate);
   }
 }
+
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -55,29 +60,30 @@ export class LoginFormComponent {
 {% code-tabs-item title="libs/auth/src/components/login-form/login-form.component.html" %}
 ```markup
 <mat-card>
-    <mat-card-title>Login</mat-card-title>
-    <mat-card-content>
-        <form fxLayout="column" fxLayoutAlign="center none" [formGroup]="loginForm">
-            <mat-input-container>
-                <input matInput placeholder="username" type="text" formControlName="username">
-                <mat-error ngxErrors="username">
-                    <div ngxError="required" when="touched">
-                        Username is required
-                    </div>
-                </mat-error>
-            </mat-input-container>
-            <mat-input-container>
-                <input matInput placeholder="password" type="text" formControlName="password">
-                <mat-error ngxErrors="password">
-                    <div ngxError="required" when="touched">
-                        Password is required
-                    </div>
-                </mat-error>
-            </mat-input-container>
-        </form>
-        <button mat-raised-button (click)="login()">login</button>
-    </mat-card-content>
+  <mat-card-title>Login</mat-card-title>
+  <mat-card-content>
+      <form [formGroup]="loginForm" fxLayout="column" fxLayoutAlign="center none">
+          <mat-form-field>
+              <input matInput placeholder="username" type="text" formControlName="username">
+              <mat-error>
+                <div ngxError="required" when="touched">
+                  Username is required
+                </div>
+              </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+              <input matInput placeholder="password" type="text" formControlName="password">
+              <mat-error>
+                <div ngxError="required" when="touched">
+                  Password is required
+                </div>
+              </mat-error>
+          </mat-form-field>
+      </form>
+      <button mat-raised-button (click)="login()">login</button>
+  </mat-card-content>
 </mat-card>
+
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
