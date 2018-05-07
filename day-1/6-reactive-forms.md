@@ -18,8 +18,8 @@ imports: [CommonModule, RouterModule, HttpClientModule, MaterialModule, Reactive
 
 Note: To save injecting the formBuilder and keeping this a presentational component with no injected dependancies we can just new up a simple FormGroup. You can read more about it here[ https://angular.io/api/forms/FormBuilder](https://angular.io/api/forms/FormBuilder).
 
-_**libs/auth/src/components/login-form/login-form.component.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/src/components/login-form/login-form.component.ts" %}
 ```typescript
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Authenticate } from '@demo-app/data-models';
@@ -46,11 +46,13 @@ export class LoginFormComponent {
   }
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 * Add ngx-errors to the form
 
-_**libs/auth/src/components/login-form/login-form.component.html**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/src/components/login-form/login-form.component.html" %}
 ```markup
 <mat-card>
     <mat-card-title>Login</mat-card-title>
@@ -77,9 +79,11 @@ _**libs/auth/src/components/login-form/login-form.component.html**_
     </mat-card-content>
 </mat-card>
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-_**libs/data-models/src/data-models.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/data-models/src/data-models.ts" %}
 ```typescript
 export interface User {
     username: string;
@@ -89,10 +93,14 @@ export interface User {
     role: string;
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-_**libs/data-models/index.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/data-models/index.ts" %}
 ```typescript
 export { Authenticate, User } from './src/data-models';
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
