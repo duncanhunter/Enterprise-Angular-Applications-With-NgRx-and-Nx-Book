@@ -319,19 +319,19 @@ import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/switchMap';
-import { AuthState } from './auth.interfaces';
 import * as authActions from './auth.actions';
 import { map, catchError, tap, mergeMap } from 'rxjs/operators';
-import { AuthService } from './../services/auth.service';
+import { AuthService } from './../services/auth/auth.service';
 import { DataPersistence } from '@nrwl/nx';
 import { Router } from '@angular/router';
 import { User } from '@demo-app/data-models';
+import { AuthData } from './auth.reducer';
 
 @Injectable()
 export class AuthEffects {
   @Effect()
   login$ = this.dataPersistence.fetch(authActions.AuthStateActionTypes.Login, {
-    run: (action: authActions.LoginAction, state: AuthState) => {
+    run: (action: authActions.LoginAction, state: AuthData) => {
       return this.authService
         .login(action.payload)
         .pipe(
@@ -358,11 +358,12 @@ export class AuthEffects {
 
   constructor(
     private actions: Actions,
-    private dataPersistence: DataPersistence<AuthState>,
+    private dataPersistence: DataPersistence<AuthData>,
     private authService: AuthService,
     private router: Router
   ) {}
 }
+
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -373,7 +374,9 @@ export class AuthEffects {
 {% code-tabs-item title="libs/auth/index.ts" %}
 ```typescript
 export { AuthModule, authRoutes } from './src/auth.module';
-export { AuthState } from './src/+state/auth.interfaces';
+export { AuthGuard } from './src/guards/auth/auth.guard';
+export { AuthData } from './src/+state/auth.reducer';
+
 // export * from './src/+state';
 ```
 {% endcode-tabs-item %}
