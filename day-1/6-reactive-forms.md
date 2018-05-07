@@ -88,6 +88,10 @@ export class LoginFormComponent {
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+## 3. Add a User interface
+
+* Add a User interface to strongly type the return value of the Auth Service.
+
 {% code-tabs %}
 {% code-tabs-item title="libs/data-models/src/data-models.ts" %}
 ```typescript
@@ -106,6 +110,30 @@ export interface User {
 {% code-tabs-item title="libs/data-models/index.ts" %}
 ```typescript
 export { Authenticate, User } from './src/data-models';
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/src/services/auth/auth.service.ts" %}
+```typescript
+import { Injectable } from '@angular/core';
+import { Authenticate, User } from '@demo-app/data-models';
+import { Observable } from 'rxjs/Observable';
+import { HttpClient } from '@angular/common/http';
+
+@Injectable()
+export class AuthService {
+  constructor(private httpClient: HttpClient) {}
+
+  login(authenticate: Authenticate): Observable<User> {
+    return this.httpClient.post<User>(
+      'http://localhost:3000/login',
+      authenticate
+    );
+  }
+}
+
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
