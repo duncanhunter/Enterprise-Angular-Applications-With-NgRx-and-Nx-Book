@@ -3,7 +3,7 @@
 ### 1. Add a beta NgRx schematics
 
 ```text
-npm install @ngrx/schematics --save-dev
+npm install @ngrx/schematics@5.2.0 --save-dev
 ```
 
 {% hint style="info" %}
@@ -18,8 +18,26 @@ ng generate ngrx auth --module=libs/auth/src/auth.module.ts
 
 * Delete the actions file from the nx code generated files at the path _**libs/auth/src/+state/auth.actions.ts**_
 
+{% code-tabs %}
+{% code-tabs-item title="osx" %}
 ```text
-ng generate action Auth --collection @ngrx/schematics
+rm -rf libs/auth/src/+state/auth.actions.ts
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% code-tabs %}
+{% code-tabs-item title="windows" %}
+```text
+del /f libs/auth/src/+state/auth.actions.ts
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+* Run NgRx schematic generate command for actions
+
+```text
+ng generate action +state/auth -a=auth  --collection @ngrx/schematics
 ```
 
 * Swap out original for new nx style effect
