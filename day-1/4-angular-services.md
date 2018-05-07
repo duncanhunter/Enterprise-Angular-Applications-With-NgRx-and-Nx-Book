@@ -100,6 +100,10 @@ export class LoginComponent implements OnInit {
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+{% hint style="info" %}
+Note the .subscribe\(\) is needed to make sure the observer is registered with the observable returned from our AuthService.
+{% endhint %}
+
 ## 4. Add a json-server to be able to make http requests and mock a real server
 
 * Add a folder called server to the root directory
