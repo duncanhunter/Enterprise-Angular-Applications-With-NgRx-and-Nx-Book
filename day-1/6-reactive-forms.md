@@ -95,13 +95,19 @@ export class LoginFormComponent {
 {% code-tabs %}
 {% code-tabs-item title="libs/data-models/src/data-models.ts" %}
 ```typescript
-export interface User {
-    username: string;
-    id: number;
-    country: string;
-    token: string
-    role: string;
+export interface Authenticate {
+  username: string;
+  password: string;
 }
+
+export interface User {
+  username: string;
+  id: number;
+  country: string;
+  token: string
+  role: string;
+}
+
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
