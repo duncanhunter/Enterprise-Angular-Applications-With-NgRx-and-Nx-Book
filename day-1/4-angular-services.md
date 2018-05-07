@@ -76,7 +76,7 @@ export class AuthModule {}
 ## 3. Update login component to call the service
 
 {% code-tabs %}
-{% code-tabs-item title="libs/auth/src/containers/login/login.component.html" %}
+{% code-tabs-item title="libs/auth/src/containers/login/login.component.ts" %}
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './../../services/auth/auth.service';
