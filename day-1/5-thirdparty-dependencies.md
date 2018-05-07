@@ -22,6 +22,9 @@ npm install --save @angular/material@5.2.5 @angular/cdk@5.2.5 @angular/flex-layo
 
 * Add animations module to the main app module.
 
+{% code-tabs %}
+{% code-tabs-item title="apps/customer-portal/src/app/app.module.ts" %}
+
 ```typescript
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
@@ -32,6 +35,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 })
 export class AppModule { }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ## 2. Add a new nx lib to hold all the common material components we will use in our app
 
