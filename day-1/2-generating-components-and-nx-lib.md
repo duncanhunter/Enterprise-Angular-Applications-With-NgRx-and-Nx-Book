@@ -217,5 +217,28 @@ export class LoginComponent implements OnInit {
 
 ## 6. Add the lib to the App Module
 
+* Add the Auth module to the main App Module
 
+{% code-tabs %}
+{% code-tabs-item title="apps/customer-portal/src/app/app.module.ts" %}
+```typescript
+@NgModule({
+  imports: [
+    BrowserModule,
+    NxModule.forRoot(),
+    RouterModule.forRoot([], { initialNavigation: 'enabled' }),
+    // Note: Issue with storeFreeze to be fixed in NgRx v6https://github.com/nrwl/nx/issues/436
+    //StoreModule.forRoot({},{ metaReducers : !environment.production ? [storeFreeze] : [] }),
+    StoreModule.forRoot({}),    EffectsModule.forRoot([]),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    StoreRouterConnectingModule,
+    AuthModule
+  ],
+  declarations: [AppComponent],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
