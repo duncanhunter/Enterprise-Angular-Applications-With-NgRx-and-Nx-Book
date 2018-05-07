@@ -11,7 +11,7 @@ ng g service services/auth --flat=false -a=auth
 ## 2. Add login method and http post for the login
 
 {% code-tabs %}
-{% code-tabs-item title="libs/auth/src/services/auth.service.ts" %}
+{% code-tabs-item title="libs/auth/src/services/auth/auth.service.ts" %}
 ```typescript
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -33,7 +33,7 @@ export class AuthService {
 As of Angular v6 you can register your providers in your service which makes them tree shack-able leading to smaller bundles loaded into the browser. 
 
 {% code-tabs %}
-{% code-tabs-item title="libs/auth/src/services/auth.service.ts" %}
+{% code-tabs-item title="libs/auth/src/services/auth/auth.service.ts" %}
 ```typescript
 @Injectable({
     provideIn: AuthModule
@@ -53,12 +53,13 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Route } from '@angular/router';
 import { LoginComponent } from './containers/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
-import { AuthService } from './services/auth.service';
+import { AuthService } from './services/auth/auth.service';
+import { LoginFormComponent } from './components/login-form/login-form.component';
 
 export const authRoutes: Route[] = [
   { path: 'login', component: LoginComponent }
 ];
-const COMPONENTS = [LoginComponent];
+const COMPONENTS = [LoginComponent, LoginFormComponent];
 
 @NgModule({
   imports: [CommonModule, RouterModule, HttpClientModule],
@@ -66,24 +67,8 @@ const COMPONENTS = [LoginComponent];
   exports: [COMPONENTS],
   providers: [AuthService]
 })
-export class AuthModule {
-  static forRoot(): ModuleWithProviders {
-    return {
-      ngModule: AuthModule,
-      providers: [AuthService]
-    };
-  }
-}
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+export class AuthModule {}
 
-* update the app module to import the auth lib
-
-{% code-tabs %}
-{% code-tabs-item title="apps/customer-portal/src/app/app.module.ts" %}
-```typescript
-AuthModule.forRoot()
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -94,7 +79,7 @@ AuthModule.forRoot()
 {% code-tabs-item title="libs/auth/src/containers/login/login.component.html" %}
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from './../../services/auth.service';
+import { AuthService } from './../../services/auth/auth.service';
 import { Authenticate } from '@demo-app/data-models';
 
 @Component({
@@ -217,7 +202,7 @@ server.post('/login', (req, res, next) => {
   if (user) {
     res.send({ ...formatUser(user), token: checkIfAdmin(user) });
   } else {
-    res.status(400).send('Incorrect username or password');
+    res.status(401).send('Incorrect username or password');
   }
 });
 
@@ -282,5 +267,21 @@ function readUsers() {
 npm run server
 ```
 
+* Navigate to [http://localhost:3000/login](http://localhost:3000/login) to check it is working
 
+## 5. Attempt to login with default users
+
+* To login as an admin use the below credentials and this will return a fake admin token. Note this is in no means an attempt to make a production authentication service it is purely to give us mock data from a real angular HTTP request.
+
+```text
+username: admin
+password: 123
+```
+
+* To login as a non-admin use the below credentials
+
+```text
+username: duncan
+password: 123
+```
 
