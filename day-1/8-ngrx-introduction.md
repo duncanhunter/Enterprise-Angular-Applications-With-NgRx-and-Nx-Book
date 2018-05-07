@@ -1,4 +1,4 @@
-# Part 8 - ngrx introduction
+# 8 - ngrx introduction
 
 ## 1. Presentation
 

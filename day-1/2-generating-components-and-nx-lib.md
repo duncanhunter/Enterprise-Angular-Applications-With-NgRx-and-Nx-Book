@@ -1,4 +1,4 @@
-# Part 2 - Generating components and nx lib
+# 2 - Generating components and nx lib
 
 ## 1. Generate a lib
 
@@ -31,9 +31,22 @@ ng g c components/login-form -a=auth
 You may decide not to make this a presentational component but it makes it easier to test and refactor
 
 * Add a route to the auth module and a custom components array to make it easier to re-export components.
+* Add a default route for the module.
 
-_**libs/auth/src/auth.module.ts**_
+{% hint style="info" %}
+As this is a child route it is assumed that the consuming module will already prefix the route with "localhost:4200/auth" and when we say the path is "login" we mean relative to this so it will end up being "localhost:4200/auth/login".
+{% endhint %}
 
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/src/auth.module.ts" %}
+```typescript
+export const authRoutes: Route[] = [{ path: 'login', component: LoginComponent }]
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/src/auth.module.ts" %}
 ```typescript
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -51,6 +64,8 @@ const COMPONENTS = [LoginComponent, LoginFormComponent];
 })
 export class AuthModule {}
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 * Inspect the index.ts file which is for exporting public api surface for the lib.
 * Inspect .angular-cli.json libs array allow us to use -a with libs to get cli scaffolding and code generation
