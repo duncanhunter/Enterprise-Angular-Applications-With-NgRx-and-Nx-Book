@@ -122,7 +122,7 @@ import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/switchMap';
-import { AuthState } from './auth.interfaces';
+import { AuthData } from './auth.reducer';
 import * as authActions from './auth.actions';
 import { map, catchError, tap, mergeMap } from 'rxjs/operators';
 import { AuthService } from './../services/auth.service';
@@ -158,17 +158,17 @@ import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/switchMap';
-import { AuthState } from './auth.interfaces';
 import * as authActions from './auth.actions';
 import { map, catchError, tap, mergeMap } from 'rxjs/operators';
-import { AuthService } from './../services/auth.service';
+import { AuthService } from './../services/auth/auth.service';
 import { DataPersistence } from '@nrwl/nx';
+import { AuthData } from './auth.reducer';
 
 @Injectable()
 export class AuthEffects {
   @Effect()
   login$ = this.dataPersistence.fetch(authActions.AuthStateActionTypes.Login, {
-    run: (action: authActions.LoginAction, state: AuthState) => {
+    run: (action: authActions.LoginAction, state: AuthData) => {
       return this.authService
         .login(action.payload)
         .pipe(map(user => new authActions.LoginSuccessAction(user)));
@@ -181,10 +181,11 @@ export class AuthEffects {
 
   constructor(
     private actions: Actions,
-    private dataPersistence: DataPersistence<AuthState>,
+    private dataPersistence: DataPersistence<AuthData>,
     private authService: AuthService
   ) {}
 }
+
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
