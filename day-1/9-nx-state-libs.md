@@ -3,10 +3,12 @@
 ### 1. Add a beta NgRx schematics
 
 ```text
-npm i github:ngrx/schematics-builds --save-dev
+npm install @ngrx/schematics --save-dev
 ```
 
-Note: The new schematics from the offical ngrx team are in testing but can be good for now while we find out if the nx team swap to action creators [https://github.com/ngrx/platform/issues/674](https://github.com/ngrx/platform/issues/674)
+{% hint style="info" %}
+Note: You can learn more here [https://github.com/ngrx/platform/blob/master/docs/schematics/README.md](https://github.com/ngrx/platform/blob/master/docs/schematics/README.md)
+{% endhint %}
 
 ### 2. Add auth NgRx state
 
