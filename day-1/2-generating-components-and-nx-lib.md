@@ -72,7 +72,7 @@ export class AuthModule {}
 * Delete everything but the router-outlet on the apps app.component.html file
 
 {% code-tabs %}
-{% code-tabs-item title="apps/customer-portal/src/app.components.ts" %}
+{% code-tabs-item title="apps/customer-portal/src/app.components.html" %}
 ```typescript
 <router-outlet></router-outlet>
 ```
