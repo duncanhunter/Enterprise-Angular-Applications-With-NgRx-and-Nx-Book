@@ -77,6 +77,19 @@ LoginAction
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+## Action Hygiene
+
+* Actions should capture unique events not commands
+* Try not to reuse actions and make generic actions
+* Suffix you Action types with their source so you know where they are dispatched from like ` Login = '[Login Page] Login'`
+* Let effects and reducers be the decision maker not the component and add multiple cases to a switch statement or effects.
+* Avoid action sub typing by adding conditional information to a property of an action payload by making multiple actions for each case. This makes it easier to test and avoids complicated conditional logic in effects and reducers.
+* Write actions first
+
+{% hint style="info" %}
+Great presentation on Actions [https://www.youtube.com/watch?v=JmnsEvoy-gY&t=5s](https://www.youtube.com/watch?v=JmnsEvoy-gY&t=5s)
+{% endhint %}
+
 ### Add default state and interface
 
 * Update state interface
@@ -113,7 +126,6 @@ export const initialState: AuthData = {
 import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
 import { of } from 'rxjs/observable/of';
-import 'rxjs/add/operator/switchMap';
 import { AuthData } from './auth.reducer';
 import * as authActions from './auth.actions';
 import { map, catchError, tap, mergeMap } from 'rxjs/operators';
@@ -149,7 +161,6 @@ export class AuthEffects {
 import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
 import { of } from 'rxjs/observable/of';
-import 'rxjs/add/operator/switchMap';
 import * as authActions from './auth.actions';
 import { map, catchError, tap, mergeMap } from 'rxjs/operators';
 import { AuthService } from './../services/auth/auth.service';
