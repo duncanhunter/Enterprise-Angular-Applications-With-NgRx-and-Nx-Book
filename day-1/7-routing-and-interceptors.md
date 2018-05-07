@@ -237,11 +237,12 @@ import { AuthGuard } from '@demo-app/auth';
         initialNavigation: 'enabled'
       }
     ),
-    StoreModule.forRoot({}),
-    EffectsModule.forRoot([]),
+    // Note: Issue with storeFreeze to be fixed in NgRx v6https://github.com/nrwl/nx/issues/436
+    //StoreModule.forRoot({},{ metaReducers : !environment.production ? [storeFreeze] : [] }),
+    StoreModule.forRoot({}),    EffectsModule.forRoot([]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     StoreRouterConnectingModule,
-    AuthModule.forRoot(),
+    AuthModule,
     BrowserAnimationsModule
   ],
   declarations: [AppComponent],
