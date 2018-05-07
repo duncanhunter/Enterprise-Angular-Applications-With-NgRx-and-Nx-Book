@@ -1,18 +1,18 @@
-# Part 5 - Thirdparty dependencies
+# 5 - Thirdparty dependencies
 
-![/.gitbook/assets/material-site.png](/.gitbook/assets/material-site.png)
+![/.gitbook/assets/material-site.png](../.gitbook/assets/material-site.png)
 
 [https://material.angular.io/](https://material.angular.io/)
 
-#### 1.Install angular material, angular animations and angular flex layout
+## 1.Install angular material, angular animations and angular flex layout
 
-```
+```text
 npm install --save @angular/material @angular/cdk @angular/flex-layout @angular/animations
 ```
 
 * Add animations module to the main app module.
 
-```ts
+```typescript
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
@@ -23,9 +23,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 export class AppModule { }
 ```
 
-#### 2.Add a new nx lib to hold all the common material components we will use in our app
+## 2.Add a new nx lib to hold all the common material components we will use in our app
 
-```
+```text
 ng g lib material
 ```
 
@@ -33,7 +33,7 @@ ng g lib material
 
 _**libs/material/src/material.module.ts**_
 
-```ts
+```typescript
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -82,14 +82,13 @@ import {
   ]
 })
 export class MaterialModule {}
-
 ```
 
 * Add material module to auth module
 
 _**libs/auth/src/auth.module.ts**_
 
-```ts
+```typescript
 import { MaterialModule } from '@demo-app/material';
 
 @NgModule({
@@ -100,7 +99,7 @@ imports: [CommonModule, RouterModule, HttpClientModule, MaterialModule],
 export class AuthModule { }
 ```
 
-#### 3. Add material default styles
+## 3. Add material default styles
 
 _**apps/customer-portal/src/styles.scss**_
 
@@ -112,7 +111,7 @@ _**apps/customer-portal/src/styles.scss**_
 
 _**libs/auth/src/components/login-form/login-form.component.html**_
 
-```html
+```markup
 <mat-card>
     <mat-card-title>Login</mat-card-title>
     <mat-card-content>
@@ -129,7 +128,7 @@ _**libs/auth/src/components/login-form/login-form.component.html**_
 </mat-card>
 ```
 
-#### 4. Go and explore flex layout docs
+## 4. Go and explore flex layout docs
 
 [https://tburleson-layouts-demos.firebaseapp.com/\#/docs](https://tburleson-layouts-demos.firebaseapp.com/#/docs)
 

@@ -1,4 +1,4 @@
-# Part 3 - RxJS and Angulars HTTP Module
+# 3 - RxJS and Angulars HTTP Module
 
 ## 1. Presentation
 

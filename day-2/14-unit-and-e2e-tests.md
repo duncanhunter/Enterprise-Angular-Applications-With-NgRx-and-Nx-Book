@@ -1,4 +1,4 @@
-# Part 14 - Unit and e2e tests
+# 14 - Unit and e2e tests
 
 ```text
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';

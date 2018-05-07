@@ -1,4 +1,4 @@
-# Part 6 - Reactive Forms
+# 6 - Reactive Forms
 
 ## 1.Add ngx-errors library to make it easier to display form errors
 

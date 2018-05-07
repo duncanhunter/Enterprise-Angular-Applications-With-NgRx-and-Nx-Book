@@ -1,4 +1,4 @@
-# Part 11 - Adding nx workspaces
+# 11 - Adding nx workspaces
 
 ## 1. Add another app to our nx workspace called admin-portal
 

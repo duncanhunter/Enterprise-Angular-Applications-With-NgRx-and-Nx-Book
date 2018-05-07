@@ -1,4 +1,4 @@
-# Part 9 - nx state libs
+# 9 - nx state libs
 
 ### 1. Add a beta ngrx schematics
 

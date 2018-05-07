@@ -1,4 +1,4 @@
-# Part 10 - ngrx selectors
+# 10 - ngrx selectors
 
 Lets add a main menu to our customer portal to show the name of the logged in user.
 

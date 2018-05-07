@@ -1,4 +1,4 @@
-# Part 7 - Routing and interceptors
+# 7 - Routing and interceptors
 
 ## Part 7 - Routing and interceptors
 
