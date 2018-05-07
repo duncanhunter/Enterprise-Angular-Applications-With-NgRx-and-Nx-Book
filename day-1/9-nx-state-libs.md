@@ -1,6 +1,6 @@
-# 9 - nx state libs
+# 9 - Nx state libs
 
-### 1. Add a beta ngrx schematics
+### 1. Add a beta NgRx schematics
 
 ```text
 npm i github:ngrx/schematics-builds --save-dev
@@ -8,7 +8,7 @@ npm i github:ngrx/schematics-builds --save-dev
 
 Note: The new schematics from the offical ngrx team are in testing but can be good for now while we find out if the nx team swap to action creators [https://github.com/ngrx/platform/issues/674](https://github.com/ngrx/platform/issues/674)
 
-### 2. Add auth ngrx state
+### 2. Add auth NgRx state
 
 ```text
 ng generate ngrx auth --module=libs/auth/src/auth.module.ts
@@ -22,8 +22,8 @@ ng generate action Auth --collection @ngrx/schematics
 
 * Swap out original for new nx style effect
 
-_**libs/auth/src/+state/auth.actions.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/src/+state/auth.actions.ts" %}
 ```typescript
 import { Action } from '@ngrx/store';
 import { User, Authenticate } from '@demo-app/data-models';
@@ -54,11 +54,13 @@ LoginAction
 | LoginFailAction
 | LoginSuccessAction;
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ## 3. Add an effect
 
-_**libs/auth/src/+state/auth.effects.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/src/+state/auth.effects.ts" %}
 ```typescript
 import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
@@ -88,11 +90,13 @@ export class AuthEffects {
   constructor(private actions$: Actions, private authService: AuthService) {}
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 * Swap out original for new nx style effect
 
-_**libs/auth/src/+state/auth.effects.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/src/+state/auth.effects.ts" %}
 ```typescript
 import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
@@ -126,13 +130,15 @@ export class AuthEffects {
   ) {}
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ### 3. Add default state and interface
 
 * Update state interface
 
-_**libs/auth/src/+state/auth.interfaces.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/src/+state/auth.interfaces.ts" %}
 ```typescript
 import { User } from "@demo-app/data-models";
 
@@ -145,11 +151,13 @@ export interface AuthState {
   readonly auth: Auth;
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 * Update state init
 
-_**libs/auth/src/+state/auth.init.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/src/+state/auth.init.ts" %}
 ```typescript
 import { Auth } from './auth.interfaces';
 
@@ -158,11 +166,13 @@ export const authInitialState: Auth = {
   loading: false
 };
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ### 4. Add reducer code
 
-_**libs/auth/src/+state/auth.reducer.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/src/+state/auth.reducer.ts" %}
 ```typescript
 import { Auth } from './auth.interfaces';
 import * as authActions from './auth.actions';
@@ -191,11 +201,13 @@ export function authReducer(
   }
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ### 5. Update LoginComponent to dispatch action
 
-_**libs/auth/src/containers/login/login.component.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/src/containers/login/login.component.ts" %}
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';import { User, Authenticate } from '@demo-app/data-models';
@@ -219,13 +231,15 @@ export class LoginComponent implements OnInit {
  }
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ### 6. Add route change action on success
 
 * Add a new action to navigate
 
-_**libs/auth/src/+state/auth.actions.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/src/+state/auth.actions.ts" %}
 ```typescript
 import { Action } from '@ngrx/store';
 import { User, Authenticate } from '@demo-app/data-models';
@@ -263,11 +277,13 @@ LoginAction
 | LoginSuccessAction
 | NavigateToProfileAction;
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 * Add new Effect action to navigate
 
-_**libs/auth/src/+state/auth.effects.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/src/+state/auth.effects.ts" %}
 ```typescript
 import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
@@ -318,14 +334,18 @@ export class AuthEffects {
   ) {}
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ### 7. Export state references in index.ts
 
-_**libs/auth/index.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/index.ts" %}
 ```typescript
 export { AuthModule, authRoutes } from './src/auth.module';
 export { AuthState } from './src/+state/auth.interfaces';
 // export * from './src/+state';
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 

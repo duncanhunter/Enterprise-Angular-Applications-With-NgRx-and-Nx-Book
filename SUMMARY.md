@@ -18,8 +18,8 @@
 * [5 - Thirdparty dependencies](day-1/5-thirdparty-dependencies.md)
 * [6 - Reactive Forms](day-1/6-reactive-forms.md)
 * [7 - Routing and interceptors](day-1/7-routing-and-interceptors.md)
-* [8 - ngrx introduction](day-1/8-ngrx-introduction.md)
-* [9 - nx state libs](day-1/9-nx-state-libs.md)
+* [8 - NgRx introduction](day-1/8-ngrx-introduction.md)
+* [9 - Nx state libs](day-1/9-nx-state-libs.md)
 
 ## Day 2
 
