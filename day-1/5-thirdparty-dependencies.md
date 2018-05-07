@@ -9,13 +9,15 @@
 {% hint style="info" %}
 Note: As of Angular v6 you no longer need to manually add Angular material you can use the new "Add" CLI command.
 
+Always use the same Major version of Material as your Angular CLI and packages.
+
 ```bash
 ng add @angular/material
 ```
 {% endhint %}
 
 ```text
-npm install --save @angular/material @angular/cdk @angular/flex-layout @angular/animations
+npm install --save @angular/material@5.2.5 @angular/cdk@5.2.5 @angular/flex-layout @angular/animations
 ```
 
 * Add animations module to the main app module.
