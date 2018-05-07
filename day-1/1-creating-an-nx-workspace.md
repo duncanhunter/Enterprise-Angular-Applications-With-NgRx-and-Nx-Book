@@ -20,12 +20,6 @@ create-nx-workspace demo-app
 cd demo-app && code .
 ```
 
-Until this pull request [https://github.com/nrwl/nx/issues/198](https://github.com/nrwl/nx/issues/198) is merged run the following in the terminal to avoid warnings in terminal.
-
-```text
-npm install prettier@1.10.1 --save
-```
-
 * Inspect the following files:
   * .angular-cli.json
   * tsconfig paths
@@ -82,5 +76,7 @@ ng s -a=customer-portal -o
 
 * See the default state of the app in the redux dev tools![](https://github.com/duncanhunter/Enterprise-Angular-Applications-With-NgRx-and-Nx-Book/tree/d63a57a9f1ea36a7623cdf0746dd90b1406edaa2/.gitbook/assets/default-ngrx-state.png)
 
-## 8. Commit to repo for the class \(Instructor only\)
+## 8. Commit your code
+
+* It is best to commit often when using the code generation tools so you can easily undo if it is not correct.
 
