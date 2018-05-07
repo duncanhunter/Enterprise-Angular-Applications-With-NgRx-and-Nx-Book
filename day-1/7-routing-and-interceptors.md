@@ -102,7 +102,7 @@ export class UserProfileModule {}
 ng g guard guards/auth/auth -a=auth
 ```
 
-* Add a static forRoot method and register services and the guard
+* Register services and the guard in the providers
 
 {% code-tabs %}
 {% code-tabs-item title="libs/auth/src/auth.module.ts" %}
@@ -135,19 +135,12 @@ const COMPONENTS = [LoginComponent, LoginFormComponent];
   exports: [COMPONENTS],
   providers: [AuthService, AuthGuard]
 })
-export class AuthModule {
-  static forRoot(): ModuleWithProviders {
-    return {
-      ngModule: AuthModule,
-      providers: [AuthService, AuthGuard]
-    };
-  }
-}
+export class AuthModule {}
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-* update the authService to set a local flag before we add ngrx later
+* Update the authService to set a local flag before we add ngrx later
 
 {% code-tabs %}
 {% code-tabs-item title="libs/auth/src/services/auth.service.ts" %}
@@ -259,6 +252,26 @@ export class AppModule {}
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+* Add a temporary "debugger" to set a break point on the route guard to check it is working correctly.
+
+{% code-tabs %}
+{% code-tabs-item title="apps/customer-portal/src/app/app.module.ts" %}
+```typescript
+  canActivate(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    if(this.authService.isAuthenticated) {
+      debugger;
+      return true;
+    } else {
+      this.router.navigate([`/auth/login`]);
+      return false;
+    }
+  }
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
 ### 4. Add angular interceptor
 
 * Update auth service to set a token in local storage
@@ -308,6 +321,12 @@ export class AuthService {
 
 * Add an angular interceptor in a new folder in the auth lib
 
+{% hint style="info" %}
+Note:  Currently there is no ng generate command for interfaces so we need to add it manually.
+
+[https://github.com/angular/angular-cli/issues/6937](https://github.com/angular/angular-cli/issues/6937)
+{% endhint %}
+
 {% code-tabs %}
 {% code-tabs-item title="libs/auth/src/interceptors/auth/auth.interceptor.ts" %}
 ```typescript
@@ -319,7 +338,7 @@ import {
   HttpRequest
 } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from './../../services/auth/auth.service';
 import { switchMap, tap } from 'rxjs/operators';
 import { of } from 'rxjs/Observable/of';
 
@@ -345,6 +364,7 @@ export class AuthInterceptor implements HttpInterceptor {
     }
   }
 }
+
 ```
 {% endcode-tabs-item %}
 
@@ -363,18 +383,19 @@ export class AuthInterceptor implements HttpInterceptor {
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Route } from '@angular/router';
-import { LoginComponent } from './container/login/login.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthService } from './services/auth.service';
+import { LoginComponent } from './containers/login/login.component';
+import { AuthService } from './services/auth/auth.service';
+import { LoginFormComponent } from './components/login-form/login-form.component';
 import { MaterialModule } from '@demo-app/material';
 import { ReactiveFormsModule } from '@angular/forms';
-import { AuthGuard } from './/guards/auth.guard';
-import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { AuthGuard } from './guards/auth/auth.guard';
+import { AuthInterceptor } from '@demo-app/auth/src/interceptors/auth/auth.interceptor';
 
 export const authRoutes: Route[] = [
   { path: 'login', component: LoginComponent }
 ];
-const COMPONENTS = [LoginComponent];
+const COMPONENTS = [LoginComponent, LoginFormComponent];
 
 @NgModule({
   imports: [
@@ -388,28 +409,23 @@ const COMPONENTS = [LoginComponent];
   exports: [COMPONENTS],
   providers: [
     AuthService,
-    AuthGuard
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ]
 })
-export class AuthModule {
-  static forRoot(): ModuleWithProviders {
-    return {
-      ngModule: AuthModule,
-      providers: [
-        AuthService,
-        AuthGuard,
-        {
-          provide: HTTP_INTERCEPTORS,
-          useClass: AuthInterceptor,
-          multi: true
-        }
-      ]
-    };
-  }
-}
+export class AuthModule {}
+
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
+
+## 5. Check the interceptor is adding a Header
+
+* Try and login again and look in the network traffic of the dev tools to see the Header is being added.
 
 ![Authorization header on all requests](../.gitbook/assets/image.png)
 
