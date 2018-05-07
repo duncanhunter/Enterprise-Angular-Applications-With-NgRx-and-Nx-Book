@@ -1,10 +1,18 @@
 # 5 - Thirdparty dependencies
 
-![/.gitbook/assets/material-site.png](../.gitbook/assets/material-site.png)
+![Angular Material Website](../.gitbook/assets/material-site.png)
 
 [https://material.angular.io/](https://material.angular.io/)
 
 ## 1.Install angular material, angular animations and angular flex layout
+
+{% hint style="info" %}
+Note: As of Angular v6 you no longer need to manually add Angular material you can use the new "Add" CLI command.
+
+```bash
+ng add @angular/material
+```
+{% endhint %}
 
 ```text
 npm install --save @angular/material @angular/cdk @angular/flex-layout @angular/animations
@@ -23,16 +31,16 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 export class AppModule { }
 ```
 
-## 2.Add a new nx lib to hold all the common material components we will use in our app
+## 2. Add a new nx lib to hold all the common material components we will use in our app
 
-```text
+```bash
 ng g lib material
 ```
 
 * Add all the common material components and re-export them
 
-_**libs/material/src/material.module.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/material/src/material.module.ts" %}
 ```typescript
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -83,11 +91,13 @@ import {
 })
 export class MaterialModule {}
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 * Add material module to auth module
 
-_**libs/auth/src/auth.module.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/src/auth.module.ts" %}
 ```typescript
 import { MaterialModule } from '@demo-app/material';
 
@@ -98,35 +108,41 @@ imports: [CommonModule, RouterModule, HttpClientModule, MaterialModule],
 })
 export class AuthModule { }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ## 3. Add material default styles
 
-_**apps/customer-portal/src/styles.scss**_
-
+{% code-tabs %}
+{% code-tabs-item title="apps/customer-portal/src/styles.scss" %}
 ```css
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 * Update the login-form to use material components
 
-_**libs/auth/src/components/login-form/login-form.component.html**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/src/components/login-form/login-form.component.html" %}
 ```markup
 <mat-card>
     <mat-card-title>Login</mat-card-title>
     <mat-card-content>
         <form fxLayout="column" fxLayoutAlign="center none">
-            <mat-input-container>
+            <mat-form-field>
                 <input matInput placeholder="username" type="text" #username>
-            </mat-input-container>
-            <mat-input-container>
+            </mat-form-field>
+            <mat-form-field>
                 <input matInput placeholder="password" type="text" #password>
-            </mat-input-container>
+            </mat-form-field>
         </form>
         <button mat-raised-button (click)="login({username:username.value, password:password.value})">login</button>
     </mat-card-content>
 </mat-card>
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ## 4. Go and explore flex layout docs
 
