@@ -78,14 +78,15 @@ export class AuthModule {}
 {% code-tabs %}
 {% code-tabs-item title="libs/auth/src/containers/login/login.component.html" %}
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { AuthService } from './../../services/auth/auth.service';
 import { Authenticate } from '@demo-app/data-models';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent implements OnInit {
   constructor(private authService: AuthService) {}
