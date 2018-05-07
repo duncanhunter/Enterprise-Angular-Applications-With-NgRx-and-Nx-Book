@@ -167,7 +167,7 @@ export interface Authenticate {
 * Export the interface
 
 {% code-tabs %}
-{% code-tabs-item title="libs/data-models" %}
+{% code-tabs-item title="libs/data-models/index.ts" %}
 ```typescript
 export { Authenticate} from './src/data-models'
 ```
