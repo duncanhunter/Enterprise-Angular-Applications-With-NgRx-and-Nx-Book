@@ -29,11 +29,15 @@ cd demo-app && code .
 
 * Open up angular .angular-cli.json and change the default style type.
 
-_**.angular-cli.json**_
 
+
+{% code-tabs %}
+{% code-tabs-item title=".angular-cli.json" %}
 ```text
 "styleExt": "scss"
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 * Commit the initial NX workspace to source control
 
