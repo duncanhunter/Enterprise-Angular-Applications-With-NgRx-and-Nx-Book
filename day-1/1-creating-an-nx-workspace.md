@@ -100,6 +100,17 @@ export class AppModule {}
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+{% hint style="info" %}
+ Note: StoreFreeze does not currently work with out extra steps. For this workshop we will disable by replacing the lines below.
+
+Issue with storeFreeze to be fixed in NgRx v6 https://github.com/nrwl/nx/issues/436
+
+```text
+//StoreModule.forRoot({},{ metaReducers : !environment.production ? [storeFreeze] : [] }),
+StoreModule.forRoot({}),    EffectsModule.forRoot([]),
+```
+{% endhint %}
+
 ## 6. Examine angular app and module structure
 
 1. app.module.ts
