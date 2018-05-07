@@ -77,6 +77,42 @@ LoginAction
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+### Add default state and interface
+
+* Update state interface
+
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/src/+state/auth.interfaces.ts" %}
+```typescript
+import { User } from "@demo-app/data-models";
+
+export interface Auth {
+  user: User,
+  loading: boolean
+}
+
+export interface AuthState {
+  readonly auth: Auth;
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+* Update state init
+
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/src/+state/auth.init.ts" %}
+```typescript
+import { Auth } from './auth.interfaces';
+
+export const authInitialState: Auth = {
+  user: null,
+  loading: false
+};
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
 ## 3. Add an effect
 
 {% code-tabs %}
@@ -101,7 +137,7 @@ export class AuthEffects {
         this.authService
           .login(action.payload)
           .pipe(
-            map(user => new authActions.LoginSuccessAction(user)),
+            map((user: User) => new authActions.LoginSuccessAction(user)),
             catchError(error => of(new authActions.LoginFailAction(error)))
           )
       )
@@ -149,42 +185,6 @@ export class AuthEffects {
     private authService: AuthService
   ) {}
 }
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-### 3. Add default state and interface
-
-* Update state interface
-
-{% code-tabs %}
-{% code-tabs-item title="libs/auth/src/+state/auth.interfaces.ts" %}
-```typescript
-import { User } from "@demo-app/data-models";
-
-export interface Auth {
-  user: User,
-  loading: boolean
-}
-
-export interface AuthState {
-  readonly auth: Auth;
-}
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-* Update state init
-
-{% code-tabs %}
-{% code-tabs-item title="libs/auth/src/+state/auth.init.ts" %}
-```typescript
-import { Auth } from './auth.interfaces';
-
-export const authInitialState: Auth = {
-  user: null,
-  loading: false
-};
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
