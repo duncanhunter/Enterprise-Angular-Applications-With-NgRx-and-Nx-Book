@@ -37,7 +37,7 @@ export class LayoutModule {
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## 3. Add a material toolbar
+## 4. Add a material toolbar
 
 {% code-tabs %}
 {% code-tabs-item title="libs/customer-portal/layout/src/containers/layout/layout.component.html" %}
@@ -77,7 +77,7 @@ body {
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## 4. Update layout component to select user from the store
+## 6. Update layout component to select user from the store
 
 {% code-tabs %}
 {% code-tabs-item title="libs/customer-portal/layout/src/containers/layout/layout.component.ts" %}
@@ -139,7 +139,7 @@ export class AppModule {}
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## 5. Add selector file
+## 7. Add selector file
 
 * Add a file called index.ts to the +state folder of your auth state lib
 
@@ -168,7 +168,7 @@ export * from './src/+state';
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## 6. Use selector in Layout component
+## 8. Use selector in Layout component
 
 {% code-tabs %}
 {% code-tabs-item title="libs/customer-portal/layout/src/containers/layout/layout.component.ts" %}
