@@ -303,6 +303,18 @@ export class AuthService {
         })
       );
   }
+  
+  setAuthToken(token: string) {
+    localStorage.setItem('token', token);
+  }
+
+  getAuthToken(): string {
+    return localStorage.getItem('token');
+  }
+
+  clearAuthToken() {
+    localStorage.removeItem('token');
+  }
 }
 ```
 {% endcode-tabs-item %}
