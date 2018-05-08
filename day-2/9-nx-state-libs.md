@@ -223,7 +223,7 @@ export class LoginComponent {
 * Add new effect to manage routing
 
 {% code-tabs %}
-{% code-tabs-item title="libs/auth/src/+state/auth.auth.effects.ts" %}
+{% code-tabs-item title="libs/auth/src/+state/auth.effects.ts" %}
 ```typescript
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
