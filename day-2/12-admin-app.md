@@ -1,6 +1,12 @@
-# 12 - Entity State Adapter
+# 12 - Admin App
 
-## 1. Add a new route guard
+## 1. Add a new Admin Portal app
+
+```text
+ng g app admin-portal --prefix app --routing --style scss
+```
+
+## 2. Add a new route guard
 
 ```text
 ng g guard guards/auth-admin/auth-admin -a=auth

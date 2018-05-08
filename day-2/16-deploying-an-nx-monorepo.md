@@ -1,4 +1,4 @@
-# 15 - Deploying An Nx Monorepo
+# 16 - Deploying An Nx Monorepo
 
 The AngularCLI only generates bundles. This means that we cannot build the lib itself. We can only do it by building an app that depends on it.
 

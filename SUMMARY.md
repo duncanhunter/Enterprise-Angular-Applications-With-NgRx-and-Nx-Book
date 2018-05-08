@@ -27,7 +27,7 @@
 * [11 - NgRx Selectors](day-2/11-ngrx-selectors.md)
 * [12 - Admin App](day-2/12-admin-app.md)
 * [13 - Entity State Adapter](day-2/13-entity-state-adapter.md)
-* [14 - Router Store](day-2/14-router-actions-and-effects.md)
+* [14 - Router Store](day-2/14-router-store.md)
 * [15 - Unit and e2e Tests](day-2/15-unit-and-e2e-tests.md)
-* [16 - Deploying An Nx Monorepo](day-2/16-deploying-your-nx-monorepo.md)
+* [16 - Deploying An Nx Monorepo](day-2/16-deploying-an-nx-monorepo.md)
 
