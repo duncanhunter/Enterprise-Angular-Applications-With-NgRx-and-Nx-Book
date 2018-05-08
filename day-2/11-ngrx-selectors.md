@@ -95,6 +95,7 @@ import { Observable } from 'rxjs/Observable';
 })
 export class LayoutComponent implements OnInit {
   user$: Observable<User>;
+  
   constructor(private store: Store<AuthState>) { }
 
   ngOnInit() {

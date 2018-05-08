@@ -280,7 +280,7 @@ export class AuthEffects {
 ```typescript
 export { AuthModule, authRoutes } from './src/auth.module';
 export { AuthGuard } from './src/guards/auth/auth.guard';
-export { AuthData } from './src/+state/auth.reducer';
+export { AuthState } from './src/+state/auth.reducer';
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
