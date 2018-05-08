@@ -22,7 +22,7 @@
 
 ## Day 2
 * [9 - Nx state libs](day-2/9-nx-state-libs.md)
-* [10 - NgRx Schematics](day-2/10-nx-state-libs.md)
+* [10 - NgRx Schematics](day-2/10-ngrx-schematics.md)
 * [11 - NgRx selectors](day-2/11-ngrx-selectors.md)
 * [12 - Adding nx workspaces](day-2/12-adding-nx-workspaces.md)
 * [13 - Entity state adapter](day-2/13-entity-state-adapter.md)
