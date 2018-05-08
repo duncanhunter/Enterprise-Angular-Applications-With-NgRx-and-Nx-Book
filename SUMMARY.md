@@ -13,11 +13,11 @@
 * [0 - Environment setup](day-1/0-environment-setup.md)
 * [1 -  Creating an nx workspace](day-1/1-creating-an-nx-workspace.md)
 * [2 - Generating components and nx lib](day-1/2-generating-components-and-nx-lib.md)
-* [3 - RxJS and Angulars HTTP Module](day-1/3-rxjs-and-angulars-http-module.md)
+* [3 - RxJS introduction](day-1/3-rxjs-and-angulars-http-module.md)
 * [4 - Angular Services](day-1/4-angular-services.md)
 * [5 - Thirdparty dependencies](day-1/5-thirdparty-dependencies.md)
 * [6 - Reactive Forms](day-1/6-reactive-forms.md)
-* [7 - Routing and interceptors](day-1/7-routing-and-interceptors.md)
+* [7 - Routing](day-1/7-routing-and-interceptors.md)
 * [8 - NgRx introduction](day-1/8-ngrx-introduction.md)
 * [9 - Nx state libs](day-1/9-nx-state-libs.md)
 

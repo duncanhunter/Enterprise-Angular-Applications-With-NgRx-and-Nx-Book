@@ -1,4 +1,4 @@
-# 7 - Routing and interceptors
+# 7 - Routing
 
 ## Part 7 - Routing and interceptors
 
@@ -273,7 +273,7 @@ export class AppModule {}
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-### 4. Add angular interceptor
+### BONUS SECTION: Add angular interceptor
 
 * Update auth service to set a token in local storage
 
@@ -302,18 +302,6 @@ export class AuthService {
           this.setAuthToken(user.token);
         })
       );
-  }
-
-  setAuthToken(token: string) {
-    localStorage.setItem('token', token);
-  }
-
-  getAuthToken(): string {
-    return localStorage.getItem('token');
-  }
-
-  clearAuthToken() {
-    localStorage.removeItem('token');
   }
 }
 ```
@@ -353,7 +341,7 @@ export class AuthInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     this.authService = this.injector.get(AuthService);
-    const token = this.authService.getAuthToken();
+    const token = localStorage.getItem('token');
 
     if (token) {
       const authReq = req.clone({
