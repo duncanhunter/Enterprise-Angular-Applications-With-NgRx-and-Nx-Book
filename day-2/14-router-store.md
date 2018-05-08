@@ -165,6 +165,8 @@ export type UsersActions =
 
 * Update the users state to have a selectedCountry 
 
+{% code-tabs %}
+{% code-tabs-item title="libs/admin-portal/users/src/+state/users.reducer.ts" %}
 ```typescript
 import { Action } from '@ngrx/store';
 import { UsersActions, UsersActionTypes } from './users.actions';
@@ -234,6 +236,8 @@ export const {
 } = adapter.getSelectors();
 
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 * Remove load dispatch action from component
 
