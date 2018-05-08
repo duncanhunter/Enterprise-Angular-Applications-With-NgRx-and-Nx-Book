@@ -323,7 +323,7 @@ export class AuthService {
 * Add an angular interceptor in a new folder in the auth lib
 
 {% hint style="info" %}
-Note:  Currently there is no ng generate command for interfaces so we need to add it manually.
+Note:  Currently there is no ng generate command for interceptors so we need to add it manually.
 
 [https://github.com/angular/angular-cli/issues/6937](https://github.com/angular/angular-cli/issues/6937)
 {% endhint %}
