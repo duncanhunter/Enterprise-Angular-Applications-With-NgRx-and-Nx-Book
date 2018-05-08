@@ -42,7 +42,7 @@ ng g ngrx app --module=apps/admin-portal/src/app/app.module.ts  --onlyEmptyRoot
     "help": "./node_modules/.bin/nx help",
     "server": "ts-node ./server/server.ts",
     "customer-portal": "ng serve -a=customer-portal -p=4200",
-   "admin-portal": "ng serve -a=admin-portal -p=4201",
+   "admin-portal": "ng serve -a=admin-portal -p=4201"
   },
   
   
@@ -121,6 +121,27 @@ ng g c containers/layout -a=admin-portal/layout
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+* Add the material Module to the LayoutModule
+
+{% code-tabs %}
+{% code-tabs-item title="libs/admin-portal/layout/src/layout.module.ts" %}
+```typescript
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { LayoutComponent } from './containers/layout/layout.component';
+import { MaterialModule } from '@demo-app/material';
+
+@NgModule({
+  imports: [CommonModule, MaterialModule],
+  declarations: [LayoutComponent]
+})
+export class 
+LayoutModule {}
+
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
 * Add the new component to the admin-portal apps main view
 
 {% code-tabs %}
@@ -147,29 +168,61 @@ body {
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-* Do not forget the browser animations module for Materials dependency and the basic routes
+* Add the Layout Module to the AppModule.
 
-NOTE: When we re-use a module we need to manually configure the routing
+{% hint style="danger" %}
+Do not forget the browser animations module for Materials dependency and the basic routes
+{% endhint %}
+
+{% hint style="info" %}
+NOTE: When we re-use a module/lib we need to manually configure the routing
+{% endhint %}
 
 {% code-tabs %}
 {% code-tabs-item title="apps/admin-portal/src/app/app.module.ts" %}
 ```typescript
+import { NgModule } from '@angular/core';
+import { AppComponent } from './app.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { NxModule } from '@nrwl/nx';
+import { RouterModule } from '@angular/router';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { storeFreeze } from 'ngrx-store-freeze';
+import { AuthModule, authRoutes, AuthGuard } from '@demo-app/auth';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LayoutModule } from '@demo-app/admin-portal/layout';
+
 @NgModule({
   imports: [
-  BrowserModule,
-  NxModule.forRoot(),
-  RouterModule.forRoot(
-  [
-    { path: '', pathMatch: 'full', redirectTo: 'user-profile' },
-    { path: 'auth', children: authRoutes },
-    {
-      path: 'user-profile',
-      loadChildren: '@demo-app/user-profile#UserProfileModule',
-      canActivate: [AuthGuard]
-    }
-  ]), 
-  BrowserAnimationsModule,
-  ...
+    BrowserModule,
+    NxModule.forRoot(),
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    StoreRouterConnectingModule,
+    AuthModule,
+    LayoutModule,
+    RouterModule.forRoot(
+      [
+        { path: '', pathMatch: 'full', redirectTo: 'user-profile' },
+        { path: 'auth', children: authRoutes },
+        {
+          path: 'user-profile',
+          loadChildren: '@demo-app/user-profile#UserProfileModule',
+          canActivate: [AuthGuard]
+        }
+      ]),
+      BrowserAnimationsModule,
+  ],
+  declarations: [AppComponent],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
