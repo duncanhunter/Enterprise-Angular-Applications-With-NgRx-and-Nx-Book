@@ -205,8 +205,8 @@ body {
 
 {% code-tabs %}
 {% code-tabs-item title="libs/admin-portal/layout/src/containers/layout/layout.component.scss" %}
-```css
-.right-nav { 
+```text
+.right-nav {
     margin-left: auto;
 }
 ```
