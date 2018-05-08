@@ -111,7 +111,7 @@ export class UsersModule {}
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## 3. Update auth module to use new guard
+## 3. Update auth module to use the new guard
 
 {% code-tabs %}
 {% code-tabs-item title="libs/auth/src/auth.module.ts" %}
