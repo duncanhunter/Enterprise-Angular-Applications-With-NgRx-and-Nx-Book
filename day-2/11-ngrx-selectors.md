@@ -16,8 +16,8 @@ ng g c containers/layout -a=customer-portal/layout
 
 ## 3. Add Material and Router module
 
-_**libs/customer-portal/layout/src/layout.module.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/customer-portal/layout/src/layout.module.ts" %}
 ```typescript
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -34,11 +34,13 @@ const COMPONENTS = [LayoutComponent];
 export class LayoutModule {
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ## 3. Add a material toolbar
 
-_**libs/customer-portal/layout/src/containers/layout/layout.component.html**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/customer-portal/layout/src/containers/layout/layout.component.html" %}
 ```typescript
 <mat-toolbar color="primary" fxLayout="row">
   <span>Customer Portal</span>
@@ -48,11 +50,13 @@ _**libs/customer-portal/layout/src/containers/layout/layout.component.html**_
 </mat-toolbar>
 <ng-content></ng-content>
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 * Add styles to styles.scss
 
-_**apps/customer-portal/src/styles.scss**_
-
+{% code-tabs %}
+{% code-tabs-item title="apps/customer-portal/src/styles.scss" %}
 ```css
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
@@ -60,19 +64,23 @@ body {
     margin: 0;
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-_**libs/customer-portal/layout/src/containers/layout/layout.component.scss**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/customer-portal/layout/src/containers/layout/layout.component.scss" %}
 ```css
 .right-nav {
     margin-left: auto;
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ## 4. Update layout component to select user from the store
 
-_**libs/customer-portal/layout/src/containers/layout/layout.component.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/customer-portal/layout/src/containers/layout/layout.component.ts" %}
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -95,11 +103,13 @@ export class LayoutComponent implements OnInit {
 
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 * Add layout module to the customer-portal app
 
-_**apps/customer-portal/src/app/app.module.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="apps/customer-portal/src/app/app.module.ts" %}
 ```typescript
 import { LayoutModule } from '@demo-app/customer-portal/layout';
 
@@ -114,23 +124,27 @@ import { LayoutModule } from '@demo-app/customer-portal/layout';
 })
 export class AppModule {}
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 * Add the layout component to the main app.component.html
 
-_**apps/customer-portal/src/app/app.component.html**_
-
+{% code-tabs %}
+{% code-tabs-item title="apps/customer-portal/src/app/app.component.html" %}
 ```markup
 <app-layout>
     <router-outlet></router-outlet>
 </app-layout>
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ## 5. Add selector file
 
 * Add a file called index.ts to the +state folder of your auth state lib
 
-_**libs/auth/src/+state/index.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/src/+state/index.ts" %}
 ```typescript
 import { createSelector, createFeatureSelector } from '@ngrx/store';
 import { Auth } from './auth.interfaces';
@@ -138,28 +152,33 @@ import { Auth } from './auth.interfaces';
 export const getAuthState = createFeatureSelector<Auth>('auth');
 export const getUser = createSelector(getAuthState, state => state.user);
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 * Ensure you have re-exported your publically available paths in the auth libs index.ts file
 
-_**libs/auth/index.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/index.ts" %}
 ```typescript
 export { AuthModule , authRoutes } from './src/auth.module';
 export { AuthGuard } from './src/guards/auth.guard';
 export { AuthState } from './src/+state/auth.interfaces';
 export * from './src/+state';
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ## 6. Use selector in Layout component
 
-_**libs/customer-portal/layout/src/containers/layout/layout.component.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/customer-portal/layout/src/containers/layout/layout.component.ts" %}
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AuthState, getUser } from '@demo-app/auth';
 import { User } from '@demo-app/data-models';
-import { Observable } from 'rxjs/Observable';
+import { Observable
+ } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-layout',
@@ -176,4 +195,6 @@ export class LayoutComponent implements OnInit {
 
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
