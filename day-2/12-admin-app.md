@@ -244,7 +244,7 @@ import { LayoutModule } from '@demo-app/admin-portal/layout';
           canActivate: [AuthGuard]
         }
       ]),
-      BrowserAnimationsModule,
+    BrowserAnimationsModule,
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent]
