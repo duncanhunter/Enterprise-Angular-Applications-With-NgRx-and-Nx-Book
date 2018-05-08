@@ -1,4 +1,4 @@
-# 9 - Nx state libs
+# 9 - Nx State Libs
 
 ## 1. Add auth NgRx state
 

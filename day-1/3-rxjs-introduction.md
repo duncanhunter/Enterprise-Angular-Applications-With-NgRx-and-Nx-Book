@@ -1,4 +1,4 @@
-# 3 - RxJS introduction
+# 3 - RxJS Introduction
 
 ## 1. Presentation
 

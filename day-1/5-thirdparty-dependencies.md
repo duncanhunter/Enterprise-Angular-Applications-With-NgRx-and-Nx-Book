@@ -1,4 +1,4 @@
-# 5 - Thirdparty dependencies
+# 5 - Thirdparty Dependencies
 
 ![Angular Material Website](../.gitbook/assets/material-site.png)
 

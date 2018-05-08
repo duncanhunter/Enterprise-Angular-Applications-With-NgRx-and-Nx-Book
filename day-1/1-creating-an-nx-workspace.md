@@ -1,4 +1,4 @@
-# 1 -  Creating an nx workspace
+# 1 -  Creating an Nx Workspace
 
 We will be building out the beginning of two applications a customer portal and an admin portal.
 
