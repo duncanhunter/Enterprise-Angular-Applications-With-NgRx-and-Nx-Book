@@ -283,7 +283,7 @@ import { User } from '@demo-app/data-models';
 export enum UsersActionTypes {
 
   LoadUsers = '[Users] Load',
-  LoadUsersSuccess = '[Users] Load Sucess',
+  LoadUsersSuccess = '[Users] Load Success',
   LoadUsersFail = '[Users] Load Fail'
 }
 
