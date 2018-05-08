@@ -31,7 +31,7 @@ npm install
 ```text
 git clone "https://github.com/duncanhunter/V6-Demo-App-NDC-Minnesota-2018-Enterprise-Angular-applications-with-ngrx-and-nx"
 
-cd demo-app
+cd V6-Demo-App-NDC-Minnesota-2018-Enterprise-Angular-applications-with-ngrx-and-nx/demo-app
 
 npm install
 ```
