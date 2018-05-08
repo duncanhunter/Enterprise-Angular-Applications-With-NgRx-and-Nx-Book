@@ -269,7 +269,9 @@ ngOnInit() {
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { User } from '@demo-app/data-models';
-import { UsersState, selectAllUsers, LoadUsersAction } from '@demo-app/admin-portal/users';
+import { UsersState } from '../../+state/users.reducer';
+import * as usersActions from '../../+state/users.actions';
+import { selectAllUsers } from '../../+state';
 import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
