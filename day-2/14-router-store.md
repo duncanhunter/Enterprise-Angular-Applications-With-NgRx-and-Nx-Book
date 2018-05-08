@@ -1,6 +1,6 @@
 # 14 - Router Store
 
-## 1 .Add a new presentational components for users
+## 1. Add a new presentational components for users
 
 ```text
 ng g c components/users-table -a=admin-portal/users
@@ -14,12 +14,16 @@ ng g c components/users-table-toolbar -a=admin-portal/users
 
 * Add a toolbar with select field
 
-_**libs/admin-portal/users/src/components/users-table-toolbar/users-table-toolbar.component.html**_
+{% hint style="danger" %}
+Do not forget to add the MaterialModule to this module to use the toolbar
+{% endhint %}
 
+{% code-tabs %}
+{% code-tabs-item title="libs/admin-portal/users/src/components/users-table-toolbar/users-table-toolbar.component.html" %}
 ```markup
 <mat-toolbar>
   <mat-form-field >
-    <mat-select [value]="selectedCountry" (selectionChange)="filter($event.value)" >
+    <mat-select [value]="selectedCountry" (selectionChange)="onFilter($event.value)" >
       <mat-option>None</mat-option>
       <mat-option value="australia" >Australia</mat-option>
       <mat-option value="england">England</mat-option>
@@ -27,36 +31,44 @@ _**libs/admin-portal/users/src/components/users-table-toolbar/users-table-toolba
     </mat-select>
   </mat-form-field>
 </mat-toolbar>
+
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-_**libs/admin-portal/users/src/components/users-table-toolbar/users-table-toolbar.component.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/admin-portal/users/src/components/users-table-toolbar/users-table-toolbar.component.ts" %}
 ```typescript
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
+
 @Component({
-  selector: 'users-table-toolbar',
+  selector: 'app-users-table-toolbar',
   templateUrl: './users-table-toolbar.component.html',
   styleUrls: ['./users-table-toolbar.component.scss']
 })
 export class UsersTableToolbarComponent {
-  @Output() onFilter = new EventEmitter<string>();
+  @Output() filter = new EventEmitter<string>();
   selectedCountry = 'none';
 
-  filter(country:string){
-    this.onFilter.emit(country);
+  onFilter(country:string){
+    this.filter.emit(country);
   }
 }
+
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 * Add a users list table component
 
-_**libs/admin-portal/users/src/components/users-table/users-table.component.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/admin-portal/users/src/components/users-table/users-table.component.ts" %}
 ```typescript
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { User } from '@demo-app/data-models';
 import { MatTableDataSource } from '@angular/material';
+
 
 @Component({
   selector: 'app-users-table',
@@ -79,11 +91,13 @@ export class UsersTableComponent implements OnChanges {
 
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 * Add the html
 
-_**libs/admin-portal/users/src/components/users-table/users-table.component.html**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/admin-portal/users/src/components/users-table/users-table.component.html" %}
 ```markup
 <div class="mat-elevation-z8">
   <mat-table #table [dataSource]="dataSource">
@@ -103,9 +117,13 @@ _**libs/admin-portal/users/src/components/users-table/users-table.component.html
   </mat-table>
 </div>
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ## 2. Add filter actions to update state
 
+{% code-tabs %}
+{% code-tabs-item title="libs/admin-portal/users/src/+state/users.actions.ts" %}
 ```typescript
 import { Action } from '@ngrx/store';
 import { User } from '@demo-app/data-models';
@@ -142,77 +160,149 @@ export type UsersActions =
   | LoadUsersFailAction
   | SetUsersFiltersAction;
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 * Update the users state to have a selectedCountry 
 
 ```typescript
-import { EntityState } from '@ngrx/entity';
+import { Action } from '@ngrx/store';
+import { UsersActions, UsersActionTypes } from './users.actions';
+import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { User } from '@demo-app/data-models';
 
-export interface Users extends EntityState<User> {
+/**
+ * Interface for the 'Users' data used in
+ *  - UsersState, and
+ *  - usersReducer
+ */
+export interface UsersData extends EntityState<User> {
   selectedUserId: number;
   loading: boolean;
   selectedCountry: string
 }
 
+/**
+ * Interface to the part of the Store containing UsersState
+ * and other information related to UsersData.
+ */
 export interface UsersState {
-  readonly users: Users;
+  readonly users: UsersData;
 }
-```
 
-* Update the initial state
+export const adapter: EntityAdapter<User> = createEntityAdapter<User>();
 
-_**libs/admin-portal/users/src/+state/users.interface.ts**_
-
-```typescript
-import { Users } from './users.interfaces';
-import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import { User } from '@demo-app/data-models';
-
-export const adapter: EntityAdapter<User> = createEntityAdapter<User>({});
-
-export const usersInitialState: Users = adapter.getInitialState({
+export const initialState: UsersData = adapter.getInitialState({
   selectedUserId: null,
   loading: false,
   selectedCountry: 'none'
 });
+
+export function usersReducer(
+  state = initialState,
+  action: UsersActions
+): UsersData {
+  switch (action.type) {
+    case UsersActionTypes.LoadUsers: {
+      return { ...state, loading: true };
+    }
+
+    case UsersActionTypes.LoadUsersSuccess: {
+      return adapter.addAll(action.payload, { ...state, loading: false });
+    }
+
+    default: {
+      return state;
+    }
+  }
+}
+
+export const getSelectedUserId = (state: UsersData) => state.selectedUserId;
+
+export const {
+  // select the array of user ids
+  selectIds: selectUserIds,
+
+  // select the dictionary of user entities
+  selectEntities: selectUserEntities,
+
+  // select the array of users
+  selectAll: selectAllUsers,
+
+  // select the total user count
+  selectTotal: selectUserTotal
+} = adapter.getSelectors();
+
 ```
 
-* Remove load dispatch aciton from component
+* Remove load dispatch action from component
 
-_**libs/admin-portal/users/src/+state/users.init.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/admin-portal/users/src/+state/users.init.ts" %}
 ```typescript
 ngOnInit() {
   // this.store.dispatch(new usersActions.LoadUsersAction());
   this.users$ = this.store.select(selectAllUsers);
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ## 3. Add router method to user-list component
 
-_**libs/admin-portal/users/src/containers/user-list/user-list.component.html**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/admin-portal/users/src/containers/user-list/user-list.component.html" %}
 ```text
-<users-table-toolbar (onFilter)="updateUrlFilters($event)"></users-table-toolbar>
+<app-users-table-toolbar (filter)="updateUrlFilters($event)"></app-users-table-toolbar>
 <app-users-table [users]="users$ | async"></app-users-table>
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-_**libs/admin-portal/users/src/containers/user-list/user-list.component.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/admin-portal/users/src/containers/user-list/user-list.component.ts" %}
 ```typescript
-updateUrlFilters(country: string): void {
-  const navigationExtras: NavigationExtras = {
-    replaceUrl: true,
-    queryParams: {country}
-  };
-  this.router.navigate([`/users`], navigationExtras);
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { User } from '@demo-app/data-models';
+import { UsersState, selectAllUsers, LoadUsersAction } from '@demo-app/admin-portal/users';
+import { NavigationExtras, Router } from '@angular/router';
+
+@Component({
+  selector: 'app-user-list',
+  templateUrl: './user-list.component.html',
+  styleUrls: ['./user-list.component.scss']
+})
+export class UserListComponent implements OnInit {
+  users$: Store<User[]>;
+
+  constructor(private router: Router, private store: Store<UsersState>) {}
+
+  ngOnInit() {
+    // this.store.  dispatch(new LoadUsersAction());
+    this.users$ = this.store.select(selectAllUsers);
+  }
+
+  updateUrlFilters(country: string): void {
+    const navigationExtras: NavigationExtras = {
+      replaceUrl: true,
+      queryParams: {country}
+    };
+    this.router.navigate([`/users`], navigationExtras);
+  }
 }
+
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 * Add an effect to listen for the route change
 
+{% code-tabs %}
+{% code-tabs-item title="libs/admin-portal/users/src/+state/users.effects.ts" %}
 ```typescript
+///------ ABBREVIATED CODE -----///
+
   @Effect()
   loadUsersFromRoute = this.dataPersistence.navigation(UserListComponent, {
     run: (a: ActivatedRouteSnapshot, state: UsersState) => {
@@ -227,14 +317,19 @@ updateUrlFilters(country: string): void {
     }
   });
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 * Update the user service
 
+{% code-tabs %}
+{% code-tabs-item title="libs/admin-portal/users/src/services/users.service.ts" %}
 ```typescript
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable()
+
 export class UsersService {
   constructor(private httpClient: HttpClient) {}
 
@@ -247,4 +342,6 @@ export class UsersService {
   }
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
