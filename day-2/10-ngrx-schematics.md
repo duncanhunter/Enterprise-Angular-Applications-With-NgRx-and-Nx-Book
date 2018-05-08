@@ -10,18 +10,14 @@ npm install @ngrx/schematics@5.2.0 --save-dev
 Note: You can learn more here [https://github.com/ngrx/platform/blob/master/docs/schematics/README.md](https://github.com/ngrx/platform/blob/master/docs/schematics/README.md)
 {% endhint %}
 
-### 2. Add auth NgRx state
+### 2. Delete Effect
 
-```text
-ng generate ngrx auth --module=libs/auth/src/auth.module.ts
-```
-
-* Delete the actions file from the nx code generated files at the path `libs/auth/src/+state/auth.actions.ts`
+* Delete the effects file from the Nx code generated files at the path `libs/auth/src/+state/auth.effects.ts`
 
 {% code-tabs %}
 {% code-tabs-item title="osx" %}
 ```text
-rm -rf libs/auth/src/+state/auth.actions.ts
+rm -rf libs/auth/src/+state/auth.effects.ts
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -29,7 +25,7 @@ rm -rf libs/auth/src/+state/auth.actions.ts
 {% code-tabs %}
 {% code-tabs-item title="windows" %}
 ```text
-del /f libs/auth/src/+state/auth.actions.ts
+del /f libs/auth/src/+state/auth.effects.ts
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -37,60 +33,27 @@ del /f libs/auth/src/+state/auth.actions.ts
 * Run NgRx schematic generate command for actions
 
 ```text
-ng generate action +state/auth -a=auth  --collection @ngrx/schematics
+demo-app duncan$ ng generate effect +state/auth -a=auth  --collection @ngrx/schematics --spec false
 ```
 
-* Swap out original for new nx style effect
-
 {% code-tabs %}
-{% code-tabs-item title="libs/auth/src/+state/auth.actions.ts" %}
+{% code-tabs-item title="libs/auth/src/+state/auth.effects.ts" %}
 ```typescript
-import { Action } from '@ngrx/store';
-import { User, Authenticate } from '@demo-app/data-models';
+import { Injectable } from '@angular/core';
+import { Actions, Effect } from '@ngrx/effects';
 
-export enum AuthStateActionTypes {
-Login = '[AuthState] Login',
-LoginSuccess = '[AuthState] Login Success',
-LoginFail = '[AuthState] Login Fail'
+
+@Injectable()
+export class AuthEffects {
+
+  constructor(private actions$: Actions) {}
 }
 
-export class LoginAction implements Action {
-readonly type = AuthStateActionTypes.Login;
-constructor(public payload: Authenticate) {}
-}
-
-export class LoginSuccessAction implements Action {
-readonly type = AuthStateActionTypes.LoginSuccess;
-constructor(public payload: User) {}
-}
-
-export class LoginFailAction implements Action {
-readonly type = AuthStateActionTypes.LoginFail;
-constructor(public payload) {}
-}
-
-export type AuthStateActions =
-LoginAction
-| LoginFailAction
-| LoginSuccessAction;
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## Action Hygiene
-
-* Actions should capture unique events not commands
-* Try not to reuse actions and make generic actions
-* Suffix you Action types with their source so you know where they are dispatched from like `Login = '[Login Page] Login'`
-* Let effects and reducers be the decision maker not the component and add multiple cases to a switch statement or effects.
-* Avoid action sub typing by adding conditional information to a property of an action payload by making multiple actions for each case. This makes it easier to test and avoids complicated conditional logic in effects and reducers.
-* Write actions first
-
-{% hint style="info" %}
-Great presentation on Actions [https://www.youtube.com/watch?v=JmnsEvoy-gY&t=5s](https://www.youtube.com/watch?v=JmnsEvoy-gY&t=5s)
-{% endhint %}
-
-### Add default state and interface
+## 2. Add default Login Effect
 
 * Update state interface
 
