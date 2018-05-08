@@ -36,7 +36,6 @@ export class LoginFailAction implements Action {
 }
 
 export type AuthActions = LoginAction | LoginFailAction | LoginSuccessAction;
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -45,7 +44,7 @@ export type AuthActions = LoginAction | LoginFailAction | LoginSuccessAction;
 
 * Actions should capture unique events not commands
 * Try not to reuse actions and make generic actions
-* Suffix your Action types with their source so you know where they are dispatched from like ` Login = '[Login Page] Login'`
+* Suffix your Action types with their source so you know where they are dispatched from like `Login = '[Login Page] Login'`
 * Let effects and reducers be the decision maker not the component and add multiple cases to a switch statement or effects.
 * Avoid action sub typing by adding conditional information to a property of an action payload by making multiple actions for each case. This makes it easier to test and avoids complicated conditional logic in effects and reducers.
 * Write actions first
@@ -122,7 +121,6 @@ export class AuthEffects {
     private authService: AuthService
   ) {}
 }
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -182,7 +180,6 @@ export function authReducer(
       return state;
   }
 }
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -217,7 +214,6 @@ export class LoginComponent {
   }
 
 }
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -268,7 +264,6 @@ export class AuthEffects {
     private router: Router
   ) {}
 }
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
