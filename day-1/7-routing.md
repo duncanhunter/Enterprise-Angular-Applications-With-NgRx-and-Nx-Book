@@ -299,7 +299,7 @@ export class AuthService {
         tap((user: User) => {
           this.isAuthenticated = true;
           this.user = user;
-          this.setAuthToken(user.token);
+          localStorage.setItem('token', user.token);
         })
       );
   }
