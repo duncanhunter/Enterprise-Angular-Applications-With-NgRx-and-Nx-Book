@@ -161,8 +161,8 @@ const COMPONENTS = [LayoutComponent];
 
 @NgModule({
   imports: [CommonModule, MaterialModule],
-  declarations: [ COMPONENTS],
-  exports: [ COMPONENTS]
+  declarations: [COMPONENTS],
+  exports: [COMPONENTS]
 })
 export class LayoutModule {}
 
