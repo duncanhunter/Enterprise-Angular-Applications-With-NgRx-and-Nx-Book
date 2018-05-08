@@ -112,18 +112,47 @@ export class LayoutComponent implements OnInit {
 {% code-tabs %}
 {% code-tabs-item title="apps/customer-portal/src/app/app.module.ts" %}
 ```typescript
-import { LayoutModule } from '@demo-app/customer-portal/layout';
+import { NgModule } from '@angular/core';
+import { AppComponent } from './app.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { NxModule } from '@nrwl/nx';
+import { RouterModule } from '@angular/router';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { storeFreeze } from 'ngrx-store-freeze';
+import { authRoutes, AuthModule } from '@demo-app/auth';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthGuard } from '@demo-app/auth';
+import { LayoutModule } from '@angular/cdk/layout';
+
 
 @NgModule({
   imports: [
-   ...
+    BrowserModule,
+    NxModule.forRoot(),
+    BrowserAnimationsModule,
+    RouterModule.forRoot([
+      { path: 'auth', children: authRoutes },
+      { path: 'user-profile', loadChildren: '@demo-app/user-profile#UserProfileModule', canActivate: [AuthGuard] }
+    ], {
+        initialNavigation: 'enabled'
+      }),
+    //StoreModule.forRoot({},{ metaReducers : !environment.production ? [storeFreeze] : [] }),
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    StoreRouterConnectingModule,
+    AuthModule,
     LayoutModule
-    ...
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
+
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -148,10 +177,11 @@ export class AppModule {}
 {% code-tabs-item title="libs/auth/src/+state/index.ts" %}
 ```typescript
 import { createSelector, createFeatureSelector } from '@ngrx/store';
-import { Auth } from './auth.interfaces';
+import { AuthData } from './auth.reducer';
 
-export const getAuthState = createFeatureSelector<Auth>('auth');
+export const getAuthState = createFeatureSelector<AuthData>('auth');
 export const getUser = createSelector(getAuthState, state => state.user);
+
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
