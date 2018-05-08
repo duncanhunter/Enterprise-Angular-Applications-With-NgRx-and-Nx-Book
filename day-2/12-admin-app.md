@@ -121,7 +121,7 @@ ng g c containers/layout -a=admin-portal/layout
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-* Add the material Module to the LayoutModule
+* Add the material Module to the LayoutModule and export the Layout Component out of the module.
 
 {% code-tabs %}
 {% code-tabs-item title="libs/admin-portal/layout/src/layout.module.ts" %}
@@ -133,7 +133,8 @@ import { MaterialModule } from '@demo-app/material';
 
 @NgModule({
   imports: [CommonModule, MaterialModule],
-  declarations: [LayoutComponent]
+  declarations: [LayoutComponent],
+  exports: [LayoutComponent]
 })
 export class 
 LayoutModule {}
