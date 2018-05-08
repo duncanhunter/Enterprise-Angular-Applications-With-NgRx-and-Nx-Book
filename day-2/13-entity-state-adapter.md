@@ -14,7 +14,7 @@ ng g guard guards/auth-admin/auth-admin -a=auth
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { AuthService } from './../../services/auth.service';
+import { AuthService } from './../../services/auth/auth.service';
 import { AuthState, getUser } from '@demo-app/auth';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
@@ -42,6 +42,21 @@ export class AuthAdminGuard implements CanActivate {
       )
   }
 }
+
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+* Add the new Guard to the index.ts file for the module
+
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/index.ts" %}
+```text
+export { AuthAdminGuard } from './src/guards/auth-admin/auth-admin.guard';
+export { AuthGuard } from './src/guards/auth/auth.guard';
+export { AuthModule, authRoutes } from './src/auth.module';
+export { AuthState } from './src/+state/auth.reducer';
+export * from './src/+state';
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -69,6 +84,18 @@ ng g ngrx users --module=libs/admin-portal/users/src/users.module.ts
 {% code-tabs %}
 {% code-tabs-item title="libs/admin-portal/users/src/containers/user-list" %}
 ```typescript
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { UserListComponent } from './containers/user-list/user-list.component';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import {
+  usersReducer,
+  initialState as usersInitialState
+} from './+state/users.reducer';
+import { UsersEffects } from './+state/users.effects';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -84,6 +111,7 @@ ng g ngrx users --module=libs/admin-portal/users/src/users.module.ts
   providers: [UsersEffects]
 })
 export class UsersModule {}
+
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -181,6 +209,29 @@ export class AuthModule {}
   </div>
 </mat-toolbar>
 <ng-content></ng-content>
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+* Make sure the LayoutModule has imported the RouterModule to use a routerlink
+
+{% code-tabs %}
+{% code-tabs-item title="libs/admin-portal/layout/src/layout.module.ts" %}
+```typescript
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { LayoutComponent } from './containers/layout/layout.component';
+import { MaterialModule } from '@demo-app/material';
+import { RouterModule } from '@angular/router';
+
+@NgModule({
+  imports: [CommonModule, MaterialModule, RouterModule],
+  declarations: [LayoutComponent],
+  exports: [LayoutComponent]
+})
+export class
+LayoutModule {}
+
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
