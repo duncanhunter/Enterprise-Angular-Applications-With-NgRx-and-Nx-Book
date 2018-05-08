@@ -248,11 +248,14 @@ ng g service services/users -a=admin-portal/users
 
 * add a new method to the service to get users
 
+{% code-tabs %}
+{% code-tabs-item title="libs/admin-portal/users/src/services/users.service.ts" %}
 ```typescript
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable()
+
 export class UsersService {
 
   constructor(private httpClient: HttpClient) { }
@@ -263,29 +266,21 @@ export class UsersService {
 
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
-## 5. Configure ngrx state for users
-
-* Delete the actions file for users and use the ngrx teams generator to make it.
-* Change directory in the file path of your terminal before you run this command to be where you want the file 
-
-```text
-cd libs/admin-portal/users/src/+state/
-```
-
-```typescript
-ng g action users --collection @ngrx/schematics
-```
+## 5. Configure NgRx state for users
 
 * Update the actions for getting users
 
-_**libs/admin-portal/users/src/+state/users.actions.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/admin-portal/users/src/+state/users.actions.ts" %}
 ```typescript
 import { Action } from '@ngrx/store';
 import { User } from '@demo-app/data-models';
 
 export enum UsersActionTypes {
+
   LoadUsers = '[Users] Load',
   LoadUsersSuccess = '[Users] Load Sucess',
   LoadUsersFail = '[Users] Load Fail'
@@ -310,16 +305,19 @@ export type UsersActions =
   | LoadUsersSuccessAction
   | LoadUsersFailAction;
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 * Update the default effect logic
 
-_**libs/admin-portal/users/src/+state/users.effects.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/admin-portal/users/src/+state/users.effects.ts" %}
 ```typescript
 import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
 import { DataPersistence } from '@nrwl/nx';
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs/observable/of'
+;
 import 'rxjs/add/operator/switchMap';
 import { UsersState } from './users.interfaces';
 import * as usersActions from './users.actions';
@@ -355,6 +353,8 @@ export class UsersEffects {
   ) {}
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 * Install ngrx's entity library
 
@@ -364,58 +364,90 @@ npm install @ngrx/entity
 
 * Add interface information 
 
-_**libs/admin-portal/users/+state/interfaces.init.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/admin-portal/users/src/+state/users.reducer.ts" %}
 ```typescript
-import { EntityState } from '@ngrx/entity';
+///----- ABBREVIATED CODE -----///
+
+import { Action } from '@ngrx/store';
+import { UsersActions, UsersActionTypes } from './users.actions';
+import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { User } from '@demo-app/data-models';
 
-export interface Users extends EntityState<User> {
+/**
+ * Interface for the 'Users' data used in
+ *  - UsersState, and
+ *  - usersReducer
+ */
+export interface UsersData extends EntityState<User> {
   selectedUserId: number;
   loading: boolean;
 }
 
+/**
+ * Interface to the part of the Store containing UsersState
+ * and other information related to UsersData.
+ */
 export interface UsersState {
-  readonly users: Users;
+  readonly users: UsersData;
 }
-```
-
-* Add default state
-
-_**libs/admin-portal/users/+state/users.init.ts**_
-
-```typescript
-import { Users } from './users.interfaces';
-import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import { User } from '@demo-app/data-models';
 
 export const adapter: EntityAdapter<User> = createEntityAdapter<User>();
 
-export const usersInitialState: Users = adapter.getInitialState({
+export const initialState: UsersData = adapter.getInitialState({
   selectedUserId: null,
   loading: false
 });
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
+* Add default state
 * Update the default reducer logic
 
-_**libs/admin-portal/users/+state/users.reducer.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/admin-portal/users/+state/users.reducer.ts" %}
 ```typescript
-import { Users } from './users.interfaces';
-import * as usersActions from './users.actions';
-import { adapter } from './users.init';
+import { Action } from '@ngrx/store';
+import { UsersActions, UsersActionTypes } from './users.actions';
+import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
+import { User } from '@demo-app/data-models';
+
+/**
+ * Interface for the 'Users' data used in
+ *  - UsersState, and
+ *  - usersReducer
+ */
+export interface UsersData extends EntityState<User> {
+  selectedUserId: number;
+  loading: boolean;
+}
+
+/**
+ * Interface to the part of the Store containing UsersState
+ * and other information related to UsersData.
+ */
+export interface UsersState {
+  readonly users: UsersData;
+}
+
+export const adapter: EntityAdapter<User> = createEntityAdapter<User>();
+
+export const initialState: UsersData = adapter.getInitialState({
+  selectedUserId: null,
+  loading: false
+});
 
 export function usersReducer(
-  state: Users,
-  action: usersActions.UsersActions
-): Users {
+  state = initialState,
+  action: UsersActions
+): UsersData {
   switch (action.type) {
-    case usersActions.UsersActionTypes.LoadUsers: {
+    case UsersActionTypes.LoadUsers: {
       return { ...state, loading: true };
     }
 
-    case usersActions.UsersActionTypes.LoadUsersSuccess: {
+    case UsersActionTypes.LoadUsersSuccess: {
       return adapter.addAll(action.payload, { ...state, loading: false });
     }
 
@@ -425,7 +457,7 @@ export function usersReducer(
   }
 }
 
-export const getSelectedUserId = (state: Users) => state.selectedUserId;
+export const getSelectedUserId = (state: UsersData) => state.selectedUserId;
 
 export const {
   // select the array of user ids
@@ -440,12 +472,15 @@ export const {
   // select the total user count
   selectTotal: selectUserTotal
 } = adapter.getSelectors();
+
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 * Add default selectors to use entity adapter
 
-_**libs/admin-portal/users/src/+state/index.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/admin-portal/users/src/+state/index.ts" %}
 ```typescript
 import { createSelector, createFeatureSelector, ActionReducerMap } from '@ngrx/store';
 import * as fromUsers from './users.reducer';
@@ -465,12 +500,62 @@ export const selectCurrentUser = createSelector(
   (userEntities, userId) => userEntities[userId]
 );
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+* Export via index.ts file the publicly available actions and selectors from the +state folder
+
+{% code-tabs %}
+{% code-tabs-item title="libs/admin-portal/users/index.ts" %}
+```typescript
+export { UsersModule } from './src/users.module';
+export { UsersState } from './src/+state/users.reducer';
+export * from './src/+state/index';
+export * from './src/+state/users.actions';
+
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+* Add the logic to select and load all users via NgRx to the UserListComponent
+
+{% code-tabs %}
+{% code-tabs-item title="libs/admin-portal/users/src/containers/user-list/user-list.component.ts" %}
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { User } from '@demo-app/data-models';
+import { UsersState, selectAllUsers, LoadUsersAction } from '@demo-app/admin-portal/users';
+
+@Component({
+  selector: 'app-user-list',
+  templateUrl: './user-list.component.html',
+  styleUrls: ['./user-list.component.scss']
+})
+export class UserListComponent implements OnInit {
+  users$: Store<User[]>;
+
+  constructor(private store: Store<UsersState>) {}
+
+  ngOnInit() {
+    this.store.  dispatch(new LoadUsersAction());
+    this.users$ = this.store.select(selectAllUsers);
+  }
+}
+
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 * Check the whole things works and dump the users onto the page
 
-_**libs/admin-portal/users/containers/user-list.component.html**_
-
-```typescript
+{% code-tabs %}
+{% code-tabs-item title="libs/admin-portal/users/containers/user-list.component.html" %}
+```markup
 {{users$ | async | json}}
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+
 
