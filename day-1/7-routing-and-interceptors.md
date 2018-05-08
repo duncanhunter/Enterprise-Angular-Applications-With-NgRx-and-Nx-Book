@@ -256,7 +256,7 @@ export class AppModule {}
 * Add a temporary "debugger" to set a break point on the route guard to check it is working correctly.
 
 {% code-tabs %}
-{% code-tabs-item title="apps/customer-portal/src/app/app.module.ts" %}
+{% code-tabs-item title="libs/auth/src/guards/auth/auth.guard.ts" %}
 ```typescript
   canActivate(
     next: ActivatedRouteSnapshot,
