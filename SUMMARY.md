@@ -24,10 +24,9 @@
 
 * [9 - Nx state libs](day-2/9-nx-state-libs.md)
 * [10 - NgRx Schematics](day-2/10-ngrx-schematics.md)
-* 11 - NgRx selectors
-* 12 - Adding nx workspaces
-* 13 - Entity state adapter
-* [14 - Router actions and effects](day-2/14-router-actions-and-effects.md)
-* 15 - Unit and e2e tests
-* 16 - Deploying your nx monorepo
+* [11 - NgRx selectors](day-2/11-ngrx-selectors.md)
+* [12 - Entity state adapter](12-entity-state-adapter.md)
+* [13 - Router actions and effects](day-2/13-router-actions-and-effects.md)
+* [14 - Unit and e2e tests](day-2/14-unit-and-e2e-tests.md)
+* [15 - Deploying your nx monorepo](15-deploying-your-nx-monorepo.md)
 
