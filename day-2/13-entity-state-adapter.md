@@ -149,10 +149,10 @@ export class UsersModule {}
 {% code-tabs-item title="libs/auth/src/auth.module.ts" %}
 ```typescript
 import { NgModule, ModuleWithProviders } from '@angular/core';
-import { C
-ommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { RouterModule, Route } from '@angular/router';
 import { LoginComponent } from './container/login/login.component';
+import { LoginFormComponent } from './components/login-form/login-form.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthService } from './services/auth.service';
 import { MaterialModule } from '@demo-app/material';
@@ -169,7 +169,7 @@ import { AuthAdminGuard } from './guards/auth-admin/auth-admin.guard';
 export const authRoutes: Route[] = [
   { path: 'login', component: LoginComponent }
 ];
-const COMPONENTS = [LoginComponent];
+const COMPONENTS = [LoginComponent, LoginFormComponent];
 
 @NgModule({
   imports: [
