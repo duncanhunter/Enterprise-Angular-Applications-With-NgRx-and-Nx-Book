@@ -15,30 +15,28 @@ import { Action } from '@ngrx/store';
 import { User, Authenticate } from '@demo-app/data-models';
 
 export enum AuthActionTypes {
-Login = '[AuthState] Login',
-LoginSuccess = '[AuthState] Login Success',
-LoginFail = '[AuthState] Login Fail'
+  Login = '[AuthState] Login',
+  LoginSuccess = '[AuthState] Login Success',
+  LoginFail = '[AuthState] Login Fail'
 }
 
 export class LoginAction implements Action {
-readonly type = AuthStateActionTypes.Login;
-constructor(public payload: Authenticate) {}
+  readonly type = AuthActionTypes.Login;
+  constructor(public payload: Authenticate) {}
 }
 
 export class LoginSuccessAction implements Action {
-readonly type = AuthStateActionTypes.LoginSuccess;
-constructor(public payload: User) {}
+  readonly type = AuthActionTypes.LoginSuccess;
+  constructor(public payload: User) {}
 }
 
 export class LoginFailAction implements Action {
-readonly type = AuthStateActionTypes.LoginFail;
-constructor(public payload) {}
+  readonly type = AuthActionTypes.LoginFail;
+  constructor(public payload) {}
 }
 
-export type AuthActions =
-LoginAction
-| LoginFailAction
-| LoginSuccessAction;
+export type AuthActions = LoginAction | LoginFailAction | LoginSuccessAction;
+
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -56,30 +54,35 @@ LoginAction
 Great presentation on Actions [https://www.youtube.com/watch?v=JmnsEvoy-gY&t=5s](https://www.youtube.com/watch?v=JmnsEvoy-gY&t=5s)
 {% endhint %}
 
-### Add default state and interface
+### 2. Add default state and interface
 
 * Update state interface
 
 {% code-tabs %}
 {% code-tabs-item title="libs/auth/src/+state/auth.reducer.ts" %}
 ```typescript
-import { Action } from '@ngrx/store';
-import { AuthStateActions, AuthStateActionTypes } from './auth.actions';
-import { User } from '@demo-app/data-models';
+//----- ABBREVIATED-----//
 
+
+/**
+ * Interface for the 'Auth' data used in
+ *  - AuthState, and
+ *  - authReducer
+ */
 export interface AuthData {
-  user: User,
-  loading: boolean
+  loading: boolean;
+  user: User;
 }
 
+/**
+ * Interface to the part of the Store containing AuthState
+ * and other information related to AuthData.
+ */
 export interface AuthState {
   readonly auth: AuthData;
 }
 
-export const initialState: AuthData = {
-  user: null,
-  loading: false
-};
+//----- ABBREVIATED-----//
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -90,67 +93,32 @@ export const initialState: AuthData = {
 {% code-tabs-item title="libs/auth/src/+state/auth.effects.ts" %}
 ```typescript
 import { Injectable } from '@angular/core';
-import { Effect, Actions } from '@ngrx/effects';
-import { of } from 'rxjs/observable/of';
-import { AuthData } from './auth.reducer';
+import { Actions, Effect } from '@ngrx/effects';
 import * as authActions from './auth.actions';
-import { map, catchError, tap, mergeMap } from 'rxjs/operators';
-import { AuthService } from './../services/auth.service';
-
-@Injectable()
-export class AuthEffects {
-  @Effect()
-  login = this.actions$
-    .ofType(authActions.AuthStateActionTypes.Login)
-    .pipe(
-      mergeMap((action: authActions.LoginAction) =>
-        this.authService
-          .login(action.payload)
-          .pipe(
-            map((user: User) => new authActions.LoginSuccessAction(user)),
-            catchError(error => of(new authActions.LoginFailAction(error)))
-          )
-      )
-    );
-
-  constructor(private actions$: Actions, private authService: AuthService) {}
-}
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-* Swap out original for new nx style effect
-
-{% code-tabs %}
-{% code-tabs-item title="libs/auth/src/+state/auth.effects.ts" %}
-```typescript
-import { Injectable } from '@angular/core';
-import { Effect, Actions } from '@ngrx/effects';
-import { of } from 'rxjs/observable/of';
-import * as authActions from './auth.actions';
-import { map, catchError, tap, mergeMap } from 'rxjs/operators';
-import { AuthService } from './../services/auth/auth.service';
+import { AuthState } from './auth.reducer';
 import { DataPersistence } from '@nrwl/nx';
-import { AuthData } from './auth.reducer';
+import { AuthActionTypes } from './auth.actions';
+import { AuthService } from '@demo-app/auth/src/services/auth/auth.service';
+import { map } from 'rxjs/operators';
+import { User } from '@demo-app/data-models';
 
 @Injectable()
 export class AuthEffects {
+
   @Effect()
-  login$ = this.dataPersistence.fetch(authActions.AuthStateActionTypes.Login, {
-    run: (action: authActions.LoginAction, state: AuthData) => {
-      return this.authService
-        .login(action.payload)
-        .pipe(map(user => new authActions.LoginSuccessAction(user)));
+  loadAuth$ = this.dataPersistence.fetch(AuthActionTypes.Login, {
+    run: (action: authActions.LoginAction) => {
+      return this.authService.login(action.payload).pipe(map((user: User) => (new authActions.LoginSuccessAction(user))))
     },
 
     onError: (action: authActions.LoginAction, error) => {
-      return of(new authActions.LoginFailAction(error));
+      return new authActions.LoginFailAction(error);
     }
   });
 
   constructor(
-    private actions: Actions,
-    private dataPersistence: DataPersistence<AuthData>,
+    private actions$: Actions,
+    private dataPersistence: DataPersistence<AuthState>,
     private authService: AuthService
   ) {}
 }
@@ -165,44 +133,53 @@ export class AuthEffects {
 {% code-tabs-item title="libs/auth/src/+state/auth.reducer.ts" %}
 ```typescript
 import { Action } from '@ngrx/store';
-import { AuthStateActions, AuthStateActionTypes } from './auth.actions';
+import { AuthActions, AuthActionTypes } from './auth.actions';
 import { User } from '@demo-app/data-models';
 
+/**
+ * Interface for the 'Auth' data used in
+ *  - AuthState, and
+ *  - authReducer
+ */
 export interface AuthData {
-  user: User,
-  loading: boolean
+  loading: boolean;
+  user: User;
 }
 
+/**
+ * Interface to the part of the Store containing AuthState
+ * and other information related to AuthData.
+ */
 export interface AuthState {
   readonly auth: AuthData;
 }
 
 export const initialState: AuthData = {
-  user: null,
-  loading: false
+  loading: false,
+  user: null
 };
 
 export function authReducer(
-  state: AuthData,
-  action: AuthStateActions
+  state = initialState,
+  action: AuthActions
 ): AuthData {
   switch (action.type) {
-    case AuthStateActionTypes.Login: {
+    case AuthActionTypes.Login:
       return {
         ...state,
         loading: true
-      };
+      }
+
+    case AuthActionTypes.LoginSuccess: {
+      return { ...state, user: action.payload, loading: false };
     }
-    case AuthStateActionTypes.LoginSuccess: {
-      return {
-        ...state,
-        loading: false,
-        user: action.payload
-      };
+
+    case AuthActionTypes.LoginFail: {
+      return { ...state, user: null, loading: false };
     }
-    default: {
+
+    default:
       return state;
-    }
   }
 }
 
@@ -215,127 +192,78 @@ export function authReducer(
 {% code-tabs %}
 {% code-tabs-item title="libs/auth/src/containers/login/login.component.ts" %}
 ```typescript
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { User, Authenticate } from '@demo-app/data-models';
+import { Component, OnInit, ChangeDetectionStrategy, } from '@angular/core';
+import { Authenticate, User } from '@demo-app/data-models';
+import { AuthService } from './../../services/auth/auth.service';
+import { Router } from '@angular/router';
+import { AuthState } from './../../+state/auth.reducer';
 import { Store } from '@ngrx/store';
 import * as authActions from './../../+state/auth.actions';
-import { AuthData } from '@demo-app/auth/src/+state/auth.reducer';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LoginComponent implements OnInit {
-  constructor(private store: Store<AuthData>) {}
+export class LoginComponent {
 
-  ngOnInit() {}
+  constructor(
+    private router: Router,
+    private store: Store<AuthState>) { }
 
-  login(authenticate: Authenticate): void {
-    this.store.dispatch(new authActions.LoginAction(authenticate));
+  login(authenticate: Authenticate) {
+   this.store.dispatch(new authActions.LoginAction(authenticate));
   }
+
 }
 
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-### 6. Add route change action on success
+### 6. Add new Effect action to navigate on LoginSuccess
 
-* Add a new action to navigate
+* Add new effect to manage routing
 
 {% code-tabs %}
 {% code-tabs-item title="libs/auth/src/+state/auth.actions.ts" %}
 ```typescript
-import { Action } from '@ngrx/store';
-import { User, Authenticate } from '@demo-app/data-models';
-
-export enum AuthStateActionTypes {
-Login = '[AuthState] Login',
-LoginSuccess = '[AuthState] Login Success',
-LoginFail = '[AuthState] Login Fail',
-NavigateToProfile = '[AuthState] Navigate To Profile'
-}
-
-export class LoginAction implements Action {
-readonly type = AuthStateActionTypes.Login;
-constructor(public payload: Authenticate) {}
-}
-
-export class LoginSuccessAction implements Action {
-readonly type = AuthStateActionTypes.LoginSuccess;
-constructor(public payload: User) {}
-}
-
-export class LoginFailAction implements Action {
-readonly type = AuthStateActionTypes.LoginFail;
-constructor(public payload) {}
-}
-
-export class NavigateToProfileAction implements Action {
-readonly type = AuthStateActionTypes.NavigateToProfile;
-constructor(public payload:number) {}
-}
-
-export type AuthStateActions =
-LoginAction
-| LoginFailAction
-| LoginSuccessAction
-| NavigateToProfileAction;
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-* Add new Effect action to navigate
-
-{% code-tabs %}
-{% code-tabs-item title="libs/auth/src/+state/auth.effects.ts" %}
-```typescript
 import { Injectable } from '@angular/core';
-import { Effect, Actions } from '@ngrx/effects';
-import { of } from 'rxjs/observable/of';
-import 'rxjs/add/operator/switchMap';
+import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as authActions from './auth.actions';
-import { map, catchError, tap, mergeMap } from 'rxjs/operators';
-import { AuthService } from './../services/auth/auth.service';
+import { AuthState } from './auth.reducer';
 import { DataPersistence } from '@nrwl/nx';
-import { Router } from '@angular/router';
+import { AuthActionTypes } from './auth.actions';
+import { AuthService } from '@demo-app/auth/src/services/auth/auth.service';
+import { map, tap } from 'rxjs/operators';
 import { User } from '@demo-app/data-models';
-import { AuthData } from './auth.reducer';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthEffects {
+
   @Effect()
-  login$ = this.dataPersistence.fetch(authActions.AuthStateActionTypes.Login, {
-    run: (action: authActions.LoginAction, state: AuthData) => {
-      return this.authService
-        .login(action.payload)
-        .pipe(
-          mergeMap((user: User) => [
-            new authActions.LoginSuccessAction(user),
-            new authActions.NavigateToProfileAction(user.id)
-          ])
-        );
+  loadAuth$ = this.dataPersistence.fetch(AuthActionTypes.Login, {
+    run: (action: authActions.LoginAction) => {
+      return this.authService.login(action.payload).pipe(map((user: User) => (new authActions.LoginSuccessAction(user))))
     },
 
     onError: (action: authActions.LoginAction, error) => {
-      return of(new authActions.LoginFailAction(error));
+      return new authActions.LoginFailAction(error);
     }
   });
 
-  @Effect({ dispatch: false })
-  navigateToProfile = this.actions
-    .ofType(authActions.AuthStateActionTypes.NavigateToProfile)
-    .pipe(
-      map((action: authActions.NavigateToProfileAction) =>
-        this.router.navigate([`/user-profile/${action.payload}`])
-      )
-    );
+  @Effect({dispatch: false})
+  navigateToProfile$ = this.actions$.pipe(
+    ofType(AuthActionTypes.LoginSuccess),
+    map((action: authActions.LoginSuccessAction) => action.payload),
+    tap((user: User) => this.router.navigate([`/user-profile/${user.id}`]))
+  )
 
   constructor(
-    private actions: Actions,
-    private dataPersistence: DataPersistence<AuthData>,
+    private actions$: Actions,
+    private dataPersistence: DataPersistence<AuthState>,
     private authService: AuthService,
     private router: Router
   ) {}
@@ -353,8 +281,6 @@ export class AuthEffects {
 export { AuthModule, authRoutes } from './src/auth.module';
 export { AuthGuard } from './src/guards/auth/auth.guard';
 export { AuthData } from './src/+state/auth.reducer';
-
-// export * from './src/+state';
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
