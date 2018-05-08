@@ -301,10 +301,7 @@ export class LoadUsersFailAction implements Action {
   constructor(public payload: any) {}
 }
 
-export type UsersActions =
-  | LoadUsersAction
-  | LoadUsersSuccessAction
-  | LoadUsersFailAction;
+export type UsersActions = LoadUsersAction | LoadUsersSuccessAction | LoadUsersFailAction;
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
