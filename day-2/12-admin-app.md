@@ -17,17 +17,45 @@ ng g ngrx app --module=apps/admin-portal/src/app/app.module.ts  --onlyEmptyRoot
 {% code-tabs %}
 {% code-tabs-item title="package.json" %}
 ```javascript
-"scripts": {
-   ...
-   "customer-portal": "ng serve -a=customer-portal -p=4200",
+///----- ABBREVIATED CODE -----///
+
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "test": "ng test",
+    "lint": "./node_modules/.bin/nx lint && ng lint",
+    "e2e": "ng e2e",
+    "affected:apps": "./node_modules/.bin/nx affected:apps",
+    "affected:build": "./node_modules/.bin/nx affected:build",
+    "affected:e2e": "./node_modules/.bin/nx affected:e2e",
+    "affected:dep-graph": "./node_modules/.bin/nx affected:dep-graph",
+    "format": "./node_modules/.bin/nx format:write",
+    "format:write": "./node_modules/.bin/nx format:write",
+    "format:check": "./node_modules/.bin/nx format:check",
+    "update": "./node_modules/.bin/nx update",
+    "update:check": "./node_modules/.bin/nx update:check",
+    "update:skip": "./node_modules/.bin/nx update:skip",
+    "workspace-schematic": "./node_modules/.bin/nx workspace-schematic",
+    "dep-graph": "./node_modules/.bin/nx dep-graph",
+    "postinstall": "./node_modules/.bin/nx postinstall",
+    "help": "./node_modules/.bin/nx help",
+    "server": "ts-node ./server/server.ts",
+    "customer-portal": "ng serve -a=customer-portal -p=4200",
    "admin-portal": "ng serve -a=admin-portal -p=4201",
-   ...
-}
+  },
+  
+  
+///----- ABBREVIATED CODE -----///
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-* Add auth module to the new app and remove store freeze
+* Add auth module to the new app
+
+{% hint style="danger" %}
+Do not forget to remove the store freeze 
+{% endhint %}
 
 {% code-tabs %}
 {% code-tabs-item title="apps/admin-portal/src/app/app.module.ts" %}
