@@ -79,33 +79,7 @@ export class AuthEffects {
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## 2. Add default Login Effect
 
-* Update state interface
-
-{% code-tabs %}
-{% code-tabs-item title="libs/auth/src/+state/auth.reducer.ts" %}
-```typescript
-import { Action } from '@ngrx/store';
-import { AuthStateActions, AuthStateActionTypes } from './auth.actions';
-import { User } from '@demo-app/data-models';
-
-export interface AuthData {
-  user: User,
-  loading: boolean
-}
-
-export interface AuthState {
-  readonly auth: AuthData;
-}
-
-export const initialState: AuthData = {
-  user: null,
-  loading: false
-};
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
 
 
 
