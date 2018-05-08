@@ -1,6 +1,6 @@
 # 9 - Nx state libs
 
-### 1. Add a beta NgRx schematics
+### 1. Add the NgRx schematics
 
 ```text
 npm install @ngrx/schematics@5.2.0 --save-dev
@@ -16,7 +16,7 @@ Note: You can learn more here [https://github.com/ngrx/platform/blob/master/docs
 ng generate ngrx auth --module=libs/auth/src/auth.module.ts
 ```
 
-* Delete the actions file from the nx code generated files at the path _**libs/auth/src/+state/auth.actions.ts**_
+* Delete the actions file from the nx code generated files at the path _**`libs/auth/src/+state/auth.actions.ts`**_
 
 {% code-tabs %}
 {% code-tabs-item title="osx" %}
