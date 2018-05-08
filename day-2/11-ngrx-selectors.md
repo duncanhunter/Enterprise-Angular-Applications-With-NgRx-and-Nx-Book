@@ -191,9 +191,9 @@ export const getUser = createSelector(getAuthState, state => state.user);
 {% code-tabs %}
 {% code-tabs-item title="libs/auth/index.ts" %}
 ```typescript
-export { AuthModule , authRoutes } from './src/auth.module';
-export { AuthGuard } from './src/guards/auth.guard';
-export { AuthState } from './src/+state/auth.interfaces';
+export { AuthGuard } from './src/guards/auth/auth.guard';
+export { AuthModule, authRoutes } from './src/auth.module';
+export { AuthState } from './src/+state/auth.reducer';
 export * from './src/+state';
 ```
 {% endcode-tabs-item %}
