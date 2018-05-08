@@ -201,6 +201,18 @@ body {
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+* Add styles to the admin layout.component.scss 
+
+{% code-tabs %}
+{% code-tabs-item title="libs/admin-portal/layout/src/containers/layout/layout.component.scss" %}
+```css
+.right-nav { 
+    margin-left: auto;
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
 * Add the Layout Module to the AppModule.
 
 {% hint style="danger" %}
