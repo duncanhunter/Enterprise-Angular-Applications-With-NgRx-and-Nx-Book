@@ -228,13 +228,14 @@ import { LayoutComponent } from './containers/layout/layout.component';
 import { MaterialModule } from '@demo-app/material';
 import { RouterModule } from '@angular/router';
 
+const COMPONENTS = [LayoutComponent];
+
 @NgModule({
   imports: [CommonModule, MaterialModule, RouterModule],
-  declarations: [LayoutComponent],
-  exports: [LayoutComponent]
+  declarations: [COMPONENTS],
+  exports: [COMPONENTS]
 })
-export class
-LayoutModule {}
+export class LayoutModule {}
 
 ```
 {% endcode-tabs-item %}
