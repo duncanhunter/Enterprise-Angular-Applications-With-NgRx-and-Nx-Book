@@ -18,9 +18,13 @@ npm install  --save-dev webpack-bundle-analyzer
 
 * Once installed add the following entry to the npm scripts in the package.json:
 
-```text
+{% code-tabs %}
+{% code-tabs-item title="package.json" %}
+```bash
 "bundle-report-admin-portal": "webpack-bundle-analyzer dist/apps/admin-portal/stats.json"
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 * Rebuild with --stats-json
 
@@ -31,6 +35,14 @@ ng build --prod -a=admin-portal --stats-json
 * Run the following command
 
 ```text
- npm run bundle-report
+ npm run bundle-report-admin-portal
 ```
+
+* Run the Nx dep graph tool
+
+```text
+npm run dep-graph
+```
+
+
 
