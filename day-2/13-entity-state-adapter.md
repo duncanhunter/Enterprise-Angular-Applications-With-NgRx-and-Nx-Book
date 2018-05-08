@@ -86,7 +86,7 @@ ng g ngrx users --module=libs/admin-portal/users/src/users.module.ts
 * Add UserList component to the routes for this lib
 
 {% code-tabs %}
-{% code-tabs-item title="libs/admin-portal/users/src/containers/user-list.ts" %}
+{% code-tabs-item title="libs/admin-portal/users/src/users.module.ts" %}
 ```typescript
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
