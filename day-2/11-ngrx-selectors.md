@@ -126,7 +126,7 @@ import { storeFreeze } from 'ngrx-store-freeze';
 import { authRoutes, AuthModule } from '@demo-app/auth';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthGuard } from '@demo-app/auth';
-import { LayoutModule } from '@angular/cdk/layout';
+import { LayoutModule } from '@demo-app/customer-portal/layout';
 
 
 @NgModule({
