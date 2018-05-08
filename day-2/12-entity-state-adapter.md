@@ -8,8 +8,8 @@ ng g guard guards/auth-admin/auth-admin -a=auth
 
 * check in the route guard if the person is an admin
 
-_**libs/auth/src/guards/auth-admin/auth-admin.guard.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/src/guards/auth-admin/auth-admin.guard.ts" %}
 ```typescript
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
@@ -43,6 +43,8 @@ export class AuthAdminGuard implements CanActivate {
   }
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ## 2. Make a users lib in an admin directory
 
@@ -64,8 +66,8 @@ ng g ngrx users --module=libs/admin-portal/users/src/users.module.ts
 
 * Add UserList component to the routes for this lib
 
-_**libs/admin-portal/users/src/containers/user-list**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/admin-portal/users/src/containers/user-list" %}
 ```typescript
 @NgModule({
   imports: [
@@ -83,11 +85,13 @@ _**libs/admin-portal/users/src/containers/user-list**_
 })
 export class UsersModule {}
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 * Add the route also to the admin-portal app
 
-_**apps/admin-portal/src/app/app.module.ts**_
-
+{% code-tabs %}
+{% code-tabs-item title="apps/admin-portal/src/app/app.module.ts" %}
 ```typescript
  RouterModule.forRoot([
   { path: '', pathMatch: 'full', redirectTo: 'user-profile' },
@@ -104,12 +108,17 @@ _**apps/admin-portal/src/app/app.module.ts**_
   }
 ]),
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ## 3. Update auth module to use new guard
 
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/src/auth.module.ts" %}
 ```typescript
 import { NgModule, ModuleWithProviders } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { C
+ommonModule } from '@angular/common';
 import { RouterModule, Route } from '@angular/router';
 import { LoginComponent } from './container/login/login.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -146,32 +155,23 @@ const COMPONENTS = [LoginComponent];
     AuthService,
     AuthGuard,
     AuthAdminGuard,
-    AuthEffects
-  ]
-})
-export class AuthModule {
-  static forRoot(): ModuleWithProviders {
-    return {
-      ngModule: AuthModule,
-      providers: [
-        AuthService,
-        AuthGuard,
-        AuthAdminGuard,
-        {
+    AuthEffects,
+    {
           provide: HTTP_INTERCEPTORS,
           useClass: AuthInterceptor,
           multi: true
-        }
-      ]
-    };
-  }
-}
+    }
+  ]
+})
+export class AuthModule {}
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 * Update layout lib to show users menu button in an admin
 
-_**libs/admin-portal/layout/src/containers/layout/layout.component.html**_
-
+{% code-tabs %}
+{% code-tabs-item title="libs/admin-portal/layout/src/containers/layout/layout.component.html" %}
 ```markup
 <mat-toolbar color="primary" fxLayout="row">
   <span>Admin Portal</span>
@@ -182,6 +182,8 @@ _**libs/admin-portal/layout/src/containers/layout/layout.component.html**_
 </mat-toolbar>
 <ng-content></ng-content>
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ## 4. Make a new service for users
 
