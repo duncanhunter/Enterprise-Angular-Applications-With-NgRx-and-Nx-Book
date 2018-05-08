@@ -263,8 +263,7 @@ export class AppModule {}
 {
   "extends": "../../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "..
-/../../dist/out-tsc/apps/admin-portal",
+    "outDir": "../../../dist/out-tsc/apps/admin-portal",
     "module": "es2015"
   },
   "include": [
