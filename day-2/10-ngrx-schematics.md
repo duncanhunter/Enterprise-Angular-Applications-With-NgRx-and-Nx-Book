@@ -1,4 +1,4 @@
-# 9 - Nx state libs
+# 10 - NgRx Schematics
 
 ### 1. Add the NgRx schematics
 
@@ -16,7 +16,7 @@ Note: You can learn more here [https://github.com/ngrx/platform/blob/master/docs
 ng generate ngrx auth --module=libs/auth/src/auth.module.ts
 ```
 
-* Delete the actions file from the nx code generated files at the path _**`libs/auth/src/+state/auth.actions.ts`**_
+* Delete the actions file from the nx code generated files at the path `libs/auth/src/+state/auth.actions.ts`
 
 {% code-tabs %}
 {% code-tabs-item title="osx" %}
@@ -81,7 +81,7 @@ LoginAction
 
 * Actions should capture unique events not commands
 * Try not to reuse actions and make generic actions
-* Suffix you Action types with their source so you know where they are dispatched from like ` Login = '[Login Page] Login'`
+* Suffix you Action types with their source so you know where they are dispatched from like `Login = '[Login Page] Login'`
 * Let effects and reducers be the decision maker not the component and add multiple cases to a switch statement or effects.
 * Avoid action sub typing by adding conditional information to a property of an action payload by making multiple actions for each case. This makes it easier to test and avoids complicated conditional logic in effects and reducers.
 * Write actions first
@@ -188,7 +188,6 @@ export class AuthEffects {
     private authService: AuthService
   ) {}
 }
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -239,7 +238,6 @@ export function authReducer(
     }
   }
 }
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -270,7 +268,6 @@ export class LoginComponent implements OnInit {
     this.store.dispatch(new authActions.LoginAction(authenticate));
   }
 }
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -374,7 +371,6 @@ export class AuthEffects {
     private router: Router
   ) {}
 }
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}

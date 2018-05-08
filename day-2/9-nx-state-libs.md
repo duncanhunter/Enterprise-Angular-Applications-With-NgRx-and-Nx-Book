@@ -1,46 +1,12 @@
 # 9 - Nx state libs
 
-### 1. Add the NgRx schematics
-
-```text
-npm install @ngrx/schematics@5.2.0 --save-dev
-```
-
-{% hint style="info" %}
-Note: You can learn more here [https://github.com/ngrx/platform/blob/master/docs/schematics/README.md](https://github.com/ngrx/platform/blob/master/docs/schematics/README.md)
-{% endhint %}
-
-### 2. Add auth NgRx state
+## 1. Add auth NgRx state
 
 ```text
 ng generate ngrx auth --module=libs/auth/src/auth.module.ts
 ```
 
-* Delete the actions file from the nx code generated files at the path _**`libs/auth/src/+state/auth.actions.ts`**_
-
-{% code-tabs %}
-{% code-tabs-item title="osx" %}
-```text
-rm -rf libs/auth/src/+state/auth.actions.ts
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-{% code-tabs %}
-{% code-tabs-item title="windows" %}
-```text
-del /f libs/auth/src/+state/auth.actions.ts
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-* Run NgRx schematic generate command for actions
-
-```text
-ng generate action +state/auth -a=auth  --collection @ngrx/schematics
-```
-
-* Swap out original for new nx style effect
+* Update default code generated actions.
 
 {% code-tabs %}
 {% code-tabs-item title="libs/auth/src/+state/auth.actions.ts" %}
@@ -48,7 +14,7 @@ ng generate action +state/auth -a=auth  --collection @ngrx/schematics
 import { Action } from '@ngrx/store';
 import { User, Authenticate } from '@demo-app/data-models';
 
-export enum AuthStateActionTypes {
+export enum AuthActionTypes {
 Login = '[AuthState] Login',
 LoginSuccess = '[AuthState] Login Success',
 LoginFail = '[AuthState] Login Fail'
@@ -69,7 +35,7 @@ readonly type = AuthStateActionTypes.LoginFail;
 constructor(public payload) {}
 }
 
-export type AuthStateActions =
+export type AuthActions =
 LoginAction
 | LoginFailAction
 | LoginSuccessAction;
