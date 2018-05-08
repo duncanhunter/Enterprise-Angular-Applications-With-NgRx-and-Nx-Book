@@ -123,8 +123,11 @@ ng g c containers/layout -a=admin-portal/layout
 
 * Add the LayoutComponent logic to select the current logged in user like in the customer-portal
 
+{% code-tabs %}
+{% code-tabs-item title="libs/admin-portal/layout/src/containers/layout/layout.component.ts" %}
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angu
+lar/core';
 import { Store } from '@ngrx/store';
 import { AuthState, getUser } from '@demo-app/auth';
 import { User } from '@demo-app/data-models';
@@ -146,6 +149,8 @@ export class LayoutComponent implements OnInit {
 }
 
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 * Add the material Module to the LayoutModule and export the Layout Component out of the module.
 
