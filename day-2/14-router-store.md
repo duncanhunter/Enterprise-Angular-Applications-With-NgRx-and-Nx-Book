@@ -242,7 +242,7 @@ export const {
 * Remove load dispatch action from component
 
 {% code-tabs %}
-{% code-tabs-item title="libs/admin-portal/users/src/+state/users.init.ts" %}
+{% code-tabs-item title="libs/admin-portal/users/src/containers/user-list/user-list.component.ts" %}
 ```typescript
 ngOnInit() {
   // this.store.dispatch(new usersActions.LoadUsersAction());
