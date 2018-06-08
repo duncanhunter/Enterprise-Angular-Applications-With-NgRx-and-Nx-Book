@@ -97,11 +97,9 @@ Add event and data binding to App Component title
 {% code-tabs %}
 {% code-tabs-item title="src/app/home/home.component.html" %}
 ```markup
-<p>
-  home works!
-</p>
+{{title}}
 
-<input type="text" #input [value]="title" (keyup)="changeTitle(input.value)">
+<input type="text" #input [value]="title" (keyup)="updateTitle(input.value)">
 
 ```
 {% endcode-tabs-item %}
@@ -123,9 +121,9 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {}
 
-  changeTitle(value) {
+  updateTitle(value) {
     // debugger;
-    console.log(`changeTitle: ${value}`);
+    console.log(`updateTitle: ${value}`);
     this.title = value;
   }
 }
