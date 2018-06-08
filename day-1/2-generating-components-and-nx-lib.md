@@ -1,4 +1,4 @@
-# 2 - Generating components and nx lib
+# 2 - Generating components and Nx lib
 
 ## 1. Generate a lib
 
