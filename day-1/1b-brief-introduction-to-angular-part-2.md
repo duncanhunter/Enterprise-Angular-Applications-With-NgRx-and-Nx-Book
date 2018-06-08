@@ -1,5 +1,5 @@
 ---
-description: In this section we will introduce Angular service and observables
+description: In this section we will introduce Angular services and observables
 ---
 
 # 1b -  Brief Introduction To Angular
