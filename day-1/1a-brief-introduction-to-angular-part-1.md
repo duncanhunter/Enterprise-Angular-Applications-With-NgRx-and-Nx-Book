@@ -6,6 +6,12 @@ description: >-
 
 # 1a -  Brief Introduction To Angular
 
+{% hint style="info" %}
+The finished code for the next three parts can be found here https://github.com/duncanhunter/workshop-enterprise-angular-applications-with-ngrx-and-nx-cli-only
+{% endhint %}
+
+
+
 ## 1. Create a new Angular CLI Project
 
 Make a new workshop folder and generate a new CLI app
