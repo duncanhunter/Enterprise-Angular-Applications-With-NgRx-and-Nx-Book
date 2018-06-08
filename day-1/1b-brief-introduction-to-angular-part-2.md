@@ -144,6 +144,45 @@ export class UserListComponent implements OnInit {
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+{% hint style="info" %}
+The below is an example of subscribing in the component. Try it out but we will be using the async pipe. We bind to the observable in the rest of the demo so make sure to change back.
+{% endhint %}
+
+{% code-tabs %}
+{% code-tabs-item title="src/app/user-list/user-list.component.ts" %}
+```typescript
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { UserService } from '../services/user/user.service';
+import { takeWhile } from 'rxjs/operators';
+import { User } from '../models/user';
+
+@Component({
+  selector: 'app-user-list',
+  templateUrl: './user-list.component.html',
+  styleUrls: ['./user-list.component.css']
+})
+export class UserListComponent implements OnInit, OnDestroy {
+  users: User[];
+  componentActive = true;
+
+  constructor(private userService: UserService) {}
+
+  ngOnInit() {
+    this.userService
+      .getUsers()
+      .pipe(takeWhile(() => this.componentActive))
+      .subscribe((users: User[]) => (this.users = users));
+  }
+
+  ngOnDestroy(): void {
+    this.componentActive = false;
+  }
+}
+
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
 Use the async pipe to and an ngFor template directive to subscribe and iterate over the users.
 
 {% code-tabs %}

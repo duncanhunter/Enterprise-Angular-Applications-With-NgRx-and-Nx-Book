@@ -1,8 +1,12 @@
+---
+description: Now it is time to talk Nx and architecture
+---
+
 # 2 -  Creating an Nx Workspace
 
 We will be building out the beginning of two applications a customer portal and an admin portal.
 
-![](https://github.com/duncanhunter/Enterprise-Angular-Applications-With-NgRx-and-Nx-Book/tree/d63a57a9f1ea36a7623cdf0746dd90b1406edaa2/.gitbook/assets/workspaces-demoapp.png)_**figure: nx workspaces diagram**_
+![Nx workspaces diagram](../.gitbook/assets/image%20%284%29.png)
 
 ## 1 .Create a new Nx workspace
 
@@ -21,7 +25,7 @@ ng new demo-app --collection=@nrwl/schematics
 
 ## 2. Examine the output of the following files and commit code to git source control
 
-1. Run the following command to open the new nx workspace in VSCode.
+Run the following command to open the new nx workspace in VSCode.
 
 ```text
 cd code .
@@ -68,7 +72,7 @@ ng s --project=customer-portal
 
 ![VS Codes Source Control Panel](../.gitbook/assets/image%20%282%29.png)
 
-## 4. Install WIP Workshop Code in a different folder {#wipcoursecode}
+## 7. Install WIP Workshop Code in a different folder {#wipcoursecode}
 
 ```text
 git clone "https://github.com/duncanhunter/WIP-Demo-App-NDC-Oslo-2018-Enterprise-Angular-applications-with-ngrx-and-nx.git"

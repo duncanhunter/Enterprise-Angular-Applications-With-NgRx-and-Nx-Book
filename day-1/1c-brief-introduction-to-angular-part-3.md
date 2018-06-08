@@ -139,7 +139,7 @@ export class UserModule { }
 
 ## 8. Run the application and inspect the lazy loaded JavaScript
 
-![Bundled feature module](../.gitbook/assets/image%20%287%29.png)
+![Bundled feature module](../.gitbook/assets/image%20%288%29.png)
 
 ## Extras
 
@@ -153,7 +153,7 @@ In the terminal run
 ng generate application my-other-app
 ```
 
-![Multi application support in default Angular CLI App](../.gitbook/assets/image%20%285%29.png)
+![Multi application support in default Angular CLI App](../.gitbook/assets/image%20%286%29.png)
 
 
 
@@ -170,5 +170,5 @@ In the terminal run
 ng generate library my-lib
 ```
 
-![Added npm library](../.gitbook/assets/image%20%2810%29.png)
+![Added npm library](../.gitbook/assets/image%20%2811%29.png)
 
