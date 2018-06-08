@@ -69,7 +69,7 @@ ng s -a=customer-portal -o
 
 ![VS Codes Source Control Panel](../.gitbook/assets/image.png)
 
-## WIP Workshop Code {#wipcoursecode}
+## 4. Install WIP Workshop Code in a different folder {#wipcoursecode}
 
 ```text
 git clone "https://github.com/duncanhunter/WIP-Demo-App-NDC-Oslo-2018-Enterprise-Angular-applications-with-ngrx-and-nx"​cd V6-Demo-App-NDC-Minnesota-2018-Enterprise-Angular-applications-with-ngrx-and-nx
