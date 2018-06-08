@@ -4,7 +4,7 @@ description: >-
   binding.
 ---
 
-# 1a -  Brief Introduction To Angular Part 1
+# 1a -  Brief Introduction To Angular
 
 ## 1. Create a new Angular CLI Project
 

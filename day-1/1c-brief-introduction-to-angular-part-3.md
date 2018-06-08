@@ -2,7 +2,7 @@
 description: In this section we will introduce and use feature modules
 ---
 
-# 1c -  Brief Introduction To Angular Part 3
+# 1c -  Brief Introduction To Angular
 
 ## 1. Refactor to use lazy loaded User module {#11-extra-add-extra-project-to-cli-app}
 
