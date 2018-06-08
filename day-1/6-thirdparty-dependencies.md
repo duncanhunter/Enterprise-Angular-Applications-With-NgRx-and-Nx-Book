@@ -17,23 +17,42 @@ ng add @angular/material
 {% endhint %}
 
 ```text
-npm install --save @angular/material@5.2.5 @angular/cdk@5.2.5 @angular/flex-layout @angular/animations
+npm install @angular/material @angular/cdk @angular/flex-layout @angular/animations
 ```
 
 * Add animations module to the main app module.
 
+{% code-tabs %}
+{% code-tabs-item title="src/app/app.module.ts" %}
 ```typescript
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AppComponent } from './app.component';
+import { NxModule } from '@nrwl/nx';
+import { RouterModule } from '@angular/router';
+import { authRoutes, AuthModule } from '@demo-app/auth';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
-  ...
-  imports: [BrowserAnimationsModule],
-  ...
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    NxModule.forRoot(),
+    RouterModule.forRoot([{path: 'auth', children: authRoutes}], { initialNavigation: 'enabled' }),
+    AuthModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
 })
-export class AppModule { }
-```
+export class AppModule {}
 
-## 2. Add a new nx lib to hold all the common material components we will use in our app
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+## 2. Add a new Nx lib to hold all the common material components we will use in our apps
 
 ```bash
 ng g lib material
@@ -42,7 +61,7 @@ ng g lib material
 * Add all the common material components and re-export them
 
 {% code-tabs %}
-{% code-tabs-item title="libs/material/src/material.module.ts" %}
+{% code-tabs-item title="libs/material/src/lib/material.module.ts" %}
 ```typescript
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
