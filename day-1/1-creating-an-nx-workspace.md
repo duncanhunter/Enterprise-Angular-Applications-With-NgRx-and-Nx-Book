@@ -15,7 +15,7 @@ mkdir demo-app
 * Run the below command in a terminal to make a new nx workspace.
 
 ```text
-ng new demo-app --collection=@nrwl/schematics
+ng new demo-application --collection=@nrwl/schematics
 ```
 
 ## 2. Examine the output of the following files and commit code to git source control
