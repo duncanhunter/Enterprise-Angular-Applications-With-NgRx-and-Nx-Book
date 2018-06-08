@@ -1,4 +1,4 @@
-# 6 - Reactive Forms
+# 7 - Reactive Forms
 
 ## 1.Add ngx-errors library to make it easier to display form errors
 
@@ -49,7 +49,6 @@ export class LoginFormComponent {
     } as Authenticate);
   }
 }
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -83,7 +82,6 @@ export class LoginFormComponent {
       <button mat-raised-button (click)="login()">login</button>
   </mat-card-content>
 </mat-card>
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -107,7 +105,6 @@ export interface User {
   token: string
   role: string;
 }
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -139,7 +136,6 @@ export class AuthService {
     );
   }
 }
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}

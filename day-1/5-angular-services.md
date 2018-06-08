@@ -30,7 +30,7 @@ export class AuthService {
 {% endcode-tabs %}
 
 {% hint style="info" %}
-As of Angular v6 you can register your providers in your service which makes them tree shack-able leading to smaller bundles loaded into the browser. 
+As of Angular v6 you can register your providers in your service which makes them tree shack-able leading to smaller bundles loaded into the browser.
 
 {% code-tabs %}
 {% code-tabs-item title="libs/auth/src/services/auth/auth.service.ts" %}
@@ -68,7 +68,6 @@ const COMPONENTS = [LoginComponent, LoginFormComponent];
   providers: [AuthService]
 })
 export class AuthModule {}
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}

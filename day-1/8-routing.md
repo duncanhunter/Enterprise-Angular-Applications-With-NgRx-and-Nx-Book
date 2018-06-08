@@ -1,6 +1,4 @@
-# 7 - Routing
-
-## Part 7 - Routing and interceptors
+# 8 - Routing
 
 ### 1. Add a lib for a users profile page
 
@@ -163,7 +161,6 @@ export class AuthService {
       .pipe(tap(user => (this.isAuthenticated = true)));
   }
 }
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -311,7 +308,7 @@ export class AuthService {
 * Add an angular interceptor in a new folder in the auth lib
 
 {% hint style="info" %}
-Note:  Currently there is no ng generate command for interceptors so we need to add it manually.
+Note: Currently there is no ng generate command for interceptors so we need to add it manually.
 
 [https://github.com/angular/angular-cli/issues/6937](https://github.com/angular/angular-cli/issues/6937)
 {% endhint %}
@@ -353,12 +350,11 @@ export class AuthInterceptor implements HttpInterceptor {
     }
   }
 }
-
 ```
 {% endcode-tabs-item %}
 
 {% code-tabs-item title=undefined %}
-```
+```text
 
 ```
 {% endcode-tabs-item %}
@@ -407,7 +403,6 @@ const COMPONENTS = [LoginComponent, LoginFormComponent];
   ]
 })
 export class AuthModule {}
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
