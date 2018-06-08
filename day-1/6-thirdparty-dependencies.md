@@ -187,7 +187,7 @@ export class AuthModule {}
 
 {% embed data="{\"url\":\"https://tburleson-layouts-demos.firebaseapp.com/\#/docs\",\"type\":\"link\",\"title\":\"Angular Flex-Layout Demos\",\"icon\":{\"type\":\"icon\",\"url\":\"https://tburleson-layouts-demos.firebaseapp.com/favicon.ico\",\"aspectRatio\":0},\"caption\":\"flex-layout package docs\"}" %}
 
-![flex-layout library examples](../.gitbook/assets/image%20%2818%29.png)
+![flex-layout library examples](../.gitbook/assets/image%20%2819%29.png)
 
 
 

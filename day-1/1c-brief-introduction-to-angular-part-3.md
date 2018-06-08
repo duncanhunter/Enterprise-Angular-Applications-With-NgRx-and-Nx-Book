@@ -12,7 +12,7 @@ ng g module user --routing
 
 ## 2.  Move all User related folders into the user module folder
 
-![User feature folder](../.gitbook/assets/image.png)
+![User feature folder](../.gitbook/assets/image%20%281%29.png)
 
 ## 3.  Remove all references to Users in App module
 
@@ -139,7 +139,7 @@ export class UserModule { }
 
 ## 8. Run the application and inspect the lazy loaded JavaScript
 
-![Bundled feature module](../.gitbook/assets/image%20%2810%29.png)
+![Bundled feature module](../.gitbook/assets/image%20%2811%29.png)
 
 ## Extras
 
@@ -153,7 +153,7 @@ In the terminal run
 ng generate application my-other-app
 ```
 
-![Multi application support in default Angular CLI App](../.gitbook/assets/image%20%287%29.png)
+![Multi application support in default Angular CLI App](../.gitbook/assets/image%20%288%29.png)
 
 
 
@@ -170,5 +170,5 @@ In the terminal run
 ng generate library my-lib
 ```
 
-![Added npm library](../.gitbook/assets/image%20%2817%29.png)
+![Added npm library](../.gitbook/assets/image%20%2818%29.png)
 

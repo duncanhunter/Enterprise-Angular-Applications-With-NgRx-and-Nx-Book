@@ -411,5 +411,5 @@ export class AuthModule {}
 
 * Try and login again and look in the network traffic of the dev tools to see the Header is being added.
 
-![Authorization header on all requests](../.gitbook/assets/image%20%283%29.png)
+![Authorization header on all requests](../.gitbook/assets/image%20%284%29.png)
 

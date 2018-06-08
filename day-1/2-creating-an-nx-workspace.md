@@ -6,7 +6,7 @@ description: Now it is time to talk Nx and architecture
 
 We will be building out the beginning of two applications a customer portal and an admin portal.
 
-![Nx workspaces diagram](../.gitbook/assets/image%20%285%29.png)
+![Nx workspaces diagram](../.gitbook/assets/image%20%286%29.png)
 
 ## 1 .Create a new Nx workspace
 
@@ -70,7 +70,7 @@ ng s --project=customer-portal
 
 * It is best to commit often when using the code generation tools so you can easily undo if it is not correct.
 
-![VS Codes Source Control Panel](../.gitbook/assets/image%20%282%29.png)
+![VS Codes Source Control Panel](../.gitbook/assets/image%20%283%29.png)
 
 ## 7. Install WIP Workshop Code in a different folder {#wipcoursecode}
 

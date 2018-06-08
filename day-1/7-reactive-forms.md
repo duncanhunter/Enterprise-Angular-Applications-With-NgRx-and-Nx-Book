@@ -156,3 +156,9 @@ export class AuthService {
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+## 6. Check validation in the browser
+
+![Form validation errors](../.gitbook/assets/image.png)
+
+
+
