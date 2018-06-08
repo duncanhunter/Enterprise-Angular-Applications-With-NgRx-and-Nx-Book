@@ -66,7 +66,7 @@ export class UserService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getUsers() {
+  getUsers(): Observable<any> { {
     return this.httpClient.get(this.apiUrl);
   }
 }
@@ -74,7 +74,7 @@ export class UserService {
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## 4. Add a UserList component and inject in the user service
+## 4. Add a UserList component and inject in the User service
 
 Make a user-list component, 'c' is short hand for component.
 
@@ -108,6 +108,10 @@ export class AppRoutingModule { }
 {% endcode-tabs %}
 
 Inject user service and call its getUsers method and bind in to a local variable
+
+```text
+
+```
 
 {% code-tabs %}
 {% code-tabs-item title="src/app/user-list/user-list.component.html" %}
@@ -213,5 +217,7 @@ export interface User {
 ng g interface models/user
 ```
 
+## Extra reading
 
+Naming observables - [https://medium.com/@benlesh/observables-are-just-functions-but-also-collections-how-do-i-name-them-918c5ce2f64](https://medium.com/@benlesh/observables-are-just-functions-but-also-collections-how-do-i-name-them-918c5ce2f64)
 
