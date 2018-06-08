@@ -21,31 +21,32 @@ Lets look at what this pattern is and what are the benefits in slides
 
 ![Characteristics of Container and Presentational Components](../.gitbook/assets/image%20%285%29.png)
 
-* Add a new container component to the auth lib
+Add a new container component to the auth lib
 
 ```text
-ng g c containers/login --application=auth
+ng g c containers/login --project=auth
 ```
 
-* Add a new presentational component to the auth lib
+Add a new presentational component to the auth lib
 
 ```text
-ng g c components/login-form -a=auth
+ng g c components/login-form --project=auth
 ```
 
-You may decide not to make this a presentational component but it makes it easier to test and refactor
-
-* Add a route to the auth module and a custom components array to make it easier to re-export components.
-* Add a default route for the module.
+Note: You may decide not to make this a presentational component but it makes it easier to test and refactor.
 
 {% hint style="info" %}
 As this is a child route it is assumed that the consuming module will already prefix the route with "localhost:4200/auth" and when we say the path is "login" we mean relative to this so it will end up being "localhost:4200/auth/login".
 {% endhint %}
 
+Add a default route to the auth module
+
 {% code-tabs %}
 {% code-tabs-item title="libs/auth/src/auth.module.ts" %}
 ```typescript
-export const authRoutes: Route[] = [{ path: 'login', component: LoginComponent }]
+export const authRoutes: Route[] = [
+   { path: 'login', component: LoginComponent }
+]
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -59,22 +60,26 @@ import { RouterModule, Route } from '@angular/router';
 import { LoginComponent } from './containers/login/login.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 
-export const authRoutes: Route[] = [{ path: 'login', component: LoginComponent }];
-const COMPONENTS = [LoginComponent, LoginFormComponent];
-
+export const authRoutes: Route[] = [
+  { path: 'login', component: LoginComponent }
+];
 @NgModule({
   imports: [CommonModule, RouterModule],
-  declarations: [COMPONENTS],
-  exports: [COMPONENTS]
+  declarations: [LoginComponent, LoginFormComponent]
 })
 export class AuthModule {}
+
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-* Inspect the index.ts file which is for exporting public api surface for the lib.
-* Inspect .angular-cli.json libs array allow us to use -a with libs to get cli scaffolding and code generation
-* Delete everything but the router-outlet on the apps app.component.html file
+Inspect the index.ts file which is for exporting public api surface for the lib.
+
+Inspect angular.json libs array allow us to use --project flag with libs to get cli scaffolding and code generation.
+
+## 3. Update the consuming customer-portal App module
+
+Delete everything but the router-outlet on the apps app.component.html file.
 
 {% code-tabs %}
 {% code-tabs-item title="apps/customer-portal/src/app.components.html" %}
@@ -89,29 +94,34 @@ export class AuthModule {}
 {% code-tabs %}
 {% code-tabs-item title="apps/customer-portal/src/app/app.module.ts" %}
 ```typescript
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AppComponent } from './app.component';
+import { NxModule } from '@nrwl/nx';
+import { RouterModule } from '@angular/router';
+import { authRoutes, AuthModule } from '@demo-app/auth';
+
 @NgModule({
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     NxModule.forRoot(),
-    RouterModule.forRoot([
-     { path: 'auth', children: authRoutes }
-    ], { initialNavigation: 'enabled' }),
-    // Note: Issue with storeFreeze to be fixed in NgRx v6https://github.com/nrwl/nx/issues/436
-    //StoreModule.forRoot({},{ metaReducers : !environment.production ? [storeFreeze] : [] }),
-    StoreModule.forRoot({}),    EffectsModule.forRoot([]),
-    !environment.production ? StoreDevtoolsModule.instrument() : [],
-    StoreRouterConnectingModule,
-    AuthModule
+    RouterModule.forRoot([{path: 'auth', children: authRoutes}], { initialNavigation: 'enabled' }),
+    AuthModule .     // added
   ],
-  declarations: [AppComponent],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
+
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-* Run the app `ng s` and navigate to [http://localhost:4200/auth/login](http://localhost:4200/auth/login)
+Run the app `ng s` and navigate to [http://localhost:4200/auth/login](http://localhost:4200/auth/login)
+
+![App running in the Browser](../.gitbook/assets/image%20%2811%29.png)
 
 ## 3. Add presentational component to container component
 
