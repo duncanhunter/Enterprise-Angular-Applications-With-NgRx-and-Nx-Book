@@ -19,13 +19,7 @@ ng g lib auth --routing --prefix=app --parent-module=apps/customer-portal/src/ap
 ```
 
 {% hint style="info" %}
-Currently issue with setting scss as default.
-
-Add this to the angular.json project meta data 
-
- "schematics": {  
- "@schematics/angular:component": { "styleext": "scss" }  
-},
+Currently issue with setting scss as default for lib. When ever you make a lib component please change style extention .scss
 {% endhint %}
 
 ## 2. Add container and presentational components
