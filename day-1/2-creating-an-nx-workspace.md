@@ -1,4 +1,4 @@
-# 1 -  Creating an Nx Workspace
+# 2 -  Creating an Nx Workspace
 
 We will be building out the beginning of two applications a customer portal and an admin portal.
 
@@ -78,8 +78,4 @@ cd WIP-Demo-App-NDC-Oslo-2018-Enterprise-Angular-applications-with-ngrx-and-nx"â
 
 npm install
 ```
-
-
-
-
 
