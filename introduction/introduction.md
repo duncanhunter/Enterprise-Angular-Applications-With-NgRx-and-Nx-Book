@@ -19,7 +19,7 @@
 ## Finished Workshop Code {#finishedcodeforthecrmmodule}
 
 ```text
-git clone "https://github.com/duncanhunter/Demo-App-Enterprise-Angular-applications-with-ngrx-and-nx.git"
+git clone "https://github.com/duncanhunter/Demo-App-NDC-Oslo-2018-Enterprise-Angular-applications-with-ngrx-and-nx
 
 cd demo-app
 
@@ -29,7 +29,7 @@ npm install
 ## WIP Workshop Code {#wipcoursecode}
 
 ```text
-git clone "https://github.com/duncanhunter/V6-Demo-App-NDC-Minnesota-2018-Enterprise-Angular-applications-with-ngrx-and-nx"
+git clone "https://github.com/duncanhunter/WIP-Demo-App-NDC-Oslo-2018-Enterprise-Angular-applications-with-ngrx-and-nx"
 
 cd V6-Demo-App-NDC-Minnesota-2018-Enterprise-Angular-applications-with-ngrx-and-nx/demo-app
 
