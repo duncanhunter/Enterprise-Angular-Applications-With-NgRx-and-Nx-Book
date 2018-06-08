@@ -4,12 +4,18 @@ We will be building out the beginning of two applications a customer portal and 
 
 ![](https://github.com/duncanhunter/Enterprise-Angular-Applications-With-NgRx-and-Nx-Book/tree/d63a57a9f1ea36a7623cdf0746dd90b1406edaa2/.gitbook/assets/workspaces-demoapp.png)_**figure: nx workspaces diagram**_
 
-## 1 .Create a new nx workspace
+## 1 .Create a new Nx workspace
+
+* Make a new folder for your work space
+
+```text
+ng new demo-app --collection=@nrwl/schematics
+```
 
 * Run the below command in a terminal to make a new nx workspace.
 
 ```text
-create-nx-workspace demo-app
+ng new demo-app --collection=@nrwl/schematics
 ```
 
 ## 2. Examine the output of the following files and commit code to git source control
