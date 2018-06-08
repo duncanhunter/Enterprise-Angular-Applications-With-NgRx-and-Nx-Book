@@ -1,5 +1,8 @@
 ---
-description: In this section we will make a little local server
+description: >-
+  In this section we will make a little local server to use for the rest or the
+  workshop. You do not need to learn node or backend code. Just paste this in
+  and follow the steps.
 ---
 
 # 4 - Add JSON server
