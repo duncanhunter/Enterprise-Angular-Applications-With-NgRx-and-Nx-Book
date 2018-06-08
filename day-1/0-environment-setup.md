@@ -50,11 +50,19 @@ npm install -g @nrwl/schematics
 
 ## Get **Visual Studio Code**  Extensions
 
+Angular Essentials: Everything you need for angular in an extension pack
+
+Rainbow Brackets: Handy for many brackets when inlining observables
+
+TSLint: Great linting in VSCode
+
 {% embed data="{\"url\":\"https://marketplace.visualstudio.com/items?itemName=johnpapa.angular-essentials\",\"type\":\"link\",\"title\":\"Angular Essentials - Visual Studio Marketplace\",\"description\":\"Extension for Visual Studio Code - Essential extensions for Angular developers\",\"icon\":{\"type\":\"icon\",\"url\":\"https://marketplace.visualstudio.com/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://johnpapa.gallerycdn.vsassets.io/extensions/johnpapa/angular-essentials/0.3.2/1508504847990/Microsoft.VisualStudio.Services.Icons.Default\",\"width\":128,\"height\":128,\"aspectRatio\":1}}" %}
 
 {% embed data="{\"url\":\"https://marketplace.visualstudio.com/items?itemName=2gua.rainbow-brackets\",\"type\":\"link\",\"title\":\"Rainbow Brackets - Visual Studio Marketplace\",\"description\":\"Extension for Visual Studio Code - A rainbow brackets extension for VS Code.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://marketplace.visualstudio.com/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://2gua.gallerycdn.vsassets.io/extensions/2gua/rainbow-brackets/0.0.6/1474455607820/Microsoft.VisualStudio.Services.Icons.Default\",\"width\":128,\"height\":128,\"aspectRatio\":1}}" %}
 
-[https://marketplace.visualstudio.com/items?itemName=eg2.tslint](https://marketplace.visualstudio.com/items?itemName=eg2.tslint)
+{% embed data="{\"url\":\"https://marketplace.visualstudio.com/items?itemName=eg2.tslint\",\"type\":\"link\",\"title\":\"TSLint - Visual Studio Marketplace\",\"description\":\"Extension for Visual Studio Code - TSLint for Visual Studio Code\",\"icon\":{\"type\":\"icon\",\"url\":\"https://marketplace.visualstudio.com/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://eg2.gallerycdn.vsassets.io/extensions/eg2/tslint/1.0.30/1527489705111/Microsoft.VisualStudio.Services.Icons.Default\",\"width\":120,\"height\":120,\"aspectRatio\":1}}" %}
+
+
 
 ![](../.gitbook/assets/2016-11-09_17-02-23.png)
 
@@ -64,7 +72,11 @@ npm install -g @nrwl/schematics
 
 ## Install redux dev tools chrome extension
 
-[https://github.com/zalmoxisus/redux-devtools-extension](https://github.com/zalmoxisus/redux-devtools-extension)
+{% embed data="{\"url\":\"https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd\",\"type\":\"link\",\"title\":\"Redux DevTools\",\"description\":\"Redux DevTools for debugging application\'s state changes.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://ssl.gstatic.com/chrome/webstore/images/icon\_144px.png\",\"width\":144,\"height\":144,\"aspectRatio\":1},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://lh3.googleusercontent.com/vCbHTO3hh4rIPl5XPab0ZXYEY1kmwzHvbvd3CPcXxunuCSn8ouz54Kc6xuxR88RP83bErQOt4Q=w128-h128-e365\",\"width\":128,\"height\":128,\"aspectRatio\":1},\"caption\":\"Redux Dev Tolls Extension on Chrome\"}" %}
+
+{% embed data="{\"url\":\"https://github.com/zalmoxisus/redux-devtools-extension\",\"type\":\"link\",\"title\":\"zalmoxisus/redux-devtools-extension\",\"description\":\"redux-devtools-extension - Redux DevTools extension.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://github.com/fluidicon.png\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://avatars3.githubusercontent.com/u/7957859?s=400&v=4\",\"width\":400,\"height\":400,\"aspectRatio\":1}}" %}
+
+
 
 ![](../.gitbook/assets/redux-dev-tools.png)
 
