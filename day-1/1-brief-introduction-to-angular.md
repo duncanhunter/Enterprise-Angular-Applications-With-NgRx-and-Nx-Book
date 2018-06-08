@@ -227,3 +227,17 @@ export class UserService {
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+## 10. Extra: Add extra project to CLI App
+
+As of Angular CLI version 6+ you can now have multiple projects in an Angular app. It is early days and no support for sharing modules between apps and best practices or schematics made. That is what Nx can help with. You can read more on the Angular CLI limited docs ​https://github.com/angular/angular-cli/wiki/stories-multiple-projects
+
+In the terminal run
+
+```text
+ng generate application my-other-app
+```
+
+![Multi application support in default Angular CLI App](../.gitbook/assets/image%20%282%29.png)
+
+
+
