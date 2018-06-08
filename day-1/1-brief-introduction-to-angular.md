@@ -227,7 +227,48 @@ export class UserService {
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## 10. Extra: Add extra project to CLI App
+## 10. Event and Data Binding
+
+Add event and data binding to App Component title
+
+{% code-tabs %}
+{% code-tabs-item title="src/app/app.component.html" %}
+```markup
+<h1>{{title}}</h1>
+
+<input #nameInput type="text" [value]="title" (keyup)="updateTitle(nameInput.value)">
+
+<app-home></app-home>
+<router-outlet></router-outlet>
+
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% code-tabs %}
+{% code-tabs-item title="src/app/app.component.ts" %}
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'app';
+
+  updateTitle(value: string) {
+    debugger;
+    this.title = value;
+  }
+}
+
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+## 11. Extra: Add extra project to CLI App
 
 As of Angular CLI version 6+ you can now have multiple projects in an Angular app. It is early days and no support for sharing modules between apps and best practices or schematics made. That is what Nx can help with. You can read more on the Angular CLI limited docs ​https://github.com/angular/angular-cli/wiki/stories-multiple-projects
 
