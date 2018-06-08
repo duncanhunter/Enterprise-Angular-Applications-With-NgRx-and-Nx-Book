@@ -1,4 +1,4 @@
-# 0 - Environment setup
+# 0 - Environment Setup
 
 Dependency checklist:
 
