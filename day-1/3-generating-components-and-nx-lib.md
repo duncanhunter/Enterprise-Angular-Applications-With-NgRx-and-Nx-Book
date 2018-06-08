@@ -11,7 +11,7 @@ ng g lib --help
 * Add a new lib called auth. We will not lazy load this lib as auth will always be used by our app
 
 ```text
-ng g lib auth --routing --prefix=ndc --parent-module=apps/customer-portal/src/app/app.module.ts
+ng g lib auth --routing --prefix=app --parent-module=apps/customer-portal/src/app/app.module.ts
 ```
 
 ## 2. Add container and presentational components
@@ -237,9 +237,7 @@ export class LoginComponent implements OnInit {
     console.log(authenticate);
   }
 }
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## 

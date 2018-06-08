@@ -1,9 +1,3 @@
----
-description: >-
-  Before we dive into NgRx and Nx let's review the core parts of Angular and
-  what a default Angular CLI project looks like.
----
-
 # 1 -  Brief Introduction To Angular
 
 ## 1. Create a new Angular CLI Project
