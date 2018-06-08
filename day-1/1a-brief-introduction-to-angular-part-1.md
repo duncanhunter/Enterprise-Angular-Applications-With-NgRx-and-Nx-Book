@@ -58,7 +58,7 @@ ng generate component home
 Add home component selector to the AppComponent and delete all default HTML except the router outlet.
 
 {% code-tabs %}
-{% code-tabs-item title="src/app/home/home.component.ts" %}
+{% code-tabs-item title="src/app/app.component.html" %}
 ```markup
 <h1>The App</h1>
 
@@ -95,36 +95,41 @@ export class AppRoutingModule { }
 Add event and data binding to App Component title
 
 {% code-tabs %}
-{% code-tabs-item title="src/app/app.component.html" %}
+{% code-tabs-item title="src/app/home/home.component.html" %}
 ```markup
-<h1>{{title}}</h1>
+<p>
+  home works!
+</p>
 
-<input #nameInput type="text" [value]="title" (keyup)="updateTitle(nameInput.value)">
+<input type="text" #input [value]="title" (keyup)="changeTitle(input.value)">
 
-<app-home></app-home>
-<router-outlet></router-outlet>
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
 {% code-tabs %}
-{% code-tabs-item title="src/app/app.component.ts" %}
+{% code-tabs-item title="src/app/home/home.component.ts" %}
 ```typescript
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
 })
-export class AppComponent {
-  title = 'app';
+export class HomeComponent implements OnInit {
+  title: string;
+  constructor() {}
 
-  updateTitle(value: string) {
-    debugger;
+  ngOnInit() {}
+
+  changeTitle(value) {
+    // debugger;
+    console.log(`changeTitle: ${value}`);
     this.title = value;
   }
 }
+
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
