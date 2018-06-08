@@ -38,6 +38,29 @@ export class AppRoutingModule { }
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+## 4. Add UserList component as feature module route
+
+{% code-tabs %}
+{% code-tabs-item title="src/app/user/user-routing.module.ts" %}
+```typescript
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { UserListComponent } from './user-list/user-list.component'; // changed
+
+const routes: Routes = [
+  { path: '', component: UserListComponent },    //changed
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class UserRoutingModule { }
+
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
 ## Extra: Add extra project to CLI App
 
 As of Angular CLI version 6+ you can now have multiple projects in an Angular app. It is early days and no support for sharing modules between apps and best practices or schematics made. That is what Nx can help with. You can read more on the Angular CLI limited docs ​[https://github.com/angular/angular-cli/wiki/stories-multiple-projects](https://github.com/angular/angular-cli/wiki/stories-multiple-projects)
