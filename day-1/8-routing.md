@@ -11,15 +11,15 @@ ng g lib user-profile --routing --lazy --parent-module=apps/customer-portal/src/
 * Add a user-profile container component.
 
 ```bash
-ng g c containers/user-profile -a=user-profile
+ng g c containers/user-profile --project=user-profile
 ```
 
 ### 2. Add a method in the subscription to navigate to the login page on login
 
-* Run the following command to navigate
+* Inject the router and navigate on login
 
 {% code-tabs %}
-{% code-tabs-item title="libs/auth/src/containers/login/login.component.ts" %}
+{% code-tabs-item title="libs/auth/src/lib/containers/login/login.component.ts" %}
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './../../services/auth/auth.service';
@@ -32,7 +32,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(private router: Router,    // added
+           private authService: AuthService) {}
 
   ngOnInit() {}
 
@@ -40,7 +41,7 @@ export class LoginComponent implements OnInit {
     this.authService
       .login(authenticate)
       .subscribe((user: User) =>
-        this.router.navigate([`/user-profile/${user.id}`])
+        this.router.navigate([`/user-profile/${user.id}`])   //added
       );
   }
 }
@@ -71,7 +72,7 @@ RouterModule.forRoot(
 {% endcode-tabs %}
 
 {% code-tabs %}
-{% code-tabs-item title="libs/user-profile/src/user-profile.module.ts" %}
+{% code-tabs-item title="libs/user-profile/src/lib/user-profile.module.ts" %}
 ```typescript
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -103,7 +104,7 @@ ng g guard guards/auth/auth -a=auth
 * Register services and the guard in the providers
 
 {% code-tabs %}
-{% code-tabs-item title="libs/auth/src/auth.module.ts" %}
+{% code-tabs-item title="libs/auth/src/lib/auth.module.ts" %}
 ```typescript
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -168,7 +169,7 @@ export class AuthService {
 * Add auth guard logic
 
 {% code-tabs %}
-{% code-tabs-item title="libs/auth/src/guards/auth/auth.guard.ts" %}
+{% code-tabs-item title="libs/auth/src/lib/guards/auth/auth.guard.ts" %}
 ```typescript
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
@@ -253,7 +254,7 @@ export class AppModule {}
 * Add a temporary "debugger" to set a break point on the route guard to check it is working correctly.
 
 {% code-tabs %}
-{% code-tabs-item title="libs/auth/src/guards/auth/auth.guard.ts" %}
+{% code-tabs-item title="libs/auth/src/lib/guards/auth/auth.guard.ts" %}
 ```typescript
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -275,7 +276,7 @@ export class AppModule {}
 * Update auth service to set a token in local storage
 
 {% code-tabs %}
-{% code-tabs-item title="libs/auth/src/services/auth.service.ts" %}
+{% code-tabs-item title="libs/auth/src/lib/services/auth.service.ts" %}
 ```typescript
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -314,7 +315,7 @@ Note: Currently there is no ng generate command for interceptors so we need to a
 {% endhint %}
 
 {% code-tabs %}
-{% code-tabs-item title="libs/auth/src/interceptors/auth/auth.interceptor.ts" %}
+{% code-tabs-item title="libs/auth/src/lib/interceptors/auth/auth.interceptor.ts" %}
 ```typescript
 import { Injectable, Injector } from '@angular/core';
 import {
@@ -363,7 +364,7 @@ export class AuthInterceptor implements HttpInterceptor {
 * Export auth interceptors from the auth module
 
 {% code-tabs %}
-{% code-tabs-item title="libs/auth/src/auth.module.ts" %}
+{% code-tabs-item title="libs/auth/src/lib/auth.module.ts" %}
 ```typescript
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
