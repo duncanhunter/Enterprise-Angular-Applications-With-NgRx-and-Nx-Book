@@ -5,7 +5,7 @@
 * Run the following command to make a new service in the auth lib
 
 ```text
-ng g service services/auth --flat=false -a=auth
+ng g service services/auth/auth --project=auth
 ```
 
 ## 2. Add login method and http post for the login

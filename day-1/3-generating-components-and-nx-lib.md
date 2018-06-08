@@ -18,6 +18,16 @@ ng g lib --help
 ng g lib auth --routing --prefix=app --parent-module=apps/customer-portal/src/app/app.module.ts
 ```
 
+{% hint style="info" %}
+Currently issue with setting scss as default.
+
+Add this to the angular.json project meta data 
+
+ "schematics": {  
+ "@schematics/angular:component": { "styleext": "scss" }  
+},
+{% endhint %}
+
 ## 2. Add container and presentational components
 
 Lets look at what this pattern is and what are the benefits in slides  
