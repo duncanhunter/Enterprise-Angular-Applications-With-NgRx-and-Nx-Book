@@ -17,7 +17,7 @@ ng g lib auth --routing --prefix=app --parent-module=apps/customer-portal/src/ap
 ## 2. Add container and presentational components
 
 Lets look at what this pattern is and what are the benefits in slides  
-[https://docs.google.com/presentation/d/1xf8aPIvQjgjUVGH\_1sRkikvh5H73x2xvX7PnN4AjYt4/edit?usp=sharing](https://docs.google.com/presentation/d/1xf8aPIvQjgjUVGH_1sRkikvh5H73x2xvX7PnN4AjYt4/edit?usp=sharing)
+[https://docs.google.com/presentation/d/1xf8aPIvQjgjUVGH\_1sRkikvh5H73x2xvX7PnN4AjYt4/edit\#slide=id.g3bc936a676\_1\_4](https://docs.google.com/presentation/d/1xf8aPIvQjgjUVGH_1sRkikvh5H73x2xvX7PnN4AjYt4/edit#slide=id.g3bc936a676_1_4)
 
 ![Characteristics of Container and Presentational Components](../.gitbook/assets/image%20%285%29.png)
 
