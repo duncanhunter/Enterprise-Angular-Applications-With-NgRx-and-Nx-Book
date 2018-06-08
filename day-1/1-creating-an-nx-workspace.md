@@ -9,7 +9,7 @@ We will be building out the beginning of two applications a customer portal and 
 * Make a new folder for your work space
 
 ```text
-ng new demo-app --collection=@nrwl/schematics
+mkdir demo-app
 ```
 
 * Run the below command in a terminal to make a new nx workspace.
@@ -17,16 +17,6 @@ ng new demo-app --collection=@nrwl/schematics
 ```text
 ng new demo-app --collection=@nrwl/schematics
 ```
-
-* Manually install NgRx schematics globally until issue resolved
-
-```text
-npm i @ngrx/schematics -g
-```
-
-{% embed data="{\"url\":\"https://github.com/nrwl/nx/issues/531\",\"type\":\"link\",\"title\":\"Creating a new workspace failed with error · Issue \#531 · nrwl/nx\",\"description\":\"Im setting up a new project and following the docs found here https://nrwl.io/nx/guide-nx-workspace When I run ng new myworkspacename --collection=@nrwl/schematics I get this error. Could not find ...\",\"icon\":{\"type\":\"icon\",\"url\":\"https://github.com/fluidicon.png\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://avatars2.githubusercontent.com/u/1406482?s=400&v=4\",\"width\":400,\"height\":400,\"aspectRatio\":1}}" %}
-
-
 
 ## 2. Examine the output of the following files and commit code to git source control
 
@@ -37,27 +27,12 @@ cd demo-app && code .
 ```
 
 * Inspect the following files:
-  * .angular-cli.json
+  * angular.json
+  * nx.json
   * tsconfig paths
   * package.json
 
-## 3. Change from css to scss
-
-* Open up angular .angular-cli.json and change the default style type.
-
-
-
-{% code-tabs %}
-{% code-tabs-item title=".angular-cli.json" %}
-```text
-"styleExt": "scss"
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-* Commit the initial NX workspace to source control
-
-## 4. Create a new workspace app
+## 3. Create a new app
 
 * By default a new NX workspace has no apps or libs yet. You can run the below command to see the extra options to make an app or a lib besides the normal angular CLI commands.
 
@@ -68,10 +43,10 @@ ng g app --help
 * Create a new app by running the below command in the terminal in a directory of your choice. 
 
 ```text
-ng g app customer-portal --style scss --routing
+ng g app customer-portal --style scss --routing --prefix ndc
 ```
 
-## 5. Add ngrx
+## 4. Add NgRx
 
 * Add a default set up for ngrx to our new app. We can run the generate command for ngrx with the module and --onlyEmptyRoot option to only add the StoreModule.forRoot and EffectsModule.forRoot calls without generating any new files versus --root which will make a default reducer and effect.
 

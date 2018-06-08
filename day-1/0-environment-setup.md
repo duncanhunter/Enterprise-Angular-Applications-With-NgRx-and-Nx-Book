@@ -42,6 +42,14 @@ npm install -g @angular/cli
 npm install -g @nrwl/schematics
 ```
 
+* Manually install NgRx schematics globally until issue resolved
+
+```text
+npm i @ngrx/schematics -g
+```
+
+{% embed data="{\"url\":\"https://github.com/nrwl/nx/issues/531\",\"type\":\"link\",\"title\":\"Creating a new workspace failed with error · Issue \#531 · nrwl/nx\",\"description\":\"Im setting up a new project and following the docs found here https://nrwl.io/nx/guide-nx-workspace When I run ng new myworkspacename --collection=@nrwl/schematics I get this error. Could not find ...\",\"icon\":{\"type\":\"icon\",\"url\":\"https://github.com/fluidicon.png\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://avatars2.githubusercontent.com/u/1406482?s=400&v=4\",\"width\":400,\"height\":400,\"aspectRatio\":1}}" %}
+
 ## **Get Visual Studio Code**  
 
 [**https://code.visualstudio.com/**](https://code.visualstudio.com/)
