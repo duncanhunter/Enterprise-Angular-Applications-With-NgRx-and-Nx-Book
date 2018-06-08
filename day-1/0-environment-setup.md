@@ -42,13 +42,13 @@ npm install -g @angular/cli
 npm install -g @nrwl/schematics
 ```
 
-## **Get Visual Studio Code  **
+## **Get Visual Studio Code**  
 
 [**https://code.visualstudio.com/**](https://code.visualstudio.com/)
 
 ![](../.gitbook/assets/vscode.png)
 
-## Get **Visual Studio Code ** Extensions![](../.gitbook/assets/2016-11-09_17-02-23.png)![](../.gitbook/assets/angularessentials-img.jpg)
+## Get **Visual Studio Code**  Extensions![](../.gitbook/assets/2016-11-09_17-02-23.png)![](../.gitbook/assets/angularessentials-img.jpg)
 
 ## Optionally turn on **Visual Studio Code  autosave**
 
