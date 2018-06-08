@@ -170,5 +170,5 @@ In the terminal run
 ng generate library my-lib
 ```
 
-![Added npm library](../.gitbook/assets/image%20%2814%29.png)
+![Added npm library](../.gitbook/assets/image%20%2815%29.png)
 

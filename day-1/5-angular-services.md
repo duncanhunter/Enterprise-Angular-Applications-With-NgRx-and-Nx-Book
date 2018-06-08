@@ -1,3 +1,7 @@
+---
+description: In this section we discussing Angular services and dependency injection
+---
+
 # 5 - Angular Services
 
 ## 1. Generate a new angular service
@@ -10,8 +14,27 @@ ng g service services/auth/auth --project=auth
 
 ## 2. Add login method and http post for the login
 
+* Add HttpClientModule to Auth Module
+
 {% code-tabs %}
-{% code-tabs-item title="libs/auth/src/services/auth/auth.service.ts" %}
+{% code-tabs-item title="libs/auth/src/lib/auth.module.ts" %}
+```typescript
+/// abbreviated code
+@NgModule({
+  imports: [CommonModule, RouterModule, HttpClientModule],
+  declarations: [LoginComponent, LoginFormComponent]
+})
+export class AuthModule {}
+
+/// abbreviated code
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Add login call to a local server we will add shortly
+
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/src/lib/services/auth/auth.service.ts" %}
 ```typescript
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -28,20 +51,6 @@ export class AuthService {
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
-
-{% hint style="info" %}
-As of Angular v6 you can register your providers in your service which makes them tree shack-able leading to smaller bundles loaded into the browser.
-
-{% code-tabs %}
-{% code-tabs-item title="libs/auth/src/services/auth/auth.service.ts" %}
-```typescript
-@Injectable({
-    provideIn: AuthModule
-})
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-{% endhint %}
 
 * Export the auth service from the auth lib and add a static for root method.
 
@@ -103,176 +112,7 @@ export class LoginComponent implements OnInit {
 Note the .subscribe\(\) is needed to make sure the observer is registered with the observable returned from our AuthService.
 {% endhint %}
 
-## 4. Add a json-server to be able to make http requests and mock a real server
-
-* Add a folder called server to the root directory
-* Add a file called db.json and server.ts to the new server folder
-* add json-server and ts-node
-
-```text
-npm i json-server ts-node --save-dev
-```
-
-* Add the below script to the scripts in the package.json
-
-{% code-tabs %}
-{% code-tabs-item title="package.json" %}
-```javascript
-scripts: {
-   ...
-    "server": "ts-node ./server/server.ts"
-   ...
-}
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-* Add the default mock data to the db.json file
-
-{% code-tabs %}
-{% code-tabs-item title="server/db.json" %}
-```javascript
-{
-    "users": [
-      {
-        "id": 1,
-        "username": "duncan",
-        "country": "australia",
-        "password": "123"
-      },
-      {
-        "id": 2,
-        "username": "sarah",
-        "country": "england",
-        "password": "123"
-      },
-      {
-        "id": 3,
-        "username": "admin",
-        "country": "usa",
-        "password": "123"
-      },
-      {
-        "username": "test2",
-        "password": "123",
-        "id": 4
-      }
-    ],
-    "profiles": [
-      {
-        "id": 1,
-        "userId": 1,
-        "job": "plumber"
-      },
-      {
-        "id": 2,
-        "userId": 2,
-        "job": "developer"
-      },
-      {
-        "id": 3,
-        "userId": 3,
-        "job": "manager"
-      }
-    ]
-  }
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-* Add the mock server code below
-
-{% code-tabs %}
-{% code-tabs-item title="server/server.ts" %}
-```typescript
-const jsonServer = require('json-server');
-const server = jsonServer.create();
-const router = jsonServer.router('server/db.json');
-const middlewares = jsonServer.defaults();
-const db = require('./db.json');
-const fs = require('fs');
-
-server.use(middlewares);
-server.use(jsonServer.bodyParser);
-
-server.post('/login', (req, res, next) => { 
-  const users = readUsers();
-
-  const user = users.filter(
-    u => u.username === req.body.username && u.password === req.body.password
-  )[0];
-
-  if (user) {
-    res.send({ ...formatUser(user), token: checkIfAdmin(user) });
-  } else {
-    res.status(401).send('Incorrect username or password');
-  }
-});
-
-server.post('/register', (req, res) => {
-  const users = readUsers();
-  const user = users.filter(u => u.username === req.body.username)[0];
-
-  if (user === undefined || user === null) {
-    res.send({
-      ...formatUser(req.body),
-      token: checkIfAdmin(req.body)
-    });
-    db.users.push(req.body);
-  } else {
-    res.status(500).send('User already exists');
-  }
-});
-
-server.use('/users', (req, res, next) => {
-  if (isAuthorized(req) || req.query.bypassAuth === 'true') {
-    next();
-  } else {
-    res.sendStatus(401);
-  }
-});
-
-server.use(router);
-server.listen(3000, () => {
-  console.log('JSON Server is running');
-});
-
-function formatUser(user) {
-  delete user.password;
-  user.role = user.username === 'admin'
-    ? 'admin'
-    : 'user';
-  return user;
-}
-
-function checkIfAdmin(user, bypassToken = false) {
-  return user.username === 'admin' || bypassToken === true
-    ? 'admin-token'
-    : 'user-token';
-}
-
-function isAuthorized(req) {
-  return req.headers.authorization === 'admin-token' ? true : false;
-}
-
-function readUsers() {
-  const dbRaw = fs.readFileSync('./server/db.json');  
-  const users = JSON.parse(dbRaw).users
-  return users;
-}
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-* Start the server and leave it running whenever you use the apps.
-
-```bash
-npm run server
-```
-
-* Navigate to [http://localhost:3000/login](http://localhost:3000/login) to check it is working
-
-## 5. Attempt to login with default users
+## 4. Attempt to login with default users
 
 * To login as an admin use the below credentials and this will return a fake admin token. Note this is in no means an attempt to make a production authentication service it is purely to give us mock data from a real angular HTTP request.
 

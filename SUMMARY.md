@@ -16,7 +16,7 @@
 * [1c -  Brief Introduction To Angular](day-1/1c-brief-introduction-to-angular-part-3.md)
 * [2 -  Creating an Nx Workspace](day-1/2-creating-an-nx-workspace.md)
 * [3 - Generating components and Nx lib](day-1/3-generating-components-and-nx-lib.md)
-* [4 - RxJS Introduction](day-1/4-rxjs-introduction.md)
+* [4 - Add JSON server](day-1/4-rxjs-introduction.md)
 * [5 - Angular Services](day-1/5-angular-services.md)
 * [6 - Thirdparty Dependencies](day-1/6-thirdparty-dependencies.md)
 * [7 - Reactive Forms](day-1/7-reactive-forms.md)

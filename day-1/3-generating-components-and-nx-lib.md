@@ -128,7 +128,7 @@ export class AppModule {}
 
 * Run the app `ng s` and navigate to [http://localhost:4200/auth/login](http://localhost:4200/auth/login)
 
-![App running in the Browser](../.gitbook/assets/image%20%2813%29.png)
+![App running in the Browser](../.gitbook/assets/image%20%2814%29.png)
 
 ## 4. Add presentational component to container component
 
