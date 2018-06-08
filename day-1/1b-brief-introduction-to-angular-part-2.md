@@ -109,15 +109,37 @@ export class AppRoutingModule { }
 
 Inject user service and call its getUsers method and bind in to a local variable
 
-```text
+{% code-tabs %}
+{% code-tabs-item title="src/app/user-list/user-list.component.ts" %}
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { UserService } from '../services/user/user.service';
+
+@Component({
+  selector: 'app-user-list',
+  templateUrl: './user-list.component.html',
+  styleUrls: ['./user-list.component.css']
+})
+export class UserListComponent implements OnInit {
+  users$: any;
+  constructor(private userService: UserService) {}
+
+  ngOnInit() {
+    this.users$ = this.userService.getUsers();
+  }
+}
 
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Use the async pipe to and an ngFor template directive to subscribe and iterate over the users.
 
 {% code-tabs %}
 {% code-tabs-item title="src/app/user-list/user-list.component.html" %}
 ```markup
 <p>
-  home works!
+  user-list works!
 </p>
 <div *ngFor="let user of (users$ | async)"> {{user.name}}</div>
 ```
