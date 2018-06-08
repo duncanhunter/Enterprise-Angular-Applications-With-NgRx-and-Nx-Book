@@ -1,17 +1,20 @@
 # 1b -  Brief Introduction To Angular Part 2
 
+## 1. Add a user service 
+
 {% code-tabs %}
 {% code-tabs-item title="src/app/services/user/user.service.ts" %}
 ```typescript
 export class UserService {
   apiUrl = './../../../assets/users.json';
-
+​
   constructor(private httpClient: HttpClient) {}
-
+​
   getUsers(): Observable<User[]> {
     return this.httpClient.get<User[]>(this.apiUrl);
   }
 }
+
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
