@@ -19,7 +19,7 @@ ng g lib auth --routing --prefix=app --parent-module=apps/customer-portal/src/ap
 Lets look at what this pattern is and what are the benefits in slides  
 [https://docs.google.com/presentation/d/1xf8aPIvQjgjUVGH\_1sRkikvh5H73x2xvX7PnN4AjYt4/edit?usp=sharing](https://docs.google.com/presentation/d/1xf8aPIvQjgjUVGH_1sRkikvh5H73x2xvX7PnN4AjYt4/edit?usp=sharing)
 
-![Characteristics of Container and Presentational Components](../.gitbook/assets/image%20%283%29.png)
+![Characteristics of Container and Presentational Components](../.gitbook/assets/image%20%284%29.png)
 
 * Add a new container component to the auth lib
 

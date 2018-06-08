@@ -36,7 +36,7 @@ ng s
 
 Look at output.
 
-![Bundled javascript files added to index.html dynamically](../.gitbook/assets/image.png)
+![Bundled javascript files added to index.html dynamically](../.gitbook/assets/image%20%281%29.png)
 
 ## 3.  Add review the structure
 
