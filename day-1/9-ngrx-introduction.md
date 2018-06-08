@@ -1,4 +1,4 @@
-# 8 - NgRx Introduction
+# 9 - NgRx Introduction
 
 ## 1. Presentation
 
