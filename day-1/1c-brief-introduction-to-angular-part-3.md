@@ -93,7 +93,7 @@ export class UserRoutingModule { }
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## 7. Declare UserList component in new User module
+## 6. Declare UserList component in new User module
 
 {% code-tabs %}
 {% code-tabs-item title="src/app/user/user.module.ts" %}
@@ -118,7 +118,7 @@ export class UserModule { }
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## 8. Add button on App component to navigate to UserList or Home component
+## 7. Add button on App component to navigate to UserList or Home component
 
 {% code-tabs %}
 {% code-tabs-item title="src/app/app.component.html" %}
@@ -137,9 +137,13 @@ export class UserModule { }
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## Extras: 
+## 8. Run the application and inspect the lazy loaded JavaScript
 
-## 1. Add extra project to CLI App
+![Bundled feature module](../.gitbook/assets/image%20%287%29.png)
+
+## Extras
+
+### 1. Add extra project to CLI App
 
 As of Angular CLI version 6+ you can now have multiple projects in an Angular app. It is early days and no support for sharing modules between apps and best practices or schematics made. That is what Nx can help with. You can read more on the Angular CLI limited docs ​[https://github.com/angular/angular-cli/wiki/stories-multiple-projects](https://github.com/angular/angular-cli/wiki/stories-multiple-projects)
 
@@ -150,4 +154,21 @@ ng generate application my-other-app
 ```
 
 ![Multi application support in default Angular CLI App](../.gitbook/assets/image%20%285%29.png)
+
+
+
+### 2. Add npm package library to your app
+
+  
+Angular CLI v6 comes with library support via [ng-packagr](https://github.com/dherges/ng-packagr) plugged into the build system we use in Angular CLI, together with schematics for generating a library.
+
+[https://github.com/angular/angular-cli/wiki/stories-create-library](https://github.com/angular/angular-cli/wiki/stories-create-library)
+
+In the terminal run
+
+```text
+ng generate library my-lib
+```
+
+![Added npm library](../.gitbook/assets/image%20%2810%29.png)
 
