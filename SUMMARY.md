@@ -13,6 +13,7 @@
 * [0 - Environment Setup](day-1/0-environment-setup.md)
 * [1a -  Brief Introduction To Angular Part 1](day-1/1a-brief-introduction-to-angular-part-1.md)
 * [1b -  Brief Introduction To Angular Part 2](day-1/1b-brief-introduction-to-angular-part-2.md)
+* [1c -  Brief Introduction To Angular Part 3](day-1/1c-brief-introduction-to-angular-part-3.md)
 * [2 -  Creating an Nx Workspace](day-1/2-creating-an-nx-workspace.md)
 * [3 - Generating components and Nx lib](day-1/3-generating-components-and-nx-lib.md)
 * [4 - RxJS Introduction](day-1/4-rxjs-introduction.md)
