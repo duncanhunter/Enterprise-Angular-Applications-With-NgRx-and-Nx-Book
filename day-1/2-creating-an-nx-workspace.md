@@ -6,10 +6,11 @@ We will be building out the beginning of two applications a customer portal and 
 
 ## 1 .Create a new Nx workspace
 
-* Make a new folder for your work space
+* Make a new folder for your work space and change directory into it.
 
 ```text
 mkdir demo-app
+cd demo-app
 ```
 
 * Run the below command in a terminal to make a new nx workspace.
