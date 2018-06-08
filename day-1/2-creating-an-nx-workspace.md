@@ -54,15 +54,13 @@ ng g application customer-portal --style=scss --routing --prefix=app
 3. package.json
 4. apps and libs empty
 
-## 5. Run the app in the browser
+## 5. Run the app in the Chrome browser
 
-* Run the following command to launch the app in the browser. -a is for the app to start and -o is to open in the default browser.
+* Run the following command to launch the app in the browser. -a is for the app to start.
 
 ```text
-ng s -a=customer-portal -o
+ng s --project=customer-portal
 ```
-
-* See the default state of the app in the redux dev tools![](https://github.com/duncanhunter/Enterprise-Angular-Applications-With-NgRx-and-Nx-Book/tree/d63a57a9f1ea36a7623cdf0746dd90b1406edaa2/.gitbook/assets/default-ngrx-state.png)
 
 ## 6. Commit your code
 
@@ -73,9 +71,9 @@ ng s -a=customer-portal -o
 ## 4. Install WIP Workshop Code in a different folder {#wipcoursecode}
 
 ```text
-git clone "https://github.com/duncanhunter/WIP-Demo-App-NDC-Oslo-2018-Enterprise-Angular-applications-with-ngrx-and-nx"​cd V6-Demo-App-NDC-Minnesota-2018-Enterprise-Angular-applications-with-ngrx-and-nx
+git clone "https://github.com/duncanhunter/WIP-Demo-App-NDC-Oslo-2018-Enterprise-Angular-applications-with-ngrx-and-nx.git"
 ​
-cd WIP-Demo-App-NDC-Oslo-2018-Enterprise-Angular-applications-with-ngrx-and-nx"​cd V6-Demo-App-NDC-Minnesota-2018-Enterprise-Angular-applications-with-ngrx-and-nx
+cd WIP-Demo-App-NDC-Oslo-2018-Enterprise-Angular-applications-with-ngrx-and-nx
 
 npm install
 ```

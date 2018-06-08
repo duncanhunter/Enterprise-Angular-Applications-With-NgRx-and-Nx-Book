@@ -272,7 +272,7 @@ In the terminal run
 ng generate application my-other-app
 ```
 
-![Multi application support in default Angular CLI App](../.gitbook/assets/image%20%282%29.png)
+![Multi application support in default Angular CLI App](../.gitbook/assets/image%20%283%29.png)
 
 
 
