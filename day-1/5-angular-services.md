@@ -36,15 +36,17 @@ Add login call to a local server we will add shortly
 {% code-tabs %}
 {% code-tabs-item title="libs/auth/src/lib/services/auth/auth.service.ts" %}
 ```typescript
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AuthModule } from '@demo-app/auth/src/lib/auth.module';
 import { Authenticate } from '@demo-app/data-models';
+import { HttpClient } from '@angular/common/http';
 
-@Injectable()
+@Injectable({
+  providedIn: AuthModule
+})
 export class AuthService {
   constructor(private httpClient: HttpClient) {}
-
-  login(authenticate:Authenticate) {
+  login(authenticate: Authenticate) {
     return this.httpClient.post('http://localhost:3000/login', authenticate);
   }
 }
@@ -52,36 +54,7 @@ export class AuthService {
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-* Export the auth service from the auth lib and add a static for root method.
-
-{% code-tabs %}
-{% code-tabs-item title="libs/auth/src/auth.module.ts" %}
-```typescript
-import { NgModule, ModuleWithProviders } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule, Route } from '@angular/router';
-import { LoginComponent } from './containers/login/login.component';
-import { HttpClientModule } from '@angular/common/http';
-import { AuthService } from './services/auth/auth.service';
-import { LoginFormComponent } from './components/login-form/login-form.component';
-
-export const authRoutes: Route[] = [
-  { path: 'login', component: LoginComponent }
-];
-const COMPONENTS = [LoginComponent, LoginFormComponent];
-
-@NgModule({
-  imports: [CommonModule, RouterModule, HttpClientModule],
-  declarations: [COMPONENTS],
-  exports: [COMPONENTS],
-  providers: [AuthService]
-})
-export class AuthModule {}
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-## 3. Update login component to call the service
+## 3. Update Login component to call the service
 
 {% code-tabs %}
 {% code-tabs-item title="libs/auth/src/containers/login/login.component.ts" %}
@@ -110,6 +83,8 @@ export class LoginComponent implements OnInit {
 
 {% hint style="info" %}
 Note the .subscribe\(\) is needed to make sure the observer is registered with the observable returned from our AuthService.
+
+Later in the workshop we will learn to use NgRx to get entities from a server, but for now this is normal angular code without NgRx
 {% endhint %}
 
 ## 4. Attempt to login with default users
@@ -127,4 +102,6 @@ password: 123
 username: duncan
 password: 123
 ```
+
+![Chrome Devtools](../.gitbook/assets/image%20%2811%29.png)
 

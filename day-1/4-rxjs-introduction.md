@@ -21,7 +21,7 @@ npm i json-server ts-node --save-dev
 
 * Make a new folder called server
 
-![Server folder on root of project](../.gitbook/assets/image%20%2813%29.png)
+![Server folder on root of project](../.gitbook/assets/image%20%2814%29.png)
 
 * Make file called server.ts in the new server folder and paste in the below code. You do not need to study or learn this min node express app it is just to have a mock backend.
 
