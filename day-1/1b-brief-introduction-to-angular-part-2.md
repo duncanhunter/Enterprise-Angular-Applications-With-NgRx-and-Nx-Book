@@ -43,7 +43,7 @@ export class AppModule { }
 Add some fake data in a user.json file in the assets folder of your new app. This is in place of a URL to hit a real API, for no.
 
 {% code-tabs %}
-{% code-tabs-item title="src/assets/user.json" %}
+{% code-tabs-item title="src/assets/users.json" %}
 ```javascript
 [{ "name": "duncan" }, { "name": "sarah" }, { "name": "peter" }]
 ```
@@ -107,6 +107,8 @@ export class AppRoutingModule { }
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+Check the route works by navigating to [http://localhost:4200/user-list](http://localhost:4200/user-list)
+
 Inject user service and call its getUsers method and bind in to a local variable
 
 {% code-tabs %}
@@ -146,9 +148,7 @@ Use the async pipe to and an ngFor template directive to subscribe and iterate o
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-
-
-## 8. Use Angular ngFor to bind users
+## 5. Use Angular ngFor to bind users
 
 {% code-tabs %}
 {% code-tabs-item title="src/app/home/home.component.ts" %}
@@ -175,55 +175,13 @@ export class HomeComponent implements OnInit {
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## 9. Add strong typing
+## 6. Add strong typing
 
-{% code-tabs %}
-{% code-tabs-item title="src/app/services/user/user.service.ts" %}
-```typescript
-export class UserService {
-  apiUrl = './../../../assets/users.json';
-​
-  constructor(private httpClient: HttpClient) {}
-​
-  getUsers(): Observable<User[]> {
-    return this.httpClient.get<User[]>(this.apiUrl);
-  }
-}
+Add User type to a models folder
 
+```text
+ng g interface models/user
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-Add User type to the service
-
-{% code-tabs %}
-{% code-tabs-item title="src/app/home/home.component.ts" %}
-```typescript
-import { Component, OnInit } from '@angular/core';
-import { UserService } from '../services/user/user.service';
-import { User } from '../models/user';
-import { Observable } from 'rxjs';
-
-@Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
-})
-export class HomeComponent implements OnInit {
-  users$: Observable<User[]>;
-
-  constructor(private userService: UserService) { }
-
-  ngOnInit() {
-    this.users$ = this.userService.getUsers();
-  }
-
-}
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
-## Add User type to component
 
 {% code-tabs %}
 {% code-tabs-item title="models/user.ts" %}
@@ -235,9 +193,55 @@ export interface User {
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-```text
-ng g interface models/user
+Add User type to the service
+
+{% code-tabs %}
+{% code-tabs-item title="src/app/services/user/user.service.ts" %}
+```typescript
+export class UserService {
+  apiUrl = './../../../assets/users.json';            //changed
+​
+  constructor(private httpClient: HttpClient) {}
+​
+  getUsers(): Observable<User[]> {                    //changed
+    return this.httpClient.get<User[]>(this.apiUrl);  //changed
+  }
+}
+
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Add User type to the UserList component
+
+{% code-tabs %}
+{% code-tabs-item title="src/app/home/home.component.ts" %}
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { UserService } from '../services/user/user.service';
+import { Observable } from 'rxjs';     //changed
+import { User } from '../models/user'; //changed
+
+@Component({
+  selector: 'app-user-list',
+  templateUrl: './user-list.component.html',
+  styleUrls: ['./user-list.component.css']
+})
+export class UserListComponent implements OnInit {
+  users$: Observable<User>;                      //changed
+
+  constructor(private userService: UserService) {}
+
+  ngOnInit() {
+    this.users$ = this.userService.getUsers();
+  }
+}
+
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+## 
 
 ## Extra reading
 
