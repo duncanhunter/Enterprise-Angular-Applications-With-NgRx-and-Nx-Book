@@ -2,10 +2,13 @@
 
 ## 1. Create a new Angular CLI Project
 
-Make a new workshop folder
+Make a new workshop folder and generate a new CLI app
 
 ```text
 mkdir workshop
+```
+
+```text
 cd workshop
 ```
 
@@ -13,13 +16,27 @@ cd workshop
 ng new angular-cli-app --routing
 ```
 
+Change directory into the new app's directory and open it with VS Code
+
+```text
+cd angular-cli-app
+```
+
+```text
+code .
+```
+
 ## 2. Run the app
+
+Run the below command 's' is short for serve.
 
 ```text
 ng s
 ```
 
-Look at output
+Look at output.
+
+![Bundled javascript files added to index.html dynamically](../.gitbook/assets/image.png)
 
 ## 3.  Add review the structure
 
@@ -30,7 +47,7 @@ app.module.ts
 app.component.ts  
 app-routing.module.ts
 
-## 3. Add a home page component
+## 4. Add a home page component
 
 Add home page component
 

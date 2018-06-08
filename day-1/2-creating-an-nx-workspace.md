@@ -66,7 +66,7 @@ ng s --project=customer-portal
 
 * It is best to commit often when using the code generation tools so you can easily undo if it is not correct.
 
-![VS Codes Source Control Panel](../.gitbook/assets/image.png)
+![VS Codes Source Control Panel](../.gitbook/assets/image%20%281%29.png)
 
 ## 4. Install WIP Workshop Code in a different folder {#wipcoursecode}
 
