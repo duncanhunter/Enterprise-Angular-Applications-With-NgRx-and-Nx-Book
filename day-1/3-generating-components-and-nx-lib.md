@@ -89,7 +89,7 @@ Delete everything but the router-outlet on the apps app.component.html file.
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-* Add the Auth module to the main App Module
+Add the Auth module to the main App Module
 
 {% code-tabs %}
 {% code-tabs-item title="apps/customer-portal/src/app/app.module.ts" %}
@@ -123,7 +123,7 @@ Run the app `ng s` and navigate to [http://localhost:4200/auth/login](http://loc
 
 ![App running in the Browser](../.gitbook/assets/image%20%2811%29.png)
 
-## 3. Add presentational component to container component
+## 4. Add presentational component to container component
 
 * Add the presentational component to the container component.
 
@@ -160,7 +160,7 @@ export class LoginComponent implements OnInit {
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## 4. Add new nx lib for data models
+## 5. Add new Nx lib for data models
 
 * Make another lib but this time with a --nomodule flag as we just want to export our files not register a module with angular.
 
