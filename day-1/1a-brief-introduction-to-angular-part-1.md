@@ -44,7 +44,7 @@ Look at output.
 
 ![Bundled javascript files added to index.html dynamically](../.gitbook/assets/image%20%281%29.png)
 
-## 3.  Add review the structure
+## 3.  Review the structure and key files
 
 package.json  
 index.html  
@@ -53,7 +53,7 @@ app.module.ts
 app.component.ts  
 app-routing.module.ts
 
-## 4. Add a home page component
+## 4. Add a Home page component
 
 Add home page component
 
@@ -74,7 +74,7 @@ Add home component selector to the AppComponent and delete all default HTML exce
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## 4. Add a route
+## 5. Add a route
 
 {% code-tabs %}
 {% code-tabs-item title="src/app/spp-routing.module.ts" %}
@@ -96,9 +96,9 @@ export class AppRoutingModule { }
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## 5. Event and data binding  
+## 6. Event and data binding  
 
-Add event and data binding to App Component title
+Add event and data binding to Home component with a new title property
 
 {% code-tabs %}
 {% code-tabs-item title="src/app/home/home.component.html" %}
@@ -110,6 +110,8 @@ Add event and data binding to App Component title
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
+
+Add a function to the Home component.
 
 {% code-tabs %}
 {% code-tabs-item title="src/app/home/home.component.ts" %}
