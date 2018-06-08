@@ -3,29 +3,54 @@
 ## 1. Add a user service 
 
 ```text
-ng g services/user/user.service.ts
+ng g service services/user/user
 ```
 
-```text
-
-```
-
-## 
+## 2. Add HttpClientModule to AppModule
 
 {% code-tabs %}
-{% code-tabs-item title="src/app/home/home.component.html" %}
-```markup
-<p>
-  home works!
-</p>
-<div *ngFor="let user of (users$ | async)"> {{user.name}}</div>
+{% code-tabs-item title="src/app/app.module.ts" %}
+```typescript
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { HomeComponent } from './home/home.component';
+import { HttpClientModule } from '@angular/common/http'; // Added
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    HomeComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule     // Added
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## 
+## 3. Make a User service
 
-## 7. Inject service into User Component
+Add some fake data in a user.json file in the assets folder of your new app. This is in place of a URL to hit a real API, for no.
+
+{% code-tabs %}
+{% code-tabs-item title="src/assets/user.json" %}
+```javascript
+[{ "name": "duncan" }, { "name": "sarah" }, { "name": "peter" }]
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Make the service and inject in the HttpClient
 
 {% code-tabs %}
 {% code-tabs-item title="src/app/services/user/user.service.ts" %}
@@ -49,19 +74,51 @@ export class UserService {
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+## 4. Add a UserList component and inject in the user service
+
+Make a user-list component, 'c' is short hand for component.
+
+```text
+ng g c user-list
+```
+
+Add a new eagerly loaded route for the UserList component
+
 {% code-tabs %}
-{% code-tabs-item title="src/assets/user.json" %}
-```javascript
-[{ "name": "duncan" }, { "name": "sarah" }, { "name": "peter" }]
+{% code-tabs-item title="src/app/app-routing.module.ts" %}
+```typescript
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { HomeComponent } from './home/home.component';
+import { UserListComponent } from './user-list/user-list.component'; //added
+
+const routes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'user-list', component: UserListComponent }, //added
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-Add fake users JSON to src/assets folder. This is in pace or a URL to hit a real API.
+Inject user service and call its getUsers method and bind in to a local variable
 
-```text
-ng g service services/user/user
+{% code-tabs %}
+{% code-tabs-item title="src/app/user-list/user-list.component.html" %}
+```markup
+<p>
+  home works!
+</p>
+<div *ngFor="let user of (users$ | async)"> {{user.name}}</div>
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 
 
