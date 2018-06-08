@@ -43,7 +43,7 @@ ng g application --help
 * Create a new app by running the below command in the terminal in a directory of your choice. 
 
 ```text
-ng g application customer-portal --style=scss --routing --prefix=ndc
+ng g application customer-portal --style=scss --routing --prefix=app
 ```
 
 ## 4. Examine angular app and module structure
