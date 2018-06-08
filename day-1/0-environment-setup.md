@@ -48,7 +48,15 @@ npm install -g @nrwl/schematics
 
 ![](../.gitbook/assets/vscode.png)
 
-## Get **Visual Studio Code**  Extensions![](../.gitbook/assets/2016-11-09_17-02-23.png)![](../.gitbook/assets/angularessentials-img.jpg)
+## Get **Visual Studio Code**  Extensions
+
+{% embed data="{\"url\":\"https://marketplace.visualstudio.com/items?itemName=johnpapa.angular-essentials\",\"type\":\"link\",\"title\":\"Angular Essentials - Visual Studio Marketplace\",\"description\":\"Extension for Visual Studio Code - Essential extensions for Angular developers\",\"icon\":{\"type\":\"icon\",\"url\":\"https://marketplace.visualstudio.com/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://johnpapa.gallerycdn.vsassets.io/extensions/johnpapa/angular-essentials/0.3.2/1508504847990/Microsoft.VisualStudio.Services.Icons.Default\",\"width\":128,\"height\":128,\"aspectRatio\":1}}" %}
+
+{% embed data="{\"url\":\"https://marketplace.visualstudio.com/items?itemName=2gua.rainbow-brackets\",\"type\":\"link\",\"title\":\"Rainbow Brackets - Visual Studio Marketplace\",\"description\":\"Extension for Visual Studio Code - A rainbow brackets extension for VS Code.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://marketplace.visualstudio.com/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://2gua.gallerycdn.vsassets.io/extensions/2gua/rainbow-brackets/0.0.6/1474455607820/Microsoft.VisualStudio.Services.Icons.Default\",\"width\":128,\"height\":128,\"aspectRatio\":1}}" %}
+
+[https://marketplace.visualstudio.com/items?itemName=eg2.tslint](https://marketplace.visualstudio.com/items?itemName=eg2.tslint)
+
+![](../.gitbook/assets/2016-11-09_17-02-23.png)
 
 ### Optionally turn on **Visual Studio Code  auto save**
 
