@@ -1,18 +1,25 @@
+---
+description: We will examine using third party libraries like Angular Material
+---
+
 # 6 - Thirdparty Dependencies
 
 ![Angular Material Website](../.gitbook/assets/material-site.png)
 
 [https://material.angular.io/](https://material.angular.io/)
 
-## 1.Install angular material, angular animations and angular flex layout
+## 1. Install angular material, angular animations and angular flex layout
 
 {% hint style="info" %}
 Note: As of Angular v6 you no longer need to manually add Angular material you can use the new "Add" CLI command.
 
 Always use the same Major version of Material as your Angular CLI and packages.
 
+We will use this option later in the workshop
+
 ```bash
 ng add @angular/material
+
 ```
 {% endhint %}
 
@@ -120,8 +127,6 @@ export class MaterialModule {}
 {% code-tabs %}
 {% code-tabs-item title="libs/auth/src/auth.module.ts" %}
 ```typescript
-import { NgModule } from '@angular/core';import { CommonModule } from '@angular/common';import { RouterModule, Route } from '@angular/router';import { LoginComponent } from './containers/login/login.component';import { LoginFormComponent } from './components/login-form/login-form.component';import { HttpClientModule } from '@angular/common/http';import { MaterialModule } from '@demo-app/material';
-export const authRoutes: Route[] = [ { path: 'login', component: LoginComponent }];@NgModule({ imports: [CommonModule, RouterModule, HttpClientModule, MaterialModule], declarations: [LoginComponent, LoginFormComponent]})export class AuthModule {}
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Route } from '@angular/router';
@@ -156,7 +161,7 @@ export class AuthModule {}
 * Update the login-form to use material components
 
 {% code-tabs %}
-{% code-tabs-item title="libs/auth/src/components/login-form/login-form.component.html" %}
+{% code-tabs-item title="libs/auth/src/lib/components/login-form/login-form.component.html" %}
 ```markup
 <mat-card>
     <mat-card-title>Login</mat-card-title>
@@ -178,5 +183,11 @@ export class AuthModule {}
 
 ## 4. Go and explore flex layout docs
 
-[https://tburleson-layouts-demos.firebaseapp.com/\#/docs](https://tburleson-layouts-demos.firebaseapp.com/#/docs)
+* Go to this website and try out the flex examples.
+
+{% embed data="{\"url\":\"https://tburleson-layouts-demos.firebaseapp.com/\#/docs\",\"type\":\"link\",\"title\":\"Angular Flex-Layout Demos\",\"icon\":{\"type\":\"icon\",\"url\":\"https://tburleson-layouts-demos.firebaseapp.com/favicon.ico\",\"aspectRatio\":0},\"caption\":\"flex-layout package docs\"}" %}
+
+![flex-layout library examples](../.gitbook/assets/image%20%2818%29.png)
+
+
 
