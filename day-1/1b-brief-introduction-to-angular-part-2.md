@@ -113,6 +113,11 @@ export class AppRoutingModule { }
 
 Check the route works by navigating to [http://localhost:4200/user-list](http://localhost:4200/user-list)
 
+{% hint style="info" %}
+Here we do the simple async pipe  
+We will stop and discuss Observables and their operators in slides here [https://docs.google.com/presentation/d/1xf8aPIvQjgjUVGH\_1sRkikvh5H73x2xvX7PnN4AjYt4/edit?usp=sharing](https://docs.google.com/presentation/d/1xf8aPIvQjgjUVGH_1sRkikvh5H73x2xvX7PnN4AjYt4/edit?usp=sharing)
+{% endhint %}
+
 Inject user service and call its getUsers method and bind in to a local variable
 
 {% code-tabs %}
