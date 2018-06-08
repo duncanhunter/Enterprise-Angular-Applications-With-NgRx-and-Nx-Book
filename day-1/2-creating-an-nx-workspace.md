@@ -24,7 +24,7 @@ ng new demo-app --collection=@nrwl/schematics
 1. Run the following command to open the new nx workspace in VSCode.
 
 ```text
-cd demo-app && code .
+cd code .
 ```
 
 * Inspect the following files:
