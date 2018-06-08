@@ -12,13 +12,13 @@ description: In this section we will make a little local server
 npm i json-server ts-node --save-dev
 ```
 
-* * Add a folder called server to the root directory and paste in the below code
+* Add a folder called server to the root directory and paste in the below code
 
 ## 2. Make a server.ts file in a new folder called server
 
 * Make a new folder called server
 
-![Server folder on root of project](../.gitbook/assets/image%20%2812%29.png)
+![Server folder on root of project](../.gitbook/assets/image%20%2813%29.png)
 
 * Make file called server.ts in the new server folder and paste in the below code. You do not need to study or learn this min node express app it is just to have a mock backend.
 
@@ -159,7 +159,7 @@ function readUsers() {
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-* Add the below script to the scripts in the package.json
+## 4. Add the below script to the scripts in the package.json
 
 {% code-tabs %}
 {% code-tabs-item title="package.json" %}
@@ -173,13 +173,19 @@ scripts: {
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+## 5.  Start the server and leave it running
+
 * Start the server and leave it running whenever you use the apps. It is easier to run in a seperate terminal to VS Code so when you refresh the IDE you do not kill this server.
 
 ```bash
 npm run server
 ```
 
-* Navigate to [http://localhost:3000/login](http://localhost:3000/login) to check it is working.
+## 6. Navigate to [http://localhost:3000/login](http://localhost:3000/login) 
+
+* Check it is working.
+
+![](../.gitbook/assets/image%20%284%29.png)
 
 
 

@@ -27,7 +27,7 @@ Currently issue with setting scss as default for lib. When ever you make a lib c
 Lets look at what this pattern is and what are the benefits in slides  
 [https://docs.google.com/presentation/d/1xf8aPIvQjgjUVGH\_1sRkikvh5H73x2xvX7PnN4AjYt4/edit\#slide=id.g3bc936a676\_1\_4](https://docs.google.com/presentation/d/1xf8aPIvQjgjUVGH_1sRkikvh5H73x2xvX7PnN4AjYt4/edit#slide=id.g3bc936a676_1_4)
 
-![Characteristics of Container and Presentational Components](../.gitbook/assets/image%20%285%29.png)
+![Characteristics of Container and Presentational Components](../.gitbook/assets/image%20%286%29.png)
 
 * Add a new container component to the auth lib
 
@@ -128,7 +128,7 @@ export class AppModule {}
 
 * Run the app `ng s` and navigate to [http://localhost:4200/auth/login](http://localhost:4200/auth/login)
 
-![App running in the Browser](../.gitbook/assets/image%20%2814%29.png)
+![App running in the Browser](../.gitbook/assets/image%20%2815%29.png)
 
 ## 4. Add presentational component to container component
 
@@ -171,7 +171,7 @@ export class LoginComponent implements OnInit {
 
 * Make a folder called 'data-models' manually in the libs folder.
 
-![data-models folder](../.gitbook/assets/image%20%288%29.png)
+![data-models folder](../.gitbook/assets/image%20%289%29.png)
 
 * Add a 'authenticate.d.ts' file to the folder and export the added data models from the index.ts file
 

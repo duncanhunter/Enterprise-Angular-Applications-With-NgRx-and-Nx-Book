@@ -6,7 +6,7 @@ description: Now it is time to talk Nx and architecture
 
 We will be building out the beginning of two applications a customer portal and an admin portal.
 
-![Nx workspaces diagram](../.gitbook/assets/image%20%284%29.png)
+![Nx workspaces diagram](../.gitbook/assets/image%20%285%29.png)
 
 ## 1 .Create a new Nx workspace
 
