@@ -15,7 +15,7 @@ mkdir demo-app
 * Run the below command in a terminal to make a new nx workspace.
 
 ```text
-ng new demo-application --collection=@nrwl/schematics
+ng new demo-app --collection=@nrwl/schematics
 ```
 
 ## 2. Examine the output of the following files and commit code to git source control
@@ -37,13 +37,13 @@ cd demo-app && code .
 * By default a new NX workspace has no apps or libs yet. You can run the below command to see the extra options to make an app or a lib besides the normal angular CLI commands.
 
 ```text
-ng g app --help
+ng g application --help
 ```
 
 * Create a new app by running the below command in the terminal in a directory of your choice. 
 
 ```text
-ng g app customer-portal --style scss --routing --prefix ndc
+ng g application customer-portal --style=scss --routing --prefix=ndc
 ```
 
 ## 4. Examine angular app and module structure
