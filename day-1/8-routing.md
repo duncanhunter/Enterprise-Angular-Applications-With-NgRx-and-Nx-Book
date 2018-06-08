@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-* Add default routes to app module
+* Check default routes added to AppModule
 
 {% code-tabs %}
 {% code-tabs-item title="apps/customer-portal/src/app/app.module.ts" %}
@@ -71,6 +71,8 @@ RouterModule.forRoot(
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+## 3. Add UserProfileModule routes with params
+
 {% code-tabs %}
 {% code-tabs-item title="libs/user-profile/src/lib/user-profile.module.ts" %}
 ```typescript
@@ -82,7 +84,9 @@ import { RouterModule } from '@angular/router';
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild([{ path: ':id', component: UserProfileComponent }])
+    RouterModule.forChild([
+      { path: ':id', component: UserProfileComponent }
+    ])
   ],
   declarations: [UserProfileComponent]
 })
@@ -93,75 +97,43 @@ export class UserProfileModule {}
 
 * Login again to check the routing is correctly configured.
 
-## 3. Add a route guard to protect profile page
+![Default HTML for User Profile component](../.gitbook/assets/image%20%2814%29.png)
+
+## 4. Add a route guard to protect profile page
 
 * Generate a guard wit the CLI
 
 ```text
-ng g guard guards/auth/auth -a=auth
+ng g guard guards/auth/auth --project=auth
 ```
-
-* Register services and the guard in the providers
-
-{% code-tabs %}
-{% code-tabs-item title="libs/auth/src/lib/auth.module.ts" %}
-```typescript
-import { NgModule, ModuleWithProviders } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule, Route } from '@angular/router';
-import { LoginComponent } from './containers/login/login.component';
-import { HttpClientModule } from '@angular/common/http';
-import { AuthService } from './services/auth.service';
-import { MaterialModule } from '@demo-app/material';
-import { ReactiveFormsModule } from '@angular/forms';
-import { AuthGuard } from './guards/auth/auth.guard';
-import { LoginFormComponent } from './components/login-form/login-form.component';
-
-export const authRoutes: Route[] = [
-  { path: 'login', component: LoginComponent }
-];
-const COMPONENTS = [LoginComponent, LoginFormComponent];
-
-@NgModule({
-  imports: [
-    CommonModule,
-    RouterModule,
-    HttpClientModule,
-    MaterialModule,
-    ReactiveFormsModule
-  ],
-  declarations: [COMPONENTS],
-  exports: [COMPONENTS],
-  providers: [AuthService, AuthGuard]
-})
-export class AuthModule {}
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
 
 * Update the authService to set a local flag before we add ngrx later
 
 {% code-tabs %}
-{% code-tabs-item title="libs/auth/src/services/auth.service.ts" %}
+{% code-tabs-item title="libs/auth/src/lib/services/auth.service.ts" %}
 ```typescript
 import { Injectable } from '@angular/core';
 import { Authenticate, User } from '@demo-app/data-models';
-import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthService {
   isAuthenticated: boolean;
-
   constructor(private httpClient: HttpClient) {}
 
   login(authenticate: Authenticate): Observable<User> {
-    return this.httpClient
-      .post<User>('http://localhost:3000/login', authenticate)
-      .pipe(tap(user => (this.isAuthenticated = true)));
+    return this.httpClient.post<User>(
+      'http://localhost:3000/login',
+      authenticate
+    ).pipe(tap(() => (this.isAuthenticated = true)));
   }
+
 }
+
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -172,21 +144,27 @@ export class AuthService {
 {% code-tabs-item title="libs/auth/src/lib/guards/auth/auth.guard.ts" %}
 ```typescript
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import {
+  CanActivate,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+  Router
+} from '@angular/router';
+import { Observable } from 'rxjs';
 import { AuthService } from './../../services/auth/auth.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthGuard implements CanActivate {
 
-  constructor(
-    private router: Router,
-    private authService: AuthService) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    if(this.authService.isAuthenticated) {
+    state: RouterStateSnapshot
+  ): boolean {
+    if (this.authService.isAuthenticated) {
       return true;
     } else {
       this.router.navigate([`/auth/login`]);
@@ -194,6 +172,7 @@ export class AuthGuard implements CanActivate {
     }
   }
 }
+
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}

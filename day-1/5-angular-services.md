@@ -103,5 +103,5 @@ username: duncan
 password: 123
 ```
 
-![Chrome Devtools](../.gitbook/assets/image%20%2812%29.png)
+![Chrome Devtools](../.gitbook/assets/image%20%2813%29.png)
 
