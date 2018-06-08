@@ -1,3 +1,9 @@
+---
+description: >-
+  In this section we will create our first app and discuss event and property
+  binding.
+---
+
 # 1a -  Brief Introduction To Angular Part 1
 
 ## 1. Create a new Angular CLI Project

@@ -14,7 +14,39 @@ ng g module user --routing
 
 ![User feature folder](../.gitbook/assets/image.png)
 
-## 3. Change routes to lazy loaded routes
+## 3.  Remove all references to Users in App module
+
+{% code-tabs %}
+{% code-tabs-item title="src/app/app.module.ts" %}
+```typescript
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { HomeComponent } from './home/home.component';
+import { HttpClientModule } from '@angular/common/http';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    HomeComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+## 4. Change routes to lazy loaded routes
 
 {% code-tabs %}
 {% code-tabs-item title="src/app/app-routing.module.ts" %}
@@ -38,7 +70,7 @@ export class AppRoutingModule { }
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## 4. Add UserList component as feature module route
+## 5. Add UserList component as feature module route
 
 {% code-tabs %}
 {% code-tabs-item title="src/app/user/user-routing.module.ts" %}
@@ -61,7 +93,53 @@ export class UserRoutingModule { }
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## Extra: Add extra project to CLI App
+## 7. Declare UserList component in new User module
+
+{% code-tabs %}
+{% code-tabs-item title="src/app/user/user.module.ts" %}
+```typescript
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { UserListComponent } from './user-list/user-list.component';   //added
+import { UserRoutingModule } from './user-routing.module';
+
+@NgModule({
+  imports: [
+    CommonModule,
+    UserRoutingModule
+  ],
+  declarations: [
+    UserListComponent            //added
+  ]
+})
+export class UserModule { }
+
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+## 8. Add button on App component to navigate to UserList or Home component
+
+{% code-tabs %}
+{% code-tabs-item title="src/app/app.component.html" %}
+```markup
+<h1>The App</h1>
+​
+<div>
+  <button [routerLink]="['/']" routerLinkActive="router-link-active" >home</button>
+  <button [routerLink]="['/users']" routerLinkActive="router-link-active" >users</button>
+</div>
+
+<!-- <app-home></app-home> -->
+<router-outlet></router-outlet>
+
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+## Extras: 
+
+## 1. Add extra project to CLI App
 
 As of Angular CLI version 6+ you can now have multiple projects in an Angular app. It is early days and no support for sharing modules between apps and best practices or schematics made. That is what Nx can help with. You can read more on the Angular CLI limited docs ​[https://github.com/angular/angular-cli/wiki/stories-multiple-projects](https://github.com/angular/angular-cli/wiki/stories-multiple-projects)
 
