@@ -237,7 +237,7 @@ import { User } from '../models/user'; //changed
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
-  users$: Observable<User>;                      //changed
+  users$: Observable<User[]>;                      //changed
 
   constructor(private userService: UserService) {}
 
