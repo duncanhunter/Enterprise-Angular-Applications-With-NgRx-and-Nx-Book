@@ -53,10 +53,10 @@ ng g application customer-portal --style=scss --routing --prefix=app
 
 ## 4. Examine angular app and module structure
 
-1. app.module.ts
-2. tsconfig paths
-3. package.json
-4. apps and libs empty
+* app.module.ts
+* tsconfig paths
+* package.json
+* apps and libs folders are empty
 
 ## 5. Run the app in the Chrome browser
 
