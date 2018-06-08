@@ -4,7 +4,7 @@ description: We examine making presentational and container components
 
 # 3 - Generating components and Nx lib
 
-## 1. Generate our first Nx lib
+##  1. Generate our first Nx lib
 
 * Run the below command to see all the lib options
 
@@ -46,7 +46,7 @@ As this is a child route it is assumed that the consuming module will already pr
 * Add a default route to the auth module
 
 {% code-tabs %}
-{% code-tabs-item title="libs/auth/src/auth.module.ts" %}
+{% code-tabs-item title="libs/auth/src/lib/auth.module.ts" %}
 ```typescript
 export const authRoutes: Route[] = [
    { path: 'login', component: LoginComponent }
@@ -131,7 +131,7 @@ export class AppModule {}
 * Add the presentational component to the container component.
 
 {% code-tabs %}
-{% code-tabs-item title="libs/auth/src/containers/login/login.component.html" %}
+{% code-tabs-item title="libs/auth/src/lib/containers/login/login.component.html" %}
 ```markup
 <app-login-form (submit)="login($event)"></app-login-form>
 ```
@@ -141,7 +141,7 @@ export class AppModule {}
 * Add login function to container component class
 
 {% code-tabs %}
-{% code-tabs-item title="libs/auth/src/containers/login/login.component.ts" %}
+{% code-tabs-item title="libs/auth/src/lib/containers/login/login.component.ts" %}
 ```typescript
 import { Component, OnInit } from '@angular/core';
 
@@ -195,7 +195,7 @@ export { Authenticate } from './authenticate';
 * Add basic login form to presentational component
 
 {% code-tabs %}
-{% code-tabs-item title="libs/auth/src/components/login-form/login-form.component.html" %}
+{% code-tabs-item title="libs/auth/src/lib/components/login-form/login-form.component.html" %}
 ```markup
 <input #username placeholder="username" type="text">
 <input #password placeholder="password" type="text">
@@ -207,7 +207,7 @@ export { Authenticate } from './authenticate';
 * Add an angular @Output to emit the event of a form submission
 
 {% code-tabs %}
-{% code-tabs-item title="libs/auth/src/components/login-form/login-form.component.ts" %}
+{% code-tabs-item title="libs/auth/src/lib/components/login-form/login-form.component.ts" %}
 ```typescript
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Authenticate } from '@demo-app/data-models';
@@ -233,7 +233,7 @@ export class LoginFormComponent {
 * Now that we are using the presentation and container component pattern and we know that we only need to check the child components for changes if a DOM event or a @Input or @Output passes new primitives or reference values. In this way we can tell Angular not check the whole component tree which can cause performance issues in larger applications.
 
 {% code-tabs %}
-{% code-tabs-item title="libs/auth/src/containers/login/login.component.ts" %}
+{% code-tabs-item title="libs/auth/src/lib/containers/login/login.component.ts" %}
 ```typescript
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Authenticate } from '@demo-app/data-models';
