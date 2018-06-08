@@ -1,4 +1,4 @@
-# 1 -  Brief Introduction To Angular
+# 1a -  Brief Introduction To Angular Part 1
 
 ## 1. Create a new Angular CLI Project
 
@@ -47,12 +47,11 @@ Add home component selector to the AppComponent and delete all default HTML exce
 
 <app-home></app-home>
 <router-outlet></router-outlet>
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## 5. Add a route 
+## 5. Add a route
 
 {% code-tabs %}
 {% code-tabs-item title="src/app/spp-routing.module.ts" %}
@@ -70,7 +69,6 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -109,7 +107,6 @@ export class UserService {
     return this.httpClient.get(this.apiUrl);
   }
 }
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -137,7 +134,6 @@ export class HomeComponent implements OnInit {
   }
 
 }
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -151,7 +147,6 @@ export class HomeComponent implements OnInit {
   home works!
 </p>
 <div *ngFor="let user of (users$ | async)"> {{user.name}}</div>
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -168,7 +163,6 @@ ng g interface models/user
 export interface User {
   name: string;
 }
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -198,7 +192,6 @@ export class HomeComponent implements OnInit {
   }
 
 }
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -234,7 +227,6 @@ Add event and data binding to App Component title
 
 <app-home></app-home>
 <router-outlet></router-outlet>
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -257,28 +249,9 @@ export class AppComponent {
     this.title = value;
   }
 }
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
-
-## 11. Refactor to use lazy loaded user module {#11-extra-add-extra-project-to-cli-app}
-
-```text
-ng g module user
-```
-
-## 12. Extra: Add extra project to CLI App
-
-As of Angular CLI version 6+ you can now have multiple projects in an Angular app. It is early days and no support for sharing modules between apps and best practices or schematics made. That is what Nx can help with. You can read more on the Angular CLI limited docs ​https://github.com/angular/angular-cli/wiki/stories-multiple-projects
-
-In the terminal run
-
-```text
-ng generate application my-other-app
-```
-
-![Multi application support in default Angular CLI App](../.gitbook/assets/image%20%283%29.png)
 
 
 
