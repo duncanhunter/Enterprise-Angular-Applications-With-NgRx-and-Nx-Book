@@ -1,6 +1,6 @@
 # 8 - Routing
 
-### 1. Add a lib for a users profile page
+## 1. Add a lib for a users profile page
 
 * Add a lazy loaded lib with routing. Note this will add linting rules to .angular-cli.json to stop adding this module to other modules.
 
@@ -14,7 +14,7 @@ ng g lib user-profile --routing --lazy --parent-module=apps/customer-portal/src/
 ng g c containers/user-profile --project=user-profile
 ```
 
-### 2. Add a method in the subscription to navigate to the login page on login
+## 2. Add a method in the subscription to navigate to the login page on login
 
 * Inject the router and navigate on login
 
@@ -93,7 +93,7 @@ export class UserProfileModule {}
 
 * Login again to check the routing is correctly configured.
 
-### 3. Add a route guard to protect profile page
+## 3. Add a route guard to protect profile page
 
 * Generate a guard wit the CLI
 
@@ -271,9 +271,9 @@ export class AppModule {}
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-### BONUS SECTION: Add angular interceptor
+## BONUS SECTION: Add angular interceptor
 
-* Update auth service to set a token in local storage
+### a\) Update auth service to set a token in local storage
 
 {% code-tabs %}
 {% code-tabs-item title="libs/auth/src/lib/services/auth.service.ts" %}
@@ -408,7 +408,7 @@ export class AuthModule {}
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## 5. Check the interceptor is adding a Header
+### a\) Check the interceptor is adding a Header
 
 * Try and login again and look in the network traffic of the dev tools to see the Header is being added.
 
