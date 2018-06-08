@@ -11,14 +11,15 @@
 ## Day 1
 
 * [0 - Environment Setup](day-1/0-environment-setup.md)
-* [1 -  Creating an Nx Workspace](day-1/1-creating-an-nx-workspace.md)
-* [2 - Generating components and Nx lib](day-1/2-generating-components-and-nx-lib.md)
-* [3 - RxJS Introduction](day-1/3-rxjs-introduction.md)
-* [4 - Angular Services](day-1/4-angular-services.md)
-* [5 - Thirdparty Dependencies](day-1/5-thirdparty-dependencies.md)
-* [6 - Reactive Forms](day-1/6-reactive-forms.md)
-* [7 - Routing](day-1/7-routing.md)
-* [8 - NgRx Introduction](day-1/8-ngrx-introduction.md)
+* [1 -  Creating an Nx Workspace](day-1/1-brief-introduction-to-angular.md)
+* [2 -  Creating an Nx Workspace](day-1/2-creating-an-nx-workspace.md)
+* [3 - Generating components and Nx lib](day-1/3-generating-components-and-nx-lib.md)
+* [4 - RxJS Introduction](day-1/4-rxjs-introduction.md)
+* [5 - Angular Services](day-1/5-angular-services.md)
+* [6 - Thirdparty Dependencies](day-1/6-thirdparty-dependencies.md)
+* [7 - Reactive Forms](day-1/7-reactive-forms.md)
+* [8 - Routing](day-1/8-routing.md)
+* [9 - NgRx Introduction](day-1/9-ngrx-introduction.md)
 
 ## Day 2
 
