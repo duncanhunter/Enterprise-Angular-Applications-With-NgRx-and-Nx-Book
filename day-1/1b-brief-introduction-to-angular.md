@@ -1,7 +1,3 @@
----
-description: In this section we will introduce Angular services and observables
----
-
 # 1b -  Brief Introduction To Angular
 
 ## 1. Add a user service 

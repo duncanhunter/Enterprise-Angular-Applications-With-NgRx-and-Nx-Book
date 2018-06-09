@@ -1,7 +1,3 @@
----
-description: Now it is time to talk Nx and architecture
----
-
 # 2 -  Creating an Nx Workspace
 
 We will be building out the beginning of two applications a customer portal and an admin portal.

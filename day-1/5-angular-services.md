@@ -1,7 +1,3 @@
----
-description: In this section we discussing Angular services and dependency injection
----
-
 # 5 - Angular Services
 
 ## 1. Generate a new angular service

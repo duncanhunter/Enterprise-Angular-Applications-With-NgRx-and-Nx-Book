@@ -1,7 +1,3 @@
----
-description: We examine making presentational and container components
----
-
 # 3 - Generating components and Nx lib
 
 ##  1. Generate our first Nx lib

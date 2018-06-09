@@ -1,7 +1,3 @@
----
-description: We will examine using third party libraries like Angular Material
----
-
 # 6 - Angular Material
 
 ![Angular Material Website](../.gitbook/assets/material-site.png)

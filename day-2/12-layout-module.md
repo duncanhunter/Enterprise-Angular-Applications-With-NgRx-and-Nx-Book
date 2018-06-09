@@ -1,7 +1,3 @@
----
-description: In this section we will make a default layout module
----
-
 # 12 - Layout Module
 
 ## 1. Add a new layout lib and component

@@ -1,4 +1,4 @@
-# 9 - NgRx Introduction
+# 10 - NgRx Introduction
 
 ## 1. Presentation
 
@@ -67,8 +67,6 @@ Issue with storeFreeze to be fixed in NgRx v6 [https://github.com/nrwl/nx/issues
 {% embed data="{\"url\":\"https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd\",\"type\":\"link\",\"title\":\"Redux DevTools\",\"description\":\"Redux DevTools for debugging application\'s state changes.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://ssl.gstatic.com/chrome/webstore/images/icon\_144px.png\",\"width\":144,\"height\":144,\"aspectRatio\":1},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://lh3.googleusercontent.com/vCbHTO3hh4rIPl5XPab0ZXYEY1kmwzHvbvd3CPcXxunuCSn8ouz54Kc6xuxR88RP83bErQOt4Q=w128-h128-e365\",\"width\":128,\"height\":128,\"aspectRatio\":1},\"caption\":\"Redux Dev Tolls Extension on Chrome\"}" %}
 
 {% embed data="{\"url\":\"https://github.com/zalmoxisus/redux-devtools-extension\",\"type\":\"link\",\"title\":\"zalmoxisus/redux-devtools-extension\",\"description\":\"redux-devtools-extension - Redux DevTools extension.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://github.com/fluidicon.png\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://avatars3.githubusercontent.com/u/7957859?s=400&v=4\",\"width\":400,\"height\":400,\"aspectRatio\":1}}" %}
-
-
 
 ![](../.gitbook/assets/redux-dev-tools.png)
 

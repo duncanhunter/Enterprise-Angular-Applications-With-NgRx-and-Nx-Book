@@ -1,4 +1,4 @@
-# 8 - Routing
+# 9 - Route Guards and Products Lib
 
 ## 1. Add a lib for a users profile page
 
@@ -88,7 +88,6 @@ import { AuthGuard } from '@demo-app/auth';
   bootstrap: [AppComponent]
 })
 export class AppModule {}
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -156,7 +155,6 @@ export class AuthService {
   }
 
 }
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -195,7 +193,6 @@ export class AuthGuard implements CanActivate {
     }
   }
 }
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
