@@ -20,7 +20,7 @@
 * [5 - Angular Services](day-1/5-angular-services.md)
 * [6 - Angular Material](day-1/6-angular-material.md)
 * [7 - Reactive Forms](day-1/7-reactive-forms.md)
-* [8 - Layout Lib](day-1/8-layout-lib.md)
+* [8 - Layout Lib and BehaviorSubjects](day-1/8-layout-lib.md)
 * [9 - Route Guards and Products Lib](day-1/9-routing.md)
 * [10 - NgRx Introduction](day-1/10-ngrx-introduction.md)
 
