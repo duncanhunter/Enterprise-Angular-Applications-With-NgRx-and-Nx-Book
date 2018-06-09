@@ -156,8 +156,41 @@ function readUsers() {
         "userId": 3,
         "job": "manager"
       }
+    ],
+    "products": [
+      {
+        "id": 1,
+        "name": "spanner",
+        "category": "tools"
+      },
+      {
+        "id": 2,
+        "name": "hammer",
+        "category": "tools"
+      },
+      {
+        "id": 3,
+        "name": "screw driver",
+        "category": "tools"
+      },
+      {
+        "id": 4,
+        "name": "paint brush",
+        "category": "paint"
+      },
+      {
+        "id": 5,
+        "name": "paint roller",
+        "category": "tools"
+      },
+      {
+        "id": 6,
+        "name": "paint",
+        "category": "tools"
+      }
     ]
   }
+
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
