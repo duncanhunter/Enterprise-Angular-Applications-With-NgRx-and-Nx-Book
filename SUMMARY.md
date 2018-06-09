@@ -27,7 +27,7 @@
 ## Day 2
 
 * [11 - Adding NgRx to Nx App](day-2/11-adding-ngrx-to-nx-app.md)
-* [12 - NgRx Libs and Action Creators](day-2/12-ngrx-libs-and-action-creators.md)
+* [12 - NgRx Libs and Action Creators](day-2/nx-state-libs.md)
 * [13 - NgRx Effects](day-2/13-ngrx-effects.md)
 * [14 - NgRx Selectors](day-2/14-ngrx-selectors.md)
 * [15 - Entity State Adapter](day-2/15-entity-state-adapter.md)
