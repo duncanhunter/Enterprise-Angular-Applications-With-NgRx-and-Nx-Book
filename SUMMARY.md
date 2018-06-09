@@ -28,7 +28,7 @@
 * [9 - Nx State Libs](day-2/9-nx-state-libs.md)
 * [10 - NgRx Schematics](day-2/10-ngrx-schematics.md)
 * [11 - NgRx Selectors](day-2/11-ngrx-selectors.md)
-* [12 - Admin App](day-2/12-admin-app.md)
+* [12 - Layout Module](day-2/12-admin-app.md)
 * [13 - Entity State Adapter](day-2/13-entity-state-adapter.md)
 * [14 - Router Store](day-2/14-router-store.md)
 * [15 - Unit and e2e Tests](day-2/15-unit-and-e2e-tests.md)
