@@ -2,7 +2,7 @@
 description: We will examine using third party libraries like Angular Material
 ---
 
-# 6 - Thirdparty Dependencies
+# 6 - Angular Material
 
 ![Angular Material Website](../.gitbook/assets/material-site.png)
 
@@ -11,16 +11,9 @@ description: We will examine using third party libraries like Angular Material
 ## 1. Install angular material, angular animations and angular flex layout
 
 {% hint style="info" %}
-Note: As of Angular v6 you no longer need to manually add Angular material you can use the new "Add" CLI command.
+Note: As of Angular v6 you no longer need to manually add Angular material you can use the new "Add" CLI command. However this is not how you do it with Nx.
 
 Always use the same Major version of Material as your Angular CLI and packages.
-
-We will use this option later in the workshop
-
-```bash
-ng add @angular/material
-
-```
 {% endhint %}
 
 ```text
@@ -45,7 +38,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
+    BrowserAnimationsModule,        // Added
     NxModule.forRoot(),
     RouterModule.forRoot([{path: 'auth', children: authRoutes}], { initialNavigation: 'enabled' }),
     AuthModule

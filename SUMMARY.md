@@ -18,7 +18,7 @@
 * [3 - Generating components and Nx lib](day-1/3-generating-components-and-nx-lib.md)
 * [4 - Add JSON server](day-1/4-rxjs-introduction.md)
 * [5 - Angular Services](day-1/5-angular-services.md)
-* [6 - Thirdparty Dependencies](day-1/6-thirdparty-dependencies.md)
+* [6 - Angular Material](day-1/6-thirdparty-dependencies.md)
 * [7 - Reactive Forms](day-1/7-reactive-forms.md)
 * [8 - Routing](day-1/8-routing.md)
 * [9 - NgRx Introduction](day-1/9-ngrx-introduction.md)
