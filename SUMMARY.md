@@ -26,12 +26,12 @@
 
 ## Day 2
 
-* [9 - Adding NgRx to Nx App](day-2/9-adding-ngrx-to-nx-app.md)
-* [10 - NgRx Libs and Action Creators](day-2/10-ngrx-libs.md)
-* [11 - NgRx Effects](day-2/11-ngrx-effects.md)
-* [12 - NgRx Selectors](day-2/11-ngrx-selectors.md)
-* [13 - Entity State Adapter](day-2/13-entity-state-adapter.md)
-* [14 - Router Store](day-2/14-router-store.md)
-* [15 - Unit and e2e Tests](day-2/15-unit-and-e2e-tests.md)
-* [16 - Deploying An Nx Monorepo](day-2/16-deploying-an-nx-monorepo.md)
+* [11 - Adding NgRx to Nx App](day-2/9-adding-ngrx-to-nx-app.md)
+* [12 - NgRx Libs and Action Creators](day-2/10-ngrx-libs.md)
+* [13 - NgRx Effects](day-2/11-ngrx-effects.md)
+* [14 - NgRx Selectors](day-2/11-ngrx-selectors.md)
+* [15 - Entity State Adapter](day-2/13-entity-state-adapter.md)
+* [16 - Router Store](day-2/14-router-store.md)
+* [17 - Unit and e2e Tests](day-2/15-unit-and-e2e-tests.md)
+* [18 - Deploying An Nx Monorepo](day-2/16-deploying-an-nx-monorepo.md)
 
