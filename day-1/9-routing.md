@@ -143,58 +143,52 @@ export class AuthGuard implements CanActivate {
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-* Add auth guard to main routes
+## 5. Add auth guard to main routes
 
 {% code-tabs %}
 {% code-tabs-item title="apps/customer-portal/src/app/app.module.ts" %}
 ```typescript
-import { NgModule } from '@angular/core';
-import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AppComponent } from './app.component';
 import { NxModule } from '@nrwl/nx';
 import { RouterModule } from '@angular/router';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '../environments/environment';
-import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { authRoutes, AuthModule } from '@demo-app/auth';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthGuard } from '@demo-app/auth';
+import { LayoutModule, reducer } from '@demo-app/layout';
 
 @NgModule({
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     NxModule.forRoot(),
     RouterModule.forRoot(
       [
-        { path: '', pathMatch: 'full', redirectTo: 'user-profile' },
+        { path: '', pathMatch: 'full', redirectTo: 'products' },
         { path: 'auth', children: authRoutes },
         {
-          path: 'user-profile',
-          loadChildren: '@demo-app/user-profile#UserProfileModule',
+          path: 'products',
+          loadChildren: '@demo-app/products#ProductsModule',
           canActivate: [AuthGuard]
         }
       ],
-      {
-        initialNavigation: 'enabled'
-      }
+      { initialNavigation: 'enabled' }
     ),
-    // Note: Issue with storeFreeze to be fixed in NgRx v6https://github.com/nrwl/nx/issues/436
-    //StoreModule.forRoot({},{ metaReducers : !environment.production ? [storeFreeze] : [] }),
-    StoreModule.forRoot({}),    EffectsModule.forRoot([]),
-    !environment.production ? StoreDevtoolsModule.instrument() : [],
-    StoreRouterConnectingModule,
     AuthModule,
-    BrowserAnimationsModule
-  ],
-  declarations: [AppComponent],
+    LayoutModule,
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
+
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
+
+## 6. Check the route guard is working
 
 * Add a temporary "debugger" to set a break point on the route guard to check it is working correctly.
 
@@ -217,32 +211,39 @@ export class AppModule {}
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+## 7.  Cache the user in local storage to save logging in for the rest or the workshop.
 
-
-* Update the authService to set a local flag before we add ngrx later
+* Load BeahivorSubject on Service creation with a user from local storage if one exists.
 
 {% code-tabs %}
-{% code-tabs-item title="libs/auth/src/lib/services/auth.service.ts" %}
+{% code-tabs-item title="libs/auth/src/lib/services/auth/auth.service.ts" %}
 ```typescript
 import { Injectable } from '@angular/core';
 import { Authenticate, User } from '@demo-app/data-models';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  isAuthenticated: boolean;
+  private userSubject$ = new BehaviorSubject<User>(null);
+  user$ = this.userSubject$.asObservable();
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) {
+    const user = localStorage.getItem('token');
+    this.userSubject$.next(user);
+  }
 
   login(authenticate: Authenticate): Observable<User> {
     return this.httpClient.post<User>(
       'http://localhost:3000/login',
       authenticate
-    ).pipe(tap(() => (this.isAuthenticated = true)));
+    ).pipe(tap((user: User) => {
+        this.userSubject$.next(user);
+        localStorage.setItem('user', user);
+    }));
   }
 
 }
@@ -250,40 +251,19 @@ export class AuthService {
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## BONUS SECTION: Add angular interceptor
+## Extras 
+
+### 1. Add logout functionality
+
+Try these steps below to logout a user.
+
+* Add logout button to main menu
+* Call service and logout the user by clearing the behaviour subject
+* Navigate to login page
+
+### 2. Add angular interceptor
 
 ### a\) Update auth service to set a token in local storage
-
-{% code-tabs %}
-{% code-tabs-item title="libs/auth/src/lib/services/auth.service.ts" %}
-```typescript
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { tap } from 'rxjs/operators';
-import { User, Authenticate } from '@demo-app/data-models';
-
-@Injectable()
-export class AuthService {
-  user: User;
-  isAuthenticated: boolean;
-
-  constructor(private httpClient: HttpClient) {}
-
-  login(authenticate: Authenticate) {
-    return this.httpClient
-      .post('http://localhost:3000/login', authenticate)
-      .pipe(
-        tap((user: User) => {
-          this.isAuthenticated = true;
-          this.user = user;
-          localStorage.setItem('token', user.token);
-        })
-      );
-  }
-}
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
 
 * Add an angular interceptor in a new folder in the auth lib
 
@@ -304,20 +284,16 @@ import {
   HttpRequest
 } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { AuthService } from './../../services/auth/auth.service';
 import { switchMap, tap } from 'rxjs/operators';
 import { of } from 'rxjs/Observable/of';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  authService: AuthService;
-  constructor(private injector: Injector) {}
 
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    this.authService = this.injector.get(AuthService);
     const token = localStorage.getItem('token');
 
     if (token) {
@@ -373,8 +349,6 @@ const COMPONENTS = [LoginComponent, LoginFormComponent];
   declarations: [COMPONENTS],
   exports: [COMPONENTS],
   providers: [
-    AuthService,
-    AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
@@ -387,7 +361,7 @@ export class AuthModule {}
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-### a\) Check the interceptor is adding a Header
+### b\) Check the interceptor is adding a Header
 
 * Try and login again and look in the network traffic of the dev tools to see the Header is being added.
 
