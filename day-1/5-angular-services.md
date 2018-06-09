@@ -31,7 +31,7 @@ export class AuthModule {}
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-Add login call to a local server we will add shortly
+* Add login call to a local server
 
 {% code-tabs %}
 {% code-tabs-item title="libs/auth/src/lib/services/auth/auth.service.ts" %}
