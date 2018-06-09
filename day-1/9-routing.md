@@ -2,54 +2,58 @@
 
 ## 1. Add a lib for a users profile page
 
-* Add a lazy loaded lib with routing. Note this will add linting rules to angular.json to stop adding this module to other modules.
+* Add a lazy loaded lib with routing. We will grow this new feature lib out with advance NgRx features later int he course but for now we will just make the container component to navigate to on login.
 
 ```bash
-ng g lib user-profile --routing --lazy --parent-module=apps/customer-portal/src/app/app.module.ts
+ng g lib products --routing --lazy --parent-module=apps/customer-portal/src/app/app.module.ts
 ```
 
-* Add a user-profile container component.
+* Add a products container component.
 
 ```bash
-ng g c containers/user-profile --project=user-profile
+ng g c containers/products --project=products
 ```
 
-## 2. Add a method in the subscription to navigate to the login page on login
+## 
 
-* Inject the router and navigate on login
+## 2. Share User state with a BehaviorSubject
+
+A BehaviourSubject is a special observable you can both subscribe to and pass values.
+
+* Add a BehaviorSubject to the Auth service.
 
 {% code-tabs %}
-{% code-tabs-item title="libs/auth/src/lib/containers/login/login.component.ts" %}
+{% code-tabs-item title="libs/auth/src/lib/services/auth/auth.service.ts" %}
 ```typescript
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from './../../services/auth/auth.service';
+import { Injectable } from '@angular/core';
 import { Authenticate, User } from '@demo-app/data-models';
-import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
-@Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+@Injectable({
+  providedIn: 'root'
 })
-export class LoginComponent implements OnInit {
-  constructor(private router: Router,    // added
-           private authService: AuthService) {}
+export class AuthService {
+  private userSubject$ = new BehaviorSubject<User>(null);
+  user$ = this.userSubject$.asObservable();
 
-  ngOnInit() {}
+  constructor(private httpClient: HttpClient) {}
 
-  login(authenticate: Authenticate) {
-    this.authService
-      .login(authenticate)
-      .subscribe((user: User) =>
-        this.router.navigate([`/user-profile/${user.id}`])   //added
-      );
+  login(authenticate: Authenticate): Observable<User> {
+    return this.httpClient.post<User>(
+      'http://localhost:3000/login',
+      authenticate
+    ).pipe(tap((user: User) => (this.userSubject$.next(user))));
   }
+
 }
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
 * Check default routes added to AppModule
+* Add a new default route to always load the products on app load
 
 {% code-tabs %}
 {% code-tabs-item title="apps/customer-portal/src/app/app.module.ts" %}
@@ -72,17 +76,17 @@ import { AuthGuard } from '@demo-app/auth';
     NxModule.forRoot(),
     RouterModule.forRoot(
       [
-        { path: '', pathMatch: 'full', redirectTo: 'user-profile' },
+        { path: '', pathMatch: 'full', redirectTo: 'products' },   // added
         { path: 'auth', children: authRoutes },
         {
-          path: 'user-profile',
-          loadChildren: '@demo-app/user-profile#UserProfileModule',
-          canActivate: [AuthGuard]
+          path: 'products',
+          loadChildren: '@demo-app/products#ProductsModule',       // added
         }
       ],
       { initialNavigation: 'enabled' }
     ),
-    AuthModule
+    AuthModule,
+    LayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]
@@ -92,35 +96,39 @@ export class AppModule {}
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## 3. Add UserProfileModule routes with params
+## 3. Add ProductsModule routes with params
 
 {% code-tabs %}
-{% code-tabs-item title="libs/user-profile/src/lib/user-profile.module.ts" %}
+{% code-tabs-item title="libs/products/src/lib/products.module.ts" %}
 ```typescript
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserProfileComponent } from './containers/user-profile/user-profile.component';
 import { RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { ProductsComponent } from './containers/products/products.component';
 
 @NgModule({
   imports: [
     CommonModule,
+    MaterialModule,
     RouterModule.forChild([
-      { path: ':id', component: UserProfileComponent }
+      { path: '', component: ProductsComponent }
     ])
   ],
-  declarations: [UserProfileComponent]
+  declarations: [ProductsComponent],
 })
-export class UserProfileModule {}
+export class ProductsModule {}
+
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
 * Login again to check the routing is correctly configured.
 
-![Default HTML for User Profile component](../.gitbook/assets/image%20%2814%29.png)
-
-## 4. Add a route guard to protect profile page
+## 4. Add a route guard to protect products page
 
 * Generate a guard wit the CLI
 
