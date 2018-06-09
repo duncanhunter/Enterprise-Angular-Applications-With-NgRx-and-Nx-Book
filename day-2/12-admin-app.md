@@ -13,7 +13,7 @@ ng g lib layout ---prefix app
 * Add a layout container component
 
 ```text
-ng g c containers/layout
+ng g c containers/layout --project=layout
 ```
 
 * Add a material tool bar
@@ -206,4 +206,8 @@ export class AppModule {}
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
+
+## Extras
+
+### 1. Convert Layout component into a pure container component by moving the nav bar into a presentational component.
 
