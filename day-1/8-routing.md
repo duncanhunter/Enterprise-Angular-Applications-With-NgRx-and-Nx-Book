@@ -2,7 +2,7 @@
 
 ## 1. Add a lib for a users profile page
 
-* Add a lazy loaded lib with routing. Note this will add linting rules to .angular-cli.json to stop adding this module to other modules.
+* Add a lazy loaded lib with routing. Note this will add linting rules to angular.json to stop adding this module to other modules.
 
 ```bash
 ng g lib user-profile --routing --lazy --parent-module=apps/customer-portal/src/app/app.module.ts
@@ -54,19 +54,41 @@ export class LoginComponent implements OnInit {
 {% code-tabs %}
 {% code-tabs-item title="apps/customer-portal/src/app/app.module.ts" %}
 ```typescript
-RouterModule.forRoot(
-    [
-      { path: '', pathMatch: 'full', redirectTo: 'user-profile' },
-      { path: 'auth', children: authRoutes },
-      {
-        path: 'user-profile',
-        loadChildren: '@demo-app/user-profile#UserProfileModule'
-      }
-    ],
-    {
-       initialNavigation: 'enabled'
-    }
-),
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AppComponent } from './app.component';
+import { NxModule } from '@nrwl/nx';
+import { RouterModule } from '@angular/router';
+import { authRoutes, AuthModule } from '@demo-app/auth';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthGuard } from '@demo-app/auth';
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    NxModule.forRoot(),
+    RouterModule.forRoot(
+      [
+        { path: '', pathMatch: 'full', redirectTo: 'user-profile' },
+        { path: 'auth', children: authRoutes },
+        {
+          path: 'user-profile',
+          loadChildren: '@demo-app/user-profile#UserProfileModule',
+          canActivate: [AuthGuard]
+        }
+      ],
+      { initialNavigation: 'enabled' }
+    ),
+    AuthModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -123,6 +145,7 @@ import { tap } from 'rxjs/operators';
 })
 export class AuthService {
   isAuthenticated: boolean;
+
   constructor(private httpClient: HttpClient) {}
 
   login(authenticate: Authenticate): Observable<User> {
