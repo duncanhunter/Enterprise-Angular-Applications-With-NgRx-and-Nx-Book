@@ -3,7 +3,7 @@
 ## 1. Add auth NgRx state
 
 ```text
-ng generate ngrx auth --module=libs/auth/src/auth.module.ts
+ng generate ngrx auth --module=libs/auth/src/lib/auth.module.ts
 ```
 
 * Update default code generated actions.
