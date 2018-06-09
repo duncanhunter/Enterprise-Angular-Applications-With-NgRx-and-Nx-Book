@@ -14,43 +14,7 @@ ng g lib products --routing --lazy --parent-module=apps/customer-portal/src/app/
 ng g c containers/products --project=products
 ```
 
-## 
-
-## 2. Share User state with a BehaviorSubject
-
-A BehaviourSubject is a special observable you can both subscribe to and pass values.
-
-* Add a BehaviorSubject to the Auth service.
-
-{% code-tabs %}
-{% code-tabs-item title="libs/auth/src/lib/services/auth/auth.service.ts" %}
-```typescript
-import { Injectable } from '@angular/core';
-import { Authenticate, User } from '@demo-app/data-models';
-import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { tap } from 'rxjs/operators';
-
-@Injectable({
-  providedIn: 'root'
-})
-export class AuthService {
-  private userSubject$ = new BehaviorSubject<User>(null);
-  user$ = this.userSubject$.asObservable();
-
-  constructor(private httpClient: HttpClient) {}
-
-  login(authenticate: Authenticate): Observable<User> {
-    return this.httpClient.post<User>(
-      'http://localhost:3000/login',
-      authenticate
-    ).pipe(tap((user: User) => (this.userSubject$.next(user))));
-  }
-
-}
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+## 2. A default app route to always go to products page
 
 * Check default routes added to AppModule
 * Add a new default route to always load the products on app load
@@ -96,7 +60,7 @@ export class AppModule {}
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## 3. Add ProductsModule routes with params
+## 3. Add ProductsModule route
 
 {% code-tabs %}
 {% code-tabs-item title="libs/products/src/lib/products.module.ts" %}
@@ -136,37 +100,6 @@ export class ProductsModule {}
 ng g guard guards/auth/auth --project=auth
 ```
 
-* Update the authService to set a local flag before we add ngrx later
-
-{% code-tabs %}
-{% code-tabs-item title="libs/auth/src/lib/services/auth.service.ts" %}
-```typescript
-import { Injectable } from '@angular/core';
-import { Authenticate, User } from '@demo-app/data-models';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
-
-@Injectable({
-  providedIn: 'root'
-})
-export class AuthService {
-  isAuthenticated: boolean;
-
-  constructor(private httpClient: HttpClient) {}
-
-  login(authenticate: Authenticate): Observable<User> {
-    return this.httpClient.post<User>(
-      'http://localhost:3000/login',
-      authenticate
-    ).pipe(tap(() => (this.isAuthenticated = true)));
-  }
-
-}
-```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
-
 * Add auth guard logic
 
 {% code-tabs %}
@@ -181,26 +114,31 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from './../../services/auth/auth.service';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-
   constructor(private router: Router, private authService: AuthService) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): boolean {
-    if (this.authService.isAuthenticated) {
-      return true;
-    } else {
-      this.router.navigate([`/auth/login`]);
-      return false;
-    }
+  ): Observable<boolean> {
+    return this.authService.user$.pipe(
+      map(user => {
+        if (user) {
+          return true;
+        } else {
+          this.router.navigate([`/auth/login`]);
+          return false;
+        }
+      })
+    );
   }
 }
+
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -274,6 +212,40 @@ export class AppModule {}
       return false;
     }
   }
+  
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+
+
+* Update the authService to set a local flag before we add ngrx later
+
+{% code-tabs %}
+{% code-tabs-item title="libs/auth/src/lib/services/auth.service.ts" %}
+```typescript
+import { Injectable } from '@angular/core';
+import { Authenticate, User } from '@demo-app/data-models';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthService {
+  isAuthenticated: boolean;
+
+  constructor(private httpClient: HttpClient) {}
+
+  login(authenticate: Authenticate): Observable<User> {
+    return this.httpClient.post<User>(
+      'http://localhost:3000/login',
+      authenticate
+    ).pipe(tap(() => (this.isAuthenticated = true)));
+  }
+
+}
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
