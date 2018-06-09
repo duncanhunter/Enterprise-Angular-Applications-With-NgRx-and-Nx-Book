@@ -1,4 +1,4 @@
-# 11 - NgRx Selectors
+# 14 - NgRx Selectors
 
 Lets add a main menu to our customer portal to show the name of the logged in user.
 
@@ -95,7 +95,7 @@ import { Observable } from 'rxjs/Observable';
 })
 export class LayoutComponent implements OnInit {
   user$: Observable<User>;
-  
+
   constructor(private store: Store<AuthState>) { }
 
   ngOnInit() {
@@ -152,7 +152,6 @@ import { LayoutModule } from '@demo-app/customer-portal/layout';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -181,7 +180,6 @@ import { AuthData } from './auth.reducer';
 
 export const getAuthState = createFeatureSelector<AuthData>('auth');
 export const getUser = createSelector(getAuthState, state => state.user);
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}

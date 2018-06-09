@@ -20,14 +20,14 @@
 * [5 - Angular Services](day-1/5-angular-services.md)
 * [6 - Angular Material](day-1/6-angular-material.md)
 * [7 - Reactive Forms](day-1/7-reactive-forms.md)
-* [8 - Layout Lib and BehaviorSubjects](day-1/8-layout-lib.md)
-* [9 - Route Guards and Products Lib](day-1/9-routing.md)
+* [8 - Layout Lib and BehaviorSubjects](day-1/8-layout-lib-and-behaviorsubjects.md)
+* [9 - Route Guards and Products Lib](day-1/9-route-guards-and-products-lib.md)
 * [10 - NgRx Introduction](day-1/10-ngrx-introduction.md)
 
 ## Day 2
 
 * [11 - Adding NgRx to Nx App](day-2/11-adding-ngrx-to-nx-app.md)
-* [12 - NgRx Libs and Action Creators](day-2/12-ngrx-libs.md)
+* [12 - NgRx Libs and Action Creators](day-2/12-ngrx-libs-and-action-creators.md)
 * [13 - NgRx Effects](day-2/13-ngrx-effects.md)
 * [14 - NgRx Selectors](day-2/14-ngrx-selectors.md)
 * [15 - Entity State Adapter](day-2/15-entity-state-adapter.md)

@@ -1,4 +1,4 @@
-# 13 - Entity State Adapter
+# 15 - Entity State Adapter
 
 ## 1. Add a new route guard
 
@@ -46,7 +46,6 @@ export class AuthAdminGuard implements CanActivate {
     );
   }
 }
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -115,7 +114,6 @@ import { UsersEffects } from './+state/users.effects';
   providers: [UsersEffects]
 })
 export class UsersModule {}
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -195,7 +193,6 @@ const COMPONENTS = [LoginComponent, LoginFormComponent];
   ]
 })
 export class AuthModule {}
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -236,7 +233,6 @@ const COMPONENTS = [LayoutComponent];
   exports: [COMPONENTS]
 })
 export class LayoutModule {}
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -470,7 +466,6 @@ export const {
   // select the total user count
   selectTotal: selectUserTotal
 } = adapter.getSelectors();
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -497,7 +492,6 @@ export const selectCurrentUser = createSelector(
   selectCurrentUserId,
   (userEntities, userId) => userEntities[userId]
 );
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -511,7 +505,6 @@ export { UsersModule } from './src/users.module';
 export { UsersState } from './src/+state/users.reducer';
 export * from './src/+state/index';
 export * from './src/+state/users.actions';
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -543,7 +536,6 @@ export class UserListComponent implements OnInit {
     this.users$ = this.store.select(selectAllUsers);
   }
 }
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -557,6 +549,4 @@ export class UserListComponent implements OnInit {
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
-
-
 

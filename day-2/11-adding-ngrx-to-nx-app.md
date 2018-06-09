@@ -1,6 +1,6 @@
-# 10 - NgRx Schematics
+# 11 - Adding NgRx to Nx App
 
-### NgRx schematics
+## NgRx schematics
 
 * Ngrx schematics have a different syntax to write effects versus using Nrwl's DataPersitance library which you need to know to understand the normal way to do it. The schematics from the NgRx team can be added with the below code.
 
@@ -12,7 +12,7 @@ npm install @ngrx/schematics@5.2.0 --save-dev
 Note: You can learn more here [https://github.com/ngrx/platform/blob/master/docs/schematics/README.md](https://github.com/ngrx/platform/blob/master/docs/schematics/README.md)
 {% endhint %}
 
-### 1. Add NgRx based effect syntax
+## 1. Add NgRx based effect syntax
 
 * Comment out the existing effect and use the normal effect syntax.
 
@@ -74,12 +74,7 @@ export class AuthEffects {
     private router: Router
   ) {}
 }
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
-
-
-
-
 

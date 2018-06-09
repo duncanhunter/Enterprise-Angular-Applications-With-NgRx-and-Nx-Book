@@ -1,4 +1,4 @@
-# 14 - Router Store
+# 16 - Router Store
 
 ## 1. Add a new presentational components for users
 
@@ -31,7 +31,6 @@ Do not forget to add the MaterialModule to this module to use the toolbar
     </mat-select>
   </mat-form-field>
 </mat-toolbar>
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -55,7 +54,6 @@ export class UsersTableToolbarComponent {
     this.filter.emit(country);
   }
 }
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -234,7 +232,6 @@ export const {
   // select the total user count
   selectTotal: selectUserTotal
 } = adapter.getSelectors();
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -296,7 +293,6 @@ export class UserListComponent implements OnInit {
     this.router.navigate([`/users`], navigationExtras);
   }
 }
-
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
