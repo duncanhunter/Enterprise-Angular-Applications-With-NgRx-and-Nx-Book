@@ -21,8 +21,8 @@
 * [6 - Angular Material](day-1/6-thirdparty-dependencies.md)
 * [7 - Reactive Forms](day-1/7-reactive-forms.md)
 * [8 - Layout Lib](day-1/8-layout-lib.md)
-* [9 - Routing](day-1/8-routing.md)
-* [10 - NgRx Introduction](day-1/9-ngrx-introduction.md)
+* [9 - Routing](day-1/9-route-guards.md)
+* [10 - NgRx Introduction](day-1/10-ngrx-introduction.md)
 
 ## Day 2
 
