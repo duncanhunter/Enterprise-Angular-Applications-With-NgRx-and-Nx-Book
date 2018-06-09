@@ -34,8 +34,6 @@ ng g c containers/layout --project=layout
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-
-
 ## 3. Add a BehaviourSubject to Auth service
 
 A BehaviorSubject is a special observable you can both subscribe to and pass values.
@@ -113,7 +111,7 @@ export class LayoutComponent implements OnInit {
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-* Add the MaterialModule to the LayoutModule and export the Layout Component out of the module.
+## 5. Add the MaterialModule to the LayoutModule and export the Layout Component out of the module.
 
 {% code-tabs %}
 {% code-tabs-item title="libs/layout/src/lib/layout.module.ts" %}
@@ -134,7 +132,7 @@ export class LayoutModule {}
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-* Add the new component to the cutomer-portal apps main view
+## 6. Add the new component to the cutomer-portal apps main view
 
 {% code-tabs %}
 {% code-tabs-item title="apps/admin-portal/src/app/app.component.html" %}
@@ -146,7 +144,7 @@ export class LayoutModule {}
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-* Add styles to styles.scss
+## 7. Add styles to styles.scss
 
 {% code-tabs %}
 {% code-tabs-item title="apps/customer-portal/src/styles.scss" %}
@@ -210,12 +208,6 @@ export class AppModule {}
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
-
-### 
-
-### ????. Share User state with a BehaviorSubject
-
-
 
 ## Extras
 
