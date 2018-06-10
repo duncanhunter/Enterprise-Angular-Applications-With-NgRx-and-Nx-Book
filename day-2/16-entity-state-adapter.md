@@ -1,4 +1,4 @@
-# 15 - Entity State Adapter
+# 16 - Entity State Adapter
 
 ## 1. Add a new route guard
 
