@@ -31,8 +31,8 @@
 * [13 - NgRx Effects](day-2/13-ngrx-effects.md)
 * [14 - NgRx Selectors](day-2/14-ngrx-selectors.md)
 * [15 - Add Products NgRx Feature Module](day-2/15-ngrx-products.md)
-* [16 - Entity State Adapter](day-2/15-entity-state-adapter.md)
-* [17 - Router Store](day-2/16-router-store.md)
-* [18 - Unit and e2e Tests](day-2/17-unit-and-e2e-tests.md)
-* [19 - Deploying An Nx Monorepo](day-2/18-deploying-an-nx-monorepo.md)
+* [16 - Entity State Adapter](day-2/16-entity-state-adapter.md)
+* [17 - Router Store](day-2/17-router-store.md)
+* [18 - Unit and e2e Tests](day-2/18-unit-and-e2e-tests.md)
+* [19 - Deploying An Nx Monorepo](day-2/19-deploying-an-nx-monorepo.md)
 
