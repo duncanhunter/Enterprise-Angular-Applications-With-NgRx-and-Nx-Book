@@ -36,7 +36,6 @@ By the end of this workshop you will have built a working Nx and ngrx applicatio
 This workshop is for developers with at least a basic understanding of JavaScript and HTML. You do not need angular v2+ experience to attend this course but it is recommended to have done at least the beginner's tutorial on angular.io or equivalent. This course briefly covers the fundamentals of angular components, services, routing and modules but moves onto talking about using them with ngrx and Nx workspaces and enterprise patterns for the majority of the workshop.
 
 **Computer Setup:**  
-You need to bring your own laptop with the below software installed to follow this workshop.
 
 * Visual Studio Code
 * A command line Git client
