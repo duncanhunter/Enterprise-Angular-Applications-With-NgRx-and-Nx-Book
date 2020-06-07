@@ -61,31 +61,59 @@ cd code .
 nx g application --help
 ```
 
-* Create a new app by installing the Angular schematic and running the below command in the terminal in a directory of your choice.
+* Install the Angular schematic needed to create an Angular app.
 
 ```text
 npm install @nrwl/angular
+```
+
+* Create a new app by running the below command in the terminal in a directory of your choice.  Choose [SASS](https://sass-lang.com/documentation) as your stylesheet language.
+
+```txt
 nx generate @nrwl/angular:app customer-portal --routing
 ```
 
-The resulting output should look like this:
-
 ```txt
-? Which stylesheet format would you like to use? SASS(.scss)  [ http://sass-lang.com   ]
-CREATE libs/auth/README.md (132 bytes)
-CREATE libs/auth/tsconfig.lib.json (408 bytes)
-CREATE libs/auth/tsconfig.lib.prod.json (97 bytes)
-CREATE libs/auth/tslint.json (244 bytes)
-CREATE libs/auth/src/index.ts (35 bytes)
-CREATE libs/auth/src/lib/auth.module.ts (268 bytes)
-CREATE libs/auth/src/lib/auth.module.spec.ts (338 bytes)
-CREATE libs/auth/tsconfig.json (123 bytes)
-CREATE libs/auth/jest.config.js (345 bytes)
-CREATE libs/auth/tsconfig.spec.json (233 bytes)
-CREATE libs/auth/src/test-setup.ts (30 bytes)
-UPDATE workspace.json (20717 bytes)
-UPDATE nx.json (1174 bytes)
-UPDATE tsconfig.json (691 bytes)
+>nx generate @nrwl/angular:app customer-portal --routing
+? Which stylesheet format would you like to use? (Use arrow keys)
+  CSS
+> SASS(.scss)  [ http://sass-lang.com   ]
+  Stylus(.styl)[ http://stylus-lang.com ]
+  LESS         [ http://lesscss.org     ]
+CREATE apps/customer-portal/tsconfig.json (97 bytes)
+CREATE apps/customer-portal/src/favicon.ico (15086 bytes)
+CREATE apps/customer-portal/browserslist (429 bytes)
+CREATE apps/customer-portal/tsconfig.app.json (163 bytes)
+CREATE apps/customer-portal/tslint.json (247 bytes)
+CREATE apps/customer-portal/src/index.html (338 bytes)
+CREATE apps/customer-portal/src/main.ts (377 bytes)
+CREATE apps/customer-portal/src/polyfills.ts (2833 bytes)
+CREATE apps/customer-portal/src/styles.scss (80 bytes)
+CREATE apps/customer-portal/src/assets/.gitkeep (0 bytes)
+CREATE apps/customer-portal/src/environments/environment.prod.ts (52 bytes)
+CREATE apps/customer-portal/src/environments/environment.ts (663 bytes)
+CREATE apps/customer-portal/src/app/app.module.ts (419 bytes)
+CREATE apps/customer-portal/src/app/app.component.html (3017 bytes)
+CREATE apps/customer-portal/src/app/app.component.spec.ts (1051 bytes)
+CREATE apps/customer-portal/src/app/app.component.ts (226 bytes)
+CREATE apps/customer-portal/src/app/app.component.scss (2088 bytes)
+CREATE apps/customer-portal/jest.config.js (369 bytes)
+CREATE apps/customer-portal/tsconfig.spec.json (233 bytes)
+CREATE apps/customer-portal/src/test-setup.ts (30 bytes)
+CREATE apps/customer-portal-e2e/tslint.json (97 bytes)
+CREATE apps/customer-portal-e2e/cypress.json (430 bytes)
+CREATE apps/customer-portal-e2e/tsconfig.e2e.json (188 bytes)
+CREATE apps/customer-portal-e2e/tsconfig.json (137 bytes)
+CREATE apps/customer-portal-e2e/src/fixtures/example.json (80 bytes)
+CREATE apps/customer-portal-e2e/src/integration/app.spec.ts (422 bytes)
+CREATE apps/customer-portal-e2e/src/plugins/index.js (832 bytes)
+CREATE apps/customer-portal-e2e/src/support/app.po.ts (47 bytes)
+CREATE apps/customer-portal-e2e/src/support/commands.ts (1068 bytes)
+CREATE apps/customer-portal-e2e/src/support/index.ts (599 bytes)
+UPDATE package.json (1958 bytes)
+UPDATE workspace.json (9408 bytes)
+UPDATE nx.json (750 bytes)
+UPDATE tslint.json (2311 bytes)
 ```
 
 ## 4. Examine angular app and module structure

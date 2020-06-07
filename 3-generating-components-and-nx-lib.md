@@ -1,17 +1,56 @@
 # 3 - Generating components and Nx lib
 
-##  1. Generate our first Nx lib
+## 1. Generate our first Nx lib
 
 * Run the below command to see all the lib options
 
 ```bash
-ng g lib --help
+
+```bash
+>nx g lib --help
+nx generate @nrwl/angular:library [name] [options,...]
+Options:
+  --name                  Library name
+  --directory             A directory where the lib is placed
+  --publishable           Generate a buildable library.
+  --prefix                The prefix to apply to generated selectors.
+  --skipFormat            Skip formatting files
+  --simpleModuleName      Keep the module name simple (when using --directory)
+  --skipPackageJson       Do not add dependencies to package.json.
+  --skipTsConfig          Do not update tsconfig.json for development experience.
+  --style                 The file extension to be used for style files. (default: css)
+  --routing               Add router configuration. See lazy for more information.
+  --lazy                  Add RouterModule.forChild when set to true, and a simple array of routes when set to false.
+  --parentModule          Update the router configuration of the parent module using loadChildren or children, depending on what `lazy` is set to.
+  --tags                  Add tags to the library (used for linting)
+  --unitTestRunner        Test runner to use for unit tests (default: jest)
+  --dryRun                Runs through and reports activity without writing to disk.
+  --help                  Show available options for project target.
 ```
 
-* Add a new lib called auth. We will not lazy load this lib as auth will always be used by our app
+* Add a new lib called auth. We will not lazy load this lib as auth will always be used by our app.  Choose SASS as your styelsheet language.
 
 ```text
-ng g lib auth --routing --prefix=app --parent-module=apps/customer-portal/src/app/app.module.ts
+nx generate @nrwl/angular:lib auth --routing
+```
+
+The output should look like this:
+
+```txt
+? Which stylesheet format would you like to use? SASS(.scss)  [ http://sass-lang.com   ]
+CREATE libs/auth/README.md (132 bytes)
+CREATE libs/auth/tsconfig.lib.json (408 bytes)
+CREATE libs/auth/tslint.json (247 bytes)
+CREATE libs/auth/src/index.ts (35 bytes)
+CREATE libs/auth/src/lib/auth.module.ts (269 bytes)
+CREATE libs/auth/src/lib/auth.module.spec.ts (339 bytes)
+CREATE libs/auth/tsconfig.json (123 bytes)
+CREATE libs/auth/jest.config.js (347 bytes)
+CREATE libs/auth/tsconfig.spec.json (233 bytes)
+CREATE libs/auth/src/test-setup.ts (30 bytes)
+UPDATE workspace.json (10310 bytes)
+UPDATE nx.json (788 bytes)
+UPDATE tsconfig.json (565 bytes)
 ```
 
 * Inspect the index.ts file which is for exporting public api surface for the lib.
@@ -31,7 +70,18 @@ Lets look at what this pattern is and what are the benefits in slides
 * Add a new container component to the auth lib
 
 ```text
-ng g c containers/login --project=auth
+nx generate @nrwl/angular:component containers/login --project=auth
+```
+
+The output will look like this:
+
+```txt
+>nx generate @nrwl/angular:component containers/login --project=auth
+CREATE libs/auth/src/lib/containers/login/login.component.html (20 bytes)
+CREATE libs/auth/src/lib/containers/login/login.component.spec.ts (621 bytes)
+CREATE libs/auth/src/lib/containers/login/login.component.ts (276 bytes)
+CREATE libs/auth/src/lib/containers/login/login.component.css (0 bytes)
+UPDATE libs/auth/src/lib/auth.module.ts (372 bytes)
 ```
 
 * Add a new presentational component to the auth lib
