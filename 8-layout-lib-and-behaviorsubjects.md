@@ -1,6 +1,6 @@
 ---
 description: >-
-  In this section me make a reusable Layout and a BehaviorSubject to share User
+  In this section we make a reusable Layout and a BehaviorSubject to share User
   state
 ---
 
@@ -9,18 +9,22 @@ description: >-
 ## 1. Add a new Layout lib and container component
 
 ```text
-ng g lib layout --prefix app
+nx generate @nrwl/angular:lib layout
+? Which stylesheet format would you like to use? SASS(.scss)  [ http://sass-lang.com   ]
 ```
+
+Again, choose sass for the stylesheet language.
 
 * Add a layout container component
 
 ```text
-ng g c containers/layout --project=layout
+ng g @nrwl/angular:component containers/layout --project=layout --prefix app
 ```
 
-## 2. Add the MaterialModule and Router Module to the LayoutModule and export the Layout Component out of the module.
+## 2. Add the MaterialModule and Router Module to the LayoutModule and export the Layout Component out of the module
 
 {% code title="libs/layout/src/lib/layout.module.ts" %}
+
 ```typescript
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -36,6 +40,7 @@ import { RouterModule } from '@angular/router';   // Added
 export class LayoutModule {}
 
 ```
+
 {% endcode %}
 
 ## 3. Add a material tool bar to the layout component
@@ -43,12 +48,14 @@ export class LayoutModule {}
 Note the &lt;ng-content&gt;&lt;/ng-content&gt; to transclude content into the component. Also note the flexLayout attribute.
 
 {% code title="libs/layout/src/lib/containers/layout/layout.component.html" %}
+
 ```markup
 <mat-toolbar color="primary" fxLayout="row">
   <span>Customer Portal</span>
 </mat-toolbar>
 <ng-content></ng-content>
 ```
+
 {% endcode %}
 
 ## 3. Add a BehaviourSubject to Auth service
@@ -58,6 +65,7 @@ A BehaviorSubject is a special observable you can both subscribe to and pass val
 * Add a BehaviorSubject to the Auth service.
 
 {% code title="libs/auth/src/lib/services/auth/auth.service.ts" %}
+
 ```typescript
 import { Injectable } from '@angular/core';
 import { Authenticate, User } from '@demo-app/data-models';
@@ -79,6 +87,7 @@ export class AuthService {
 }
 
 ```
+
 {% endcode %}
 
 ## 4. Add the LayoutComponent logic to select the current logged in user like
@@ -86,14 +95,17 @@ export class AuthService {
 Re-export the  AuthService from the Auth Libs index.ts file.
 
 {% code title="libs/auth/src/index.ts" %}
+
 ```typescript
 export { AuthService } from './lib/services/auth/auth.service';
 ```
+
 {% endcode %}
 
 Add logic to subscribe to User Subject in the Auth Service
 
 {% code title="libs/layout/src/lib/containers/layout/layout.component.ts" %}
+
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@demo-app/auth'
@@ -116,25 +128,25 @@ export class LayoutComponent implements OnInit {
 }
 
 ```
+
 {% endcode %}
 
-```
-
-```
-
-## 6. Add the new component to the Cutomer Portal apps main view
+## 6. Add the new component to the Customer Portal apps main view
 
 {% code title="apps/customer-portal/src/app/app.component.html" %}
+
 ```markup
 <app-layout>
     <router-outlet></router-outlet>
 </app-layout>
 ```
+
 {% endcode %}
 
 ## 7. Add styles to styles.scss and layout.scss
 
 {% code title="apps/customer-portal/src/styles.scss" %}
+
 ```css
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
@@ -142,21 +154,25 @@ body {
     margin: 0;
 }
 ```
+
 {% endcode %}
 
 * Add styles to the layout.component.scss 
 
 {% code title="libs/layout/src/lib/containers/layout/layout.component.scss" %}
+
 ```text
 .right-nav {
     margin-left: auto;
 }
 ```
+
 {% endcode %}
 
 ## 8. Add the Layout Module to the AppModule.
 
 {% code title="apps/customer-portal/src/app/app.module.ts" %}
+
 ```typescript
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -183,6 +199,7 @@ import { LayoutModule } from '@demo-app/layout';
 export class AppModule {}
 
 ```
+
 {% endcode %}
 
 ## 9. Add a material tool bar logic
@@ -190,6 +207,7 @@ export class AppModule {}
 We will add the products link later but for now it will error if we try and click it.
 
 {% code title="libs/layout/src/lib/containers/layout/layout.component.html" %}
+
 ```markup
 <mat-toolbar color="primary" fxLayout="row">
   <span>Customer Portal</span>
@@ -206,6 +224,7 @@ We will add the products link later but for now it will error if we try and clic
 </mat-toolbar>
 <ng-content></ng-content>
 ```
+
 {% endcode %}
 
 ## Extras
@@ -214,4 +233,3 @@ We will add the products link later but for now it will error if we try and clic
 
 * Add a toolbar presentational component.
 * Pass user into presentational component via inputs.
-
