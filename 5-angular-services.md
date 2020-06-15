@@ -9,7 +9,7 @@ description: In this section we discuss angular service
 * Run the following command to make a new service in the auth lib
 
 ```text
-ng g service services/auth/auth --project=auth
+nx generate @nrwl/angular:service services/auth/auth
 ```
 
 ## 2. Add login method and http post for the login

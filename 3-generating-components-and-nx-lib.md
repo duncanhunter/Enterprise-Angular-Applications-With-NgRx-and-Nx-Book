@@ -5,6 +5,10 @@
 * Run the below command to see all the lib options
 
 ```bash
+nx g lib --help
+```
+
+The output for the current Nx version (9.3.0) is:
 
 ```bash
 >nx g lib --help

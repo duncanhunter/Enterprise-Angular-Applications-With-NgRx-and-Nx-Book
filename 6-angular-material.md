@@ -25,6 +25,7 @@ npm install @angular/material @angular/cdk @angular/flex-layout @angular/animati
 * Add animations module to the main app module.
 
 {% code title="src/app/app.module.ts" %}
+
 ```typescript
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -50,34 +51,33 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';   
 export class AppModule {}
 
 ```
+
 {% endcode %}
 
 ## 2. Add a new Nx lib to hold all the common material components we will use in our apps
 
 ```bash
-ng g lib material
+nx generate @nrwl/angular:lib material
 ```
 
 * Add all the common material components and re-export them
 
 {% code title="libs/material/src/lib/material.module.ts" %}
+
 ```typescript
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-
-import {
-  MatInputModule,
-  MatCardModule,
-  MatButtonModule,
-  MatSidenavModule,
-  MatListModule,
-  MatIconModule,
-  MatToolbarModule,
-  MatProgressSpinnerModule,
-  MatMenuModule,
-  MatTableModule,
-  MatSelectModule
-} from '@angular/material';
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatTableModule } from '@angular/material/table';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   imports: [
@@ -111,11 +111,13 @@ import {
 })
 export class MaterialModule {}
 ```
+
 {% endcode %}
 
 * Add material module to auth module
 
 {% code title="libs/auth/src/auth.module.ts" %}
+
 ```typescript
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -135,19 +137,23 @@ export const authRoutes: Route[] = [
 export class AuthModule {}
 
 ```
+
 {% endcode %}
 
 ## 3. Add material default styles
 
 {% code title="apps/customer-portal/src/styles.scss" %}
+
 ```css
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 ```
+
 {% endcode %}
 
 * Update the login-form to use material components
 
 {% code title="libs/auth/src/lib/components/login-form/login-form.component.html" %}
+
 ```markup
 <mat-card>
     <mat-card-title>Login</mat-card-title>
@@ -164,6 +170,7 @@ export class AuthModule {}
     </mat-card-content>
 </mat-card>
 ```
+
 {% endcode %}
 
 ## 4. Go and explore flex layout docs
@@ -173,6 +180,3 @@ export class AuthModule {}
 [https://tburleson-layouts-demos.firebaseapp.com/\#/docs](https://tburleson-layouts-demos.firebaseapp.com/#/docs)
 
 ![flex-layout library examples](.gitbook/assets/image%20%2821%29.png)
-
-
-
