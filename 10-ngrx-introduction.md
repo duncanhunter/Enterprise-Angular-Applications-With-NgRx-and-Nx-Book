@@ -43,26 +43,22 @@ npm install @ngrx/store @ngrx/store-devtools
 ### c\) Add a counter.reducer.ts fill to a new state folder in the app
 
 {% code title="src/app/state/counter.reducer.ts" %}
+
 ```typescript
 export function counterReducer(state, action) {
-  switch (action.type) {
-    case 'INCREMENT':
-      return state + 1;
-
-    case 'DECREMENT':
-      return state - 1;
-
-    default:
-      return state;
-  }
-}
+  on('INCREMENT', state => state + 1),
+  on('DECREMENT', state => state - 1),
+  on(reset, state => 0),
+);
 
 ```
+
 {% endcode %}
 
 ### d\) Register the reducer and NgRx in the App module
 
 {% code title="src/app/app.module.ts" %}
+
 ```typescript
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -87,17 +83,19 @@ import { StoreDevtoolsModule} from '@ngrx/store-devtools';
 export class AppModule { }
 
 ```
+
 {% endcode %}
 
 ### e\) Add the HTML to the App component
 
 {% code title="src/app/app.component.html" %}
+
 ```markup
 <button (click)="increment()">Increment</button>
 <div>Current Count: {{ count$ | async }}</div>
 <button (click)="decrement()">Decrement</button>
-
 ```
+
 {% endcode %}
 
 ### f\) Add App component logic
@@ -107,6 +105,7 @@ Note:  changeDetection: ChangeDetectionStrategy.OnPush to avoid issue with chang
 {% endhint %}
 
 {% code title="src/app/app.component.ts" %}
+
 ```typescript
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { select, Store } from '@ngrx/store';
@@ -134,8 +133,8 @@ export class AppComponent {
   }
 ​
 }
-
 ```
+
 {% endcode %}
 
 ### g\) Adding action creators
@@ -145,6 +144,7 @@ At this point we have no strong types for our actions or our state tree, let's f
 * Add a file to the state folder called counter.actions.ts
 
 {% code title="src/app/state/counter.actions.ts" %}
+
 ```typescript
 import { Action } from '@ngrx/store';
 
@@ -153,18 +153,11 @@ export enum CounterActionTypes {
     Decrement = '[Counter Page] Decrement'
 }
 
-export class Increment implements Action {
-    readonly type = CounterActionTypes.Increment;
-}
+export const increment = createAction(CounterActionTypes.Increment);
 
-
-export class Decrement implements Action {
-    readonly type = CounterActionTypes.Decrement;
-}
-
-export type CounterActions = Increment | Decrement;
-
+export const decrement = createAction(CounterActionTypes.Decrement);
 ```
+
 {% endcode %}
 
 ### h\) Adding action State interfaces
@@ -172,6 +165,7 @@ export type CounterActions = Increment | Decrement;
 * In the top of the reducer file at a Product State interface and use it and our new action types int he reducer.
 
 {% code title="src/app/state/counter.reducer.ts" %}
+
 ```typescript
 import { CounterActions, CounterActionTypes } from 'src/app/state/counter.actions';
 
@@ -201,6 +195,7 @@ export function counterReducer(state = initialState, action: CounterActions) {
 }
 
 ```
+
 {% endcode %}
 
 ### i\) Add global State interface
@@ -208,6 +203,7 @@ export function counterReducer(state = initialState, action: CounterActions) {
 This is useful to be able to type your injected store and select state.
 
 {% code title="src/app/state/appState.ts" %}
+
 ```typescript
 import { CounterState } from 'src/app/state/counter.reducer';
 
@@ -215,11 +211,13 @@ export interface AppState {
     counter: CounterState;
 }
 ```
+
 {% endcode %}
 
 ### j\) Use state interface in app component
 
 {% code title="src/app/app.component.ts" %}
+
 ```typescript
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { select, Store } from '@ngrx/store';
@@ -251,5 +249,5 @@ export class AppComponent {
 }
 
 ```
-{% endcode %}
 
+{% endcode %}
