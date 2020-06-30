@@ -5,13 +5,34 @@
 * Add a lazy loaded lib with routing. We will grow this new feature lib out with advance NgRx features later int he course but for now we will just make the container component to navigate to on login.
 
 ```bash
-ng g lib products --routing --lazy --prefix=app --parent-module=apps/customer-portal/src/app/app.module.ts
+nx generate @nrwl/angular:lib products --routing --lazy --parent-module=apps/customer-portal/src/app/app.module.ts
+? Which stylesheet format would you like to use? SASS(.scss)  [ http://sass-lang.com   ]
+CREATE libs/products/README.md (140 bytes)
+CREATE libs/products/tsconfig.lib.json (408 bytes)
+CREATE libs/products/tsconfig.lib.prod.json (97 bytes)
+CREATE libs/products/tslint.json (244 bytes)
+CREATE libs/products/src/index.ts (39 bytes)
+CREATE libs/products/src/lib/products.module.ts (334 bytes)
+CREATE libs/products/src/lib/products.module.spec.ts (358 bytes)
+CREATE libs/products/tsconfig.json (123 bytes)
+CREATE libs/products/jest.config.js (353 bytes)
+CREATE libs/products/tsconfig.spec.json (233 bytes)
+CREATE libs/products/src/test-setup.ts (30 bytes)
+UPDATE workspace.json (27690 bytes)
+UPDATE nx.json (1463 bytes)
+UPDATE tsconfig.json (925 bytes)
+UPDATE apps/customer-portal/src/app/app.module.ts (983 bytes)
 ```
 
 * Add a products container component.
 
 ```bash
-ng g c containers/products --project=products
+nx g @nrwl/angular:component  containers/products --project=products
+CREATE libs/products/src/lib/containers/products/products.component.html (23 bytes)
+CREATE libs/products/src/lib/containers/products/products.component.spec.ts (642 bytes)
+CREATE libs/products/src/lib/containers/products/products.component.ts (286 bytes)
+CREATE libs/products/src/lib/containers/products/products.component.css (0 bytes)
+UPDATE libs/products/src/lib/products.module.ts (449 bytes)
 ```
 
 ## 2. A default app route to always go to products page
@@ -20,6 +41,7 @@ ng g c containers/products --project=products
 * Add a new default route to always load the products on app load
 
 {% code title="apps/customer-portal/src/app/app.module.ts" %}
+
 ```typescript
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -56,11 +78,13 @@ import { AuthGuard } from '@demo-app/auth';
 })
 export class AppModule {}
 ```
+
 {% endcode %}
 
 ## 3. Add ProductsModule route
 
 {% code title="libs/products/src/lib/products.module.ts" %}
+
 ```typescript
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -84,6 +108,7 @@ import { ProductsComponent } from './containers/products/products.component';
 export class ProductsModule {}
 
 ```
+
 {% endcode %}
 
 * Login again to check the routing is correctly configured by trying to click the 'products' button in the main menu.
@@ -93,12 +118,22 @@ export class ProductsModule {}
 * Generate a guard wit the CLI
 
 ```text
-ng g guard guards/auth/auth --project=auth
+nx g @nrwl/angular:guard  guards/auth/auth --project=auth
+```
+
+The CLI will ask you what functions to implement.  We will only be needing CanActivate for now.
+
+```bash
+? Which interfaces would you like to implement? (Press <space> to select, <a> to toggle
+ all, <i> to invert selection)CanActivate
+CREATE libs/auth/src/lib/guards/auth/auth.guard.spec.ts (331 bytes)
+CREATE libs/auth/src/lib/guards/auth/auth.guard.ts (456 bytes)
 ```
 
 * Add auth guard logic
 
 {% code title="libs/auth/src/lib/guards/auth/auth.guard.ts" %}
+
 ```typescript
 import { Injectable } from '@angular/core';
 import {
@@ -135,6 +170,7 @@ export class AuthGuard implements CanActivate {
 }
 
 ```
+
 {% endcode %}
 
 ## 5. Add auth guard to main routes
@@ -142,16 +178,19 @@ export class AuthGuard implements CanActivate {
 * Re-export the guard from the index.ts file in the Auth module.
 
 {% code title="libs/auth/src/index.ts" %}
+
 ```typescript
 export * from './lib/auth.module';
 export { AuthService } from './lib/services/auth/auth.service';
 export { AuthGuard } from './lib/guards/auth/auth.guard';
 ```
+
 {% endcode %}
 
 * Apply the guard to the Customer Portal main routes.
 
 {% code title="apps/customer-portal/src/app/app.module.ts" %}
+
 ```typescript
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -176,7 +215,8 @@ import { LayoutModule } from '@demo-app/layout';
         { path: 'auth', children: authRoutes },
         {
           path: 'products',
-          loadChildren: '@demo-app/products#ProductsModule',
+          loadChildren: () =>
+            import('@clades/products').then(module => module.ProductsModule),
           canActivate: [AuthGuard]
         }
       ],
@@ -191,16 +231,21 @@ import { LayoutModule } from '@demo-app/layout';
 export class AppModule {}
 
 ```
+
 {% endcode %}
+
+Notice the syntax for lazy loading. It's shown in [the official docs])https://angular.io/guide/lazy-loading-ngmodules) as the --module option.
+
+The docs also say it uses *loadChildren followed by a function that uses the browser's built-in import('...') syntax for dynamic imports. The import path is the relative path to the module.*
 
 ## 6. Check the route guard is working
 
 * Add a temporary "debugger" to set a break point on the route guard to check it is working correctly.
 
 {% code title="libs/auth/src/lib/guards/auth/auth.guard.ts" %}
+
 ```typescript
 /// abbreviated
-
 canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -220,6 +265,7 @@ canActivate(
 
 /// abbreviated  
 ```
+
 {% endcode %}
 
 ## 7.  Cache the user in local storage to save logging in for the rest or the workshop.
@@ -227,6 +273,7 @@ canActivate(
 * Load BehaviorSubject on Service creation with a user from local storage if one exists.
 
 {% code title="libs/auth/src/lib/services/auth/auth.service.ts" %}
+
 ```typescript
 import { Injectable } from '@angular/core';
 import { Authenticate, User } from '@demo-app/data-models';
@@ -243,7 +290,7 @@ export class AuthService {
 ​
   constructor(private httpClient: HttpClient) {
     const user = localStorage.getItem('user');
-    if(user) {
+    if (user) {
       this.userSubject$.next(JSON.parse(user));
     }
   }
@@ -260,11 +307,12 @@ export class AuthService {
 ​
 }
 ```
+
 {% endcode %}
 
 ![How to delete local storage](.gitbook/assets/image%20%2822%29.png)
 
-## Extras 
+## Extras
 
 ### 1. Add logout functionality
 
@@ -288,6 +336,7 @@ Note: Currently there is no ng generate command for interceptors so we need to a
 
 {% tabs %}
 {% tab title="libs/auth/src/lib/interceptors/auth/auth.interceptor.ts" %}
+
 ```typescript
 import { Injectable, Injector } from '@angular/core';
 import {
@@ -320,18 +369,22 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 }
 ```
+
 {% endtab %}
 
 {% tab title="Plain Text" %}
+
 ```text
 
 ```
+
 {% endtab %}
 {% endtabs %}
 
 * Export auth interceptors from the auth module
 
 {% code title="libs/auth/src/lib/auth.module.ts" %}
+
 ```typescript
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -370,6 +423,7 @@ const COMPONENTS = [LoginComponent, LoginFormComponent];
 })
 export class AuthModule {}
 ```
+
 {% endcode %}
 
 ### b\) Check the interceptor is adding a Header
@@ -377,4 +431,3 @@ export class AuthModule {}
 * Try and login again and look in the network traffic of the dev tools to see the Header is being added.
 
 ![Authorization header on all requests](.gitbook/assets/image%20%284%29.png)
-
