@@ -8,10 +8,13 @@ description: >-
 
 ## 1. Add NgRx to Customer Portal App
 
-* Add a default set up for ngrx to our new app. We can run the generate command for ngrx with the module and --onlyEmptyRoot option to only add the StoreModule.forRoot and EffectsModule.forRoot calls without generating any new files versus --root which will make a default reducer and effect.
+* Add a default set up for ngrx to our new app. We can run the generate command for ngrx with the module and --minimal true option to only add the StoreModule.forRoot and EffectsModule.forRoot calls without generating any new files versus --root which will make a default reducer and effect.
 
 ```text
-ng g ngrx app --module=apps/customer-portal/src/app/app.module.ts  --onlyEmptyRoot
+nx g @nrwl/angular:ngrx --module=apps/customer-portal/src/app/app.module.ts  --minimal true
+? What name would you like to use for the NgRx feature state? An example would be "users". products
+? Is this the root state of the application? Yes
+? Would you like to use a Facade with your NgRx state? No
 ```
 
 {% hint style="info" %}
@@ -19,6 +22,7 @@ Due to issue with StoreFreeze make sure you comment out this line of code
 {% endhint %}
 
 {% code title="apps/customer-portal/src/app/app.module.ts" %}
+
 ```typescript
   imports: [
     BrowserModule,
@@ -46,6 +50,7 @@ Due to issue with StoreFreeze make sure you comment out this line of code
     StoreRouterConnectingModule
   ],
 ```
+
 {% endcode %}
 
 ## 2. Add NgRx Auth lib making it a state state

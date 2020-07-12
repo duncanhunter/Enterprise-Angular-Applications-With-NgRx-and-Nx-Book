@@ -247,7 +247,6 @@ export class AppComponent {
   }
 ​
 }
-
 ```
 
 {% endcode %}
