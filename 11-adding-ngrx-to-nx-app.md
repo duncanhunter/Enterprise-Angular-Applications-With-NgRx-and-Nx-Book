@@ -56,7 +56,19 @@ Due to issue with StoreFreeze make sure you comment out this line of code
 ## 2. Add NgRx Auth lib making it a state state
 
 ```text
-ng generate ngrx auth --module=libs/auth/src/lib/auth.module.ts
+nx g @nrwl/angular:ngrx --module=libs/auth/src/lib/auth.module.ts --minimal false
+? What name would you like to use for the NgRx feature state? An example would be "users". auth
+? Is this the root state of the application? No
+? Would you like to use a Facade with your NgRx state? No
+CREATE libs/auth/src/lib/+state/auth.actions.ts (424 bytes)
+CREATE libs/auth/src/lib/+state/auth.effects.spec.ts (1156 bytes)
+CREATE libs/auth/src/lib/+state/auth.effects.ts (846 bytes)
+CREATE libs/auth/src/lib/+state/auth.models.ts (118 bytes)
+CREATE libs/auth/src/lib/+state/auth.reducer.spec.ts (1085 bytes)
+CREATE libs/auth/src/lib/+state/auth.reducer.ts (1368 bytes)
+CREATE libs/auth/src/lib/+state/auth.selectors.spec.ts (1765 bytes)
+CREATE libs/auth/src/lib/+state/auth.selectors.ts (1108 bytes)
+UPDATE libs/auth/src/lib/auth.module.ts (2608 bytes)
 ```
 
 ![New Nx Lib with State folder](.gitbook/assets/image%20%2823%29.png)
