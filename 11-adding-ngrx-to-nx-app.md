@@ -8,7 +8,7 @@ description: >-
 
 ## 1. Add NgRx to Customer Portal App
 
-* Add a default set up for ngrx to our new app. We can run the generate command for ngrx with the module and --minimal true option to only add the StoreModule.forRoot and EffectsModule.forRoot calls without generating any new files versus --root which will make a default reducer and effect.
+- Add a default set up for ngrx to our new app. We can run the generate command for ngrx with the module and --minimal true option to only add the StoreModule.forRoot and EffectsModule.forRoot calls without generating any new files versus --root which will make a default reducer and effect.
 
 ```text
 nx g @nrwl/angular:ngrx --module=apps/customer-portal/src/app/app.module.ts  --minimal true
@@ -16,10 +16,6 @@ nx g @nrwl/angular:ngrx --module=apps/customer-portal/src/app/app.module.ts  --m
 ? Is this the root state of the application? Yes
 ? Would you like to use a Facade with your NgRx state? No
 ```
-
-{% hint style="info" %}
-Due to issue with StoreFreeze make sure you comment out this line of code
-{% endhint %}
 
 {% code title="apps/customer-portal/src/app/app.module.ts" %}
 
@@ -42,9 +38,9 @@ Due to issue with StoreFreeze make sure you comment out this line of code
     ),
     AuthModule,
     LayoutModule,
-    StoreModule.forRoot({}
-      // ,{ metaReducers : !environment.production ? [storeFreeze] : [] }
-    ),
+    StoreModule.forRoot({}, {
+      metaReducers : !environment.production ? [storeFreeze] : []
+    }),
     EffectsModule.forRoot([]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     StoreRouterConnectingModule
@@ -72,4 +68,3 @@ UPDATE libs/auth/src/lib/auth.module.ts (2608 bytes)
 ```
 
 ![New Nx Lib with State folder](.gitbook/assets/image%20%2823%29.png)
-
