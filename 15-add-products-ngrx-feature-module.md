@@ -1,6 +1,6 @@
 ---
 description: >-
-  In this section we challenge you understanding by adding a Products module
+  In this section we challenge your understanding by adding a Products module
   like we did for login
 ---
 
