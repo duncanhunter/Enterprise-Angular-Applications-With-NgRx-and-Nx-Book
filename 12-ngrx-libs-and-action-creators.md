@@ -4,9 +4,12 @@ description: In this section we explore Strongly Typing the State and Actions
 
 # 12 - Strong Typing the State and Actions
 
+The [official docs](https://ngrx.io/guide/store/actions) say: *The createAction function returns a function, that when called returns an object in the shape of the Action interface. The props method is used to define any additional metadata needed for the handling of the action. Action creators provide a consistent, type-safe way to construct an action that is being dispatched.*
+
 ## 1. Add Login Action Creators
 
 {% code title="libs/auth/src/lib/+state/auth.actions.ts" %}
+
 ```typescript
 import { Action } from '@ngrx/store';
 import { Authenticate, User } from '@demo-app/data-models';
@@ -17,23 +20,22 @@ export enum AuthActionTypes {
   LoginFail = '[Auth API] Login Fail'
 }
 
-export class Login implements Action {
-  readonly type = AuthActionTypes.Login;
-  constructor(public payload: Authenticate) {}
-}
-export class LoginSuccess implements Action {
-  readonly type = AuthActionTypes.LoginSuccess;
-  constructor(public payload: User) {}
-}
+export const login = createAction(
+  AuthActionTypes.Login,
+  props<{ payload: Authenticate }> ()
+);
 
-export class LoginFail implements Action {
-  readonly type = AuthActionTypes.LoginFail;
-  constructor(public payload: any) {}
-}
+export const loginSuccess = createAction(
+  AuthActionTypes.LoginSuccess,
+  props<{ payload: User }>()
+);
 
-export type AuthActions = Login | LoginSuccess | LoginFail;
-
+export const loginFailure = createAction(
+  AuthActionTypes.LoginFail,
+  props<{ payload: any }>()
+);
 ```
+
 {% endcode %}
 
 ## Action Hygiene
@@ -54,9 +56,9 @@ Great presentation on Actions [https://www.youtube.com/watch?v=JmnsEvoy-gY&t=5s]
 * Update state interface
 
 {% code title="libs/auth/src/lib/+state/auth.reducer.ts" %}
+
 ```typescript
 //----- ABBREVIATED-----//
-
 
 /**
  * Interface for the 'Auth' data used in
@@ -79,7 +81,5 @@ export interface AuthState {
 
 //----- ABBREVIATED-----//
 ```
+
 {% endcode %}
-
-## 
-
