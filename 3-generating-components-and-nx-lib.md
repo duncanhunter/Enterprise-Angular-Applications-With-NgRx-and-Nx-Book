@@ -128,7 +128,7 @@ export class AuthModule {}
 
 * Delete everything but the router-outlet on the apps app.component.html file.
 
-{% code title="apps/customer-portal/src/app/app.components.html" %}
+{% code title="apps/customer-portal/src/app/app.component.html" %}
 
 ```typescript
 <router-outlet></router-outlet>
@@ -231,7 +231,7 @@ export interface Authenticate {
 {% code title="libs/data-models/index.ts" %}
 
 ```typescript
-export { Authenticate } from './authenticate';
+export { Authenticate } from './src/authenticate';
 ```
 
 {% endcode %}

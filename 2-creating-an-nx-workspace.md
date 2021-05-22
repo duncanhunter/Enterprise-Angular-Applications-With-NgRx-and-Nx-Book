@@ -4,7 +4,7 @@ We will be building out the beginning of two applications a customer portal and 
 
 ![Nx workspaces diagram](.gitbook/assets/image%20%287%29.png)
 
-## 1 .Create a new Nx workspace in your workshop folder
+## 1. Create a new Nx workspace in your workshop folder
 
 * Run the below command in a terminal to make a new nx workspace.
 
@@ -58,7 +58,7 @@ cd code .
 * Since the new NX workspace has no apps or libs yet. You can run the below command to see the extra options to make an app or a lib besides the normal angular CLI commands.
 
 ```text
-nx g application --help
+nx generate @nrwl/angular:application --help
 ```
 
 * Install the Angular schematic needed to create an Angular app.
