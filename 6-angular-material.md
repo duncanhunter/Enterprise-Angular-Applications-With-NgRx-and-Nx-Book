@@ -19,7 +19,7 @@ Always use the same Major version of Material as your Angular CLI and packages.
 {% endhint %}
 
 ```text
-npm install @angular/material @angular/cdk @angular/flex-layout @angular/animations
+npm install @angular/material @angular/cdk @angular/flex-layout @angular/animations --save
 ```
 
 * Add animations module to the main app module.

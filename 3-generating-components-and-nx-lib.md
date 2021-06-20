@@ -209,13 +209,15 @@ export class LoginComponent implements OnInit {
 
 ## 6. Add new folder for shared interfaces
 
-* Make a folder called 'data-models' manually in the libs folder.
+* Generate a new library using the nx cli.
 
-![data-models folder](.gitbook/assets/image%20%2811%29.png)
+```txt
+nx generate @nrwl/angular:lib data-models --force:true
+```
 
-* Add a 'authenticate.d.ts' file to the folder and export the added data models from the index.ts file
+* Add a 'authenticate.d.ts' file to the lib folder and export the added data models from the data-models.module.ts file
 
-{% code title="libs/data-models/src/authenticate.d.ts" %}
+{% code title="libs\data-models\src\lib\authenticate.d.ts" %}
 
 ```typescript
 export interface Authenticate {
@@ -227,11 +229,19 @@ export interface Authenticate {
 {% endcode %}
 
 * Export the interface
+{% code title="libs\data-models\src\lib\data-models.module.ts" %}
 
-{% code title="libs/data-models/index.ts" %}
 
 ```typescript
-export { Authenticate } from './src/authenticate';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+export { Authenticate } from './authenticate';
+
+@NgModule({
+  imports: [CommonModule],
+})
+export class DataModelsModule {}
+
 ```
 
 {% endcode %}

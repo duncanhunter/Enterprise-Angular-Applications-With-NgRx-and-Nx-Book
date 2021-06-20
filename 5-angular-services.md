@@ -59,14 +59,15 @@ export class AuthService {
 
 {% code title="libs/auth/src/containers/login/login.component.ts" %}
 ```typescript
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { AuthService } from './../../services/auth/auth.service';
 import { Authenticate } from '@demo-app/data-models';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent implements OnInit {
   constructor(private authService: AuthService) {}
@@ -104,6 +105,3 @@ password: 123
 ```
 
 ![Chrome Devtools](.gitbook/assets/image%20%2813%29.png)
-
-
-

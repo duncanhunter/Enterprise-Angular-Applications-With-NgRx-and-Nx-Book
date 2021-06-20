@@ -41,7 +41,7 @@ Note: To save injecting the formBuilder and keeping this a presentational compon
 
 {% code title="libs/auth/src/lib/components/login-form/login-form.component.ts" %}
 ```typescript
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Authenticate } from '@demo-app/data-models';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
@@ -51,7 +51,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./login-form.component.scss']
 })
 export class LoginFormComponent {
-  @Output() submit = new EventEmitter<Authenticate>();
+  @Output() submitForm = new EventEmitter<Authenticate>();
 
   loginForm = new FormGroup({
     username: new FormControl('', [Validators.required]),
@@ -59,7 +59,7 @@ export class LoginFormComponent {
   });
 
   login() {
-    this.submit.emit({
+    this.submitForm.emit({
       username: this.loginForm.value.username,
       password: this.loginForm.value.password
     } as Authenticate);
@@ -100,7 +100,7 @@ export class LoginFormComponent {
 
 * Add a User interface to the data-models folder to strongly type the return value of the Auth Service.
 
-{% code title="libs/data-models/user.d.ts" %}
+{% code title="libs/data-models/src/lib/user.d.ts" %}
 ```typescript
 export interface User {
   username: string;
@@ -114,10 +114,18 @@ export interface User {
 
 * Re-export the interface
 
-{% code title="libs/data-models/index.ts" %}
+{% code title="libs/data-models/src/lib/data-models.module.ts" %}
 ```typescript
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 export { Authenticate } from './authenticate';
 export { User } from './user';
+
+@NgModule({
+  imports: [CommonModule],
+})
+export class DataModelsModule {}
+
 ```
 {% endcode %}
 
