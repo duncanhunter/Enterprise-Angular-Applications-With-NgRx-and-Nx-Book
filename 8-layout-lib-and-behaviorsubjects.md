@@ -10,15 +10,14 @@ description: >-
 
 ```text
 nx generate @nrwl/angular:lib layout
-? Which stylesheet format would you like to use? SASS(.scss)  [ http://sass-lang.com   ]
 ```
 
-Again, choose sass for the stylesheet language.
+In the past, the cli would ask you to choose the stylesheet language.  If this happens, make sure to choose sass.  As of Nx 12, this will not happen anymore.
 
 * Add a layout container component
 
 ```text
-ng g @nrwl/angular:component containers/layout --project=layout --prefix app
+nx generate @nrwl/angular:component containers/layout --project=layout
 ```
 
 ## 2. Add the MaterialModule and Router Module to the LayoutModule and export the Layout Component out of the module
@@ -90,13 +89,14 @@ export class AuthService {
 
 {% endcode %}
 
-## 4. Add the LayoutComponent logic to select the current logged in user like
+## 4. Add the LayoutComponent logic to select the current logged in user
 
 Re-export the  AuthService from the Auth Libs index.ts file.
 
 {% code title="libs/auth/src/index.ts" %}
 
 ```typescript
+export * from './lib/auth.module';
 export { AuthService } from './lib/services/auth/auth.service';
 ```
 
@@ -113,9 +113,9 @@ import { Observable } from 'rxjs';
 import { User } from '@demo-app/data-models';
 
 @Component({
-  selector: 'app-layout',
+  selector: 'demo-app-layout',
   templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.css']
+  styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent implements OnInit {
   user$: Observable<User>;
@@ -136,9 +136,9 @@ export class LayoutComponent implements OnInit {
 {% code title="apps/customer-portal/src/app/app.component.html" %}
 
 ```markup
-<app-layout>
+<demo-app-layout>
     <router-outlet></router-outlet>
-</app-layout>
+</demo-app-layout>
 ```
 
 {% endcode %}
@@ -169,7 +169,7 @@ body {
 
 {% endcode %}
 
-## 8. Add the Layout Module to the AppModule.
+## 8. Add the Layout Module to the AppModule
 
 {% code title="apps/customer-portal/src/app/app.module.ts" %}
 
@@ -226,6 +226,31 @@ We will add the products link later but for now it will error if we try and clic
 ```
 
 {% endcode %}
+
+There might be some extra styles in the app.component.scss like this:
+
+{% code title="apps/customer-portal/src/app/app.component.scss" %}
+
+```scss
+/*
+ * Remove template code below
+ */
+:host {
+  display: block;
+  font-family: sans-serif;
+  min-width: 300px;
+  max-width: 600px;
+  margin: 50px auto;
+}
+
+.gutter-left {
+  margin-left: 9px;
+}
+```
+
+{% endcode %}
+
+The margin: 50px line in particular will push down the entire app layout, so it's a good idea to just remove everything in this file.
 
 ## Extras
 

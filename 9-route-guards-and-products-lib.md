@@ -6,22 +6,24 @@
 
 ```bash
 nx generate @nrwl/angular:lib products --routing --lazy --parent-module=apps/customer-portal/src/app/app.module.ts
-? Which stylesheet format would you like to use? SASS(.scss)  [ http://sass-lang.com   ]
-CREATE libs/products/README.md (140 bytes)
-CREATE libs/products/tsconfig.lib.json (408 bytes)
-CREATE libs/products/tsconfig.lib.prod.json (97 bytes)
-CREATE libs/products/tslint.json (244 bytes)
-CREATE libs/products/src/index.ts (39 bytes)
-CREATE libs/products/src/lib/products.module.ts (334 bytes)
-CREATE libs/products/src/lib/products.module.spec.ts (358 bytes)
-CREATE libs/products/tsconfig.json (123 bytes)
-CREATE libs/products/jest.config.js (353 bytes)
-CREATE libs/products/tsconfig.spec.json (233 bytes)
-CREATE libs/products/src/test-setup.ts (30 bytes)
-UPDATE workspace.json (27690 bytes)
-UPDATE nx.json (1463 bytes)
-UPDATE tsconfig.json (925 bytes)
-UPDATE apps/customer-portal/src/app/app.module.ts (983 bytes)
+...
+CREATE libs/products/README.md
+CREATE libs/products/tsconfig.lib.json
+CREATE libs/products/src/index.ts
+CREATE libs/products/src/lib/products.module.ts
+CREATE libs/products/tsconfig.json
+CREATE libs/products/jest.config.js
+CREATE libs/products/src/test-setup.ts
+CREATE libs/products/tsconfig.spec.json
+CREATE libs/products/.eslintrc.json
+UPDATE package.json
+UPDATE workspace.json
+UPDATE nx.json
+UPDATE tsconfig.base.json
+UPDATE .vscode/extensions.json
+UPDATE jest.config.js
+UPDATE apps/customer-portal/src/app/app.module.ts
+UPDATE apps/customer-portal/tsconfig.app.json
 ```
 
 * Add a products container component.
@@ -45,13 +47,12 @@ UPDATE libs/products/src/lib/products.module.ts (449 bytes)
 ```typescript
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
 import { NxModule } from '@nrwl/nx';
 import { RouterModule } from '@angular/router';
 import { authRoutes, AuthModule } from '@demo-app/auth';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AuthGuard } from '@demo-app/auth';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Added
+import { LayoutModule } from '@demo-app/layout';
 
 @NgModule({
   declarations: [AppComponent],
@@ -61,20 +62,25 @@ import { AuthGuard } from '@demo-app/auth';
     NxModule.forRoot(),
     RouterModule.forRoot(
       [
-        { path: '', pathMatch: 'full', redirectTo: 'products' },   // added
+        { path: '', pathMatch: 'full', redirectTo: 'products' }, // added
         { path: 'auth', children: authRoutes },
         {
           path: 'products',
-          loadChildren: '@demo-app/products#ProductsModule',       // added
-        }
+          loadChildren: () =>
+            import('@demo-app/products').then(
+              (mod) => mod.ProductsModule                       // added
+            ),
+        },
       ],
-      { initialNavigation: 'enabled' }
+      {
+        initialNavigation: 'enabled',
+      }
     ),
     AuthModule,
-    LayoutModule
+    LayoutModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
 ```
@@ -88,40 +94,32 @@ export class AppModule {}
 ```typescript
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserProfileComponent } from './containers/user-profile/user-profile.component';
-import { RouterModule } from '@angular/router';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ProductsComponent } from './containers/products/products.component';
 
 @NgModule({
   imports: [
     CommonModule,
-    MaterialModule,
-    RouterModule.forChild([
-      { path: '', component: ProductsComponent }
-    ])
+    RouterModule.forChild([{ path: '', component: ProductsComponent }]),
   ],
   declarations: [ProductsComponent],
 })
 export class ProductsModule {}
-
 ```
 
 {% endcode %}
 
-* Login again to check the routing is correctly configured by trying to click the 'products' button in the main menu.
+* Login again at the '/auth/login' route to check the routing is correctly configured by trying to click the 'products' button in the main menu.
 
 ## 4. Add a route guard to protect products page
 
-* Generate a guard wit the CLI
+* Generate a guard with the CLI
 
 ```text
 nx g @nrwl/angular:guard  guards/auth/auth --project=auth
 ```
 
-The CLI will ask you what functions to implement.  We will only be needing CanActivate for now.
+The CLI will ask you what functions to implement.  We will only be needing CanActivate for now, so just press the ENTER key.
 
 ```bash
 ? Which interfaces would you like to implement? (Press <space> to select, <a> to toggle
@@ -143,7 +141,7 @@ import {
   Router
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthService } from './../../services/auth/auth.service';
+import { AuthService } from '../../services/auth/auth.service';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -194,14 +192,13 @@ export { AuthGuard } from './lib/guards/auth/auth.guard';
 ```typescript
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
 import { NxModule } from '@nrwl/nx';
 import { RouterModule } from '@angular/router';
 import { authRoutes, AuthModule } from '@demo-app/auth';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AuthGuard } from '@demo-app/auth';
 import { LayoutModule } from '@demo-app/layout';
+import { AuthGuard } from '@demo-app/auth'; // added
 
 @NgModule({
   declarations: [AppComponent],
@@ -216,20 +213,23 @@ import { LayoutModule } from '@demo-app/layout';
         {
           path: 'products',
           loadChildren: () =>
-            import('@clades/products').then(module => module.ProductsModule),
-          canActivate: [AuthGuard]
-        }
+            import('@demo-app/products').then(
+              (module) => module.ProductsModule
+            ),
+          canActivate: [AuthGuard],      // added
+        },
       ],
-      { initialNavigation: 'enabled' }
+      {
+        initialNavigation: 'enabled',
+      }
     ),
     AuthModule,
-    LayoutModule
+    LayoutModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
-
 ```
 
 {% endcode %}
@@ -253,6 +253,7 @@ canActivate(
     return this.authService.user$.pipe(
       map(user => {
         if (user) {
+          // eslint-disable-next-line no-debugger
           debugger;
           return true;
         } else {
@@ -262,13 +263,12 @@ canActivate(
       })
     );
   }
-
 /// abbreviated  
 ```
 
 {% endcode %}
 
-## 7.  Cache the user in local storage to save logging in for the rest or the workshop.
+## 7.  Cache the user in local storage to save logging in for the rest or the workshop
 
 * Load BehaviorSubject on Service creation with a user from local storage if one exists.
 

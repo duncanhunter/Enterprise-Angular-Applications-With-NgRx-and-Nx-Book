@@ -15,35 +15,38 @@ nx g @nrwl/angular:ngrx --module=apps/customer-portal/src/app/app.module.ts  --m
 ? What name would you like to use for the NgRx feature state? An example would be "users". products
 ? Is this the root state of the application? Yes
 ? Would you like to use a Facade with your NgRx state? No
+✔ Packages installed successfully.
+UPDATE apps/customer-portal/src/app/app.module.ts
+UPDATE package.json
 ```
+
+Here are the changes to the app.module.ts:
 
 {% code title="apps/customer-portal/src/app/app.module.ts" %}
 
 ```typescript
-  imports: [
+imports: [
     BrowserModule,
     BrowserAnimationsModule,
     NxModule.forRoot(),
     RouterModule.forRoot(
-      [
-        { path: '', pathMatch: 'full', redirectTo: 'products' },
-        { path: 'auth', children: authRoutes },
-        {
-          path: 'products',
-          loadChildren: '@demo-app/products#ProductsModule',
-          canActivate: [AuthGuard]
-        }
-      ],
-      { initialNavigation: 'enabled' }
+      /// abbreviated 
     ),
     AuthModule,
     LayoutModule,
-    StoreModule.forRoot({}, {
-      metaReducers : !environment.production ? [storeFreeze] : []
-    }),
+    StoreModule.forRoot(
+      {},
+      {
+        metaReducers: !environment.production ? [] : [],
+        runtimeChecks: {
+          strictActionImmutability: true,
+          strictStateImmutability: true,
+        },
+      }
+    ),
     EffectsModule.forRoot([]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    StoreRouterConnectingModule
+    StoreRouterConnectingModule.forRoot(),
   ],
 ```
 
@@ -56,15 +59,16 @@ nx g @nrwl/angular:ngrx --module=libs/auth/src/lib/auth.module.ts --minimal fals
 ? What name would you like to use for the NgRx feature state? An example would be "users". auth
 ? Is this the root state of the application? No
 ? Would you like to use a Facade with your NgRx state? No
-CREATE libs/auth/src/lib/+state/auth.actions.ts (424 bytes)
-CREATE libs/auth/src/lib/+state/auth.effects.spec.ts (1156 bytes)
-CREATE libs/auth/src/lib/+state/auth.effects.ts (846 bytes)
-CREATE libs/auth/src/lib/+state/auth.models.ts (118 bytes)
-CREATE libs/auth/src/lib/+state/auth.reducer.spec.ts (1085 bytes)
-CREATE libs/auth/src/lib/+state/auth.reducer.ts (1368 bytes)
-CREATE libs/auth/src/lib/+state/auth.selectors.spec.ts (1765 bytes)
-CREATE libs/auth/src/lib/+state/auth.selectors.ts (1108 bytes)
-UPDATE libs/auth/src/lib/auth.module.ts (2608 bytes)
+CREATE libs/auth/src/lib/+state/auth.actions.ts
+CREATE libs/auth/src/lib/+state/auth.effects.spec.ts
+CREATE libs/auth/src/lib/+state/auth.effects.ts
+CREATE libs/auth/src/lib/+state/auth.models.ts
+CREATE libs/auth/src/lib/+state/auth.reducer.spec.ts
+CREATE libs/auth/src/lib/+state/auth.reducer.ts
+CREATE libs/auth/src/lib/+state/auth.selectors.spec.ts
+CREATE libs/auth/src/lib/+state/auth.selectors.ts
+UPDATE libs/auth/src/lib/auth.module.ts
+UPDATE libs/auth/src/index.ts
 ```
 
 ![New Nx Lib with State folder](.gitbook/assets/image%20%2823%29.png)

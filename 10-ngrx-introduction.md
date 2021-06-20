@@ -162,7 +162,7 @@ export const decrement = createAction(CounterActionTypes.Decrement);
 
 ### h\) Adding action State interfaces
 
-* In the top of the reducer file at a Product State interface and use it and our new action types int he reducer.
+* In the top of the reducer file add a CounterState interface and use it as our new action types in the reducer.
 
 {% code title="src/app/state/counter.reducer.ts" %}
 

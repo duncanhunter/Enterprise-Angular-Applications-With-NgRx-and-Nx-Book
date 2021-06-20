@@ -11,7 +11,7 @@ The [official docs](https://ngrx.io/guide/store/actions) say: *The createAction 
 {% code title="libs/auth/src/lib/+state/auth.actions.ts" %}
 
 ```typescript
-import { Action } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 import { Authenticate, User } from '@demo-app/data-models';
 
 export enum AuthActionTypes {
