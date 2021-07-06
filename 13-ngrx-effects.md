@@ -12,36 +12,31 @@ description: In this section we examine adding effects
 
 ```typescript
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { fetch } from '@nrwl/angular';
 import { AuthActionTypes } from './auth.actions';
-import { mergeMap, map, catchError, tap } from 'rxjs/operators';
-import { of } from 'rxjs';
+import * as AuthActions from './auth.actions';
 import { AuthService } from './../services/auth/auth.service';
-import * as authActions from './auth.actions';
-import { User } from '@demo-app/data-models';
 
 @Injectable()
 export class AuthEffects {
-  @Effect()
-  login$ = this.actions$.pipe(
+  login$ = createEffect(() => this.actions$.pipe(
     ofType(AuthActionTypes.Login),
     fetch({
-      run: action => {
-        return AuthActions.loginSuccess(action);
+      run: (action) => {
+        return this.authService.login(action);
       },
       onError: (action, error) => {
         return AuthActions.loginFailure(error);
-      }
+      },
     })
-  );
+  ));
 
   constructor(
     private actions$: Actions,
     private authService: AuthService
   ) {}
 }
-
 ```
 
 {% endcode %}
@@ -55,14 +50,14 @@ import { createReducer, on, Action } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import * as AuthActions from './auth.actions';
 import { AuthEntity } from './auth.models';
-import { Authenticate, User } from '@clades/data-models';
+import { User } from '@demo-app/data-models';
 
 export const AUTH_FEATURE_KEY = 'auth';
 
 export interface AuthData {
   loading: boolean;
   user: User;
-  error: Error
+  error: Error;
 }
 
 export interface AuthState {
@@ -79,19 +74,25 @@ export interface AuthPartialState {
   readonly [AUTH_FEATURE_KEY]: State;
 }
 
-export const authAdapter: EntityAdapter<AuthEntity> = createEntityAdapter<
-  AuthEntity
->();
+export const authAdapter: EntityAdapter<AuthEntity> = createEntityAdapter<AuthEntity>();
 
 export const initialState: State = authAdapter.getInitialState({
   action: AuthActions,
-  loaded: false
+  loaded: false,
 });
 const authReducer = createReducer(
   initialState,
-  on(AuthActions.login, state => ({ ...state, loading: true })),
-  on(AuthActions.loginSuccess, state => ( {...state, user: AuthActions.loginSuccess, loading: false })),
-  on(AuthActions.loginFailure, state => ({ ...state, user: null, loading: false }))
+  on(AuthActions.login, (state) => ({ ...state, loading: true })),
+  on(AuthActions.loginSuccess, (state) => ({
+    ...state,
+    user: AuthActions.loginSuccess,
+    loading: false,
+  })),
+  on(AuthActions.loginFailure, (state) => ({
+    ...state,
+    user: null,
+    loading: false,
+  }))
 );
 
 export function reducer(state: State | undefined, action: Action) {
@@ -106,27 +107,23 @@ export function reducer(state: State | undefined, action: Action) {
 {% code title="libs/auth/src/lib/containers/login/login.component.ts" %}
 
 ```typescript
-import { Component, ChangeDetectionStrategy, } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Authenticate } from '@demo-app/data-models';
 import { AuthState } from './../../+state/auth.reducer';
 import { Store } from '@ngrx/store';
 import * as authActions from './../../+state/auth.actions';
-​
 @Component({
-  selector: 'app-login',
+  selector: 'demo-app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent {
-​
-  constructor(
-    private store: Store<AuthState>) { }
-​
-  login(authenticate: Authenticate) {
-    this.store.dispatch(login({ payload: authenticate }));
-  }
 
+  constructor(private store: Store<AuthState>) {}
+  login(authenticate: Authenticate) {
+    this.store.dispatch(authActions.login({ payload: authenticate }));
+  }
 }
 ```
 
@@ -143,7 +140,7 @@ You can read more about routing with actions here: [Router Actions](https://ngrx
 ```typescript
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Effect, Actions, ofType } from '@ngrx/effects';
+import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { fetch } from '@nrwl/angular';
 import { map, tap } from 'rxjs/operators';
 import { AuthActionTypes } from './auth.actions';
@@ -152,24 +149,28 @@ import { AuthService } from './../services/auth/auth.service';
 
 @Injectable()
 export class AuthEffects {
-  @Effect()
-  login$ = this.actions$.pipe(
-    ofType(AuthActionTypes.Login),
-    fetch({
-      run: action => {
-        this.authService.login(action);
-      },
-      onError: (action, error) => {
-        return AuthActions.loginFailure(error);
-      }
-    })
+  login$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActionTypes.Login),
+      fetch({
+        run: (action) => {
+          return this.authService.login(action);
+        },
+        onError: (action, error) => {
+          return AuthActions.loginFailure(error);
+        },
+      })
+    )
   );
 
-  @Effect({ dispatch: false })
-  navigateToProfile$ = this.actions$.pipe(
-    ofType(AuthActionTypes.LoginSuccess),
-    map((action: AuthActionTypes.LoginSuccess) => action),
-    tap(() => this.router.navigate([`/products`]))
+  navigateToProfile$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActionTypes.LoginSuccess),
+        map((action: AuthActionTypes.LoginSuccess) => action),
+        tap(() => this.router.navigate([`/products`]))
+      ),
+    { dispatch: false }
   );
 
   constructor(
@@ -178,7 +179,6 @@ export class AuthEffects {
     private router: Router
   ) {}
 }
-
 ```
 
 {% endcode %}
@@ -188,42 +188,39 @@ export class AuthEffects {
 {% code title="libs/auth/index.ts" %}
 
 ```typescript
+export * from './lib/+state/auth.actions';
+export * from './lib/+state/auth.reducer';
+export * from './lib/+state/auth.selectors';
+export * from './lib/+state/auth.effects';
+export * from './lib/+state/auth.models';
 export * from './lib/auth.module';
 export { AuthService } from './lib/services/auth/auth.service';
 export { AuthGuard } from './lib/guards/auth/auth.guard';
 export { AuthState } from './lib/+state/auth.reducer';
-
 ```
 
 {% endcode %}
 
 ### 6. Update AuthGuard to use the store
 
+{% code title="libs/auth/src/lib/guards/auth/auth.guard.ts" %}
+
 ```typescript
 import { Injectable } from '@angular/core';
-import {
-  CanActivate,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-  Router
-} from '@angular/router';
+import { CanActivate, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AuthState } from '@demo-app/auth';
+import { AuthState } from '../../+state/auth.reducer';
 import { Store, select } from '@ngrx/store';
-​
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private router: Router, private store: Store<AuthState>) { }
-​
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    routerState: RouterStateSnapshot
-  ): Observable<boolean> {
-    return this.store.pipe(select((state) => state.auth.user),
-      map(user => {
+  constructor(private router: Router, private store: Store<AuthState>) {}
+  canActivate(): Observable<boolean> {
+    return this.store.pipe(
+      select((state) => state.auth.user),
+      map((user) => {
         if (user) {
           return true;
         } else {
@@ -234,7 +231,6 @@ export class AuthGuard implements CanActivate {
     );
   }
 }
-
 ```
 
 ## 7. On load check local storage and dispatch a LoginSuccess action
@@ -248,20 +244,19 @@ import { AuthState } from '@demo-app/auth';
 import * as AuthActions from '@demo-app/auth';
 
 @Component({
-  selector: 'app-root',
+  selector: 'demo-app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   title = 'app';
 
-  constructor(private store: Store<AuthState>){
-      const user = JSON.parse(localStorage.getItem('user'));
-      if (user) {
-        this.store.dispatch(AuthActions.loginSuccess(user));
-      }
-    };
-
+  constructor(private store: Store<AuthState>) {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      this.store.dispatch(AuthActions.loginSuccess(user));
+    }
+  }
 }
 ```
 
