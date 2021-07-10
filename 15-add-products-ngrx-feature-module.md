@@ -21,37 +21,38 @@ Steps
 ## 1. Add NgRx Products lib making it a state state
 
 ```text
-ng generate ngrx products --module=libs/products/src/lib/products.module.ts
+nx g @nrwl/angular:ngrx --module=libs/products/src/lib/products.module.ts --minimal false
 ```
 
 ## 2. Add Products Action Creators
 
 {% code title="libs/products/src/lib/+state/products.actions.ts" %}
+
 ```typescript
-import { Action } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
+import { Product } from '@demo-app/data-models';
 
 export enum ProductsActionTypes {
   LoadProducts = '[Products Page] Load Products',
   LoadProductsSuccess = '[Products API] Load Products Success',
-  LoadProductsFail = '[Products API] LoadProducts Fail'
+  LoadProductsFail = '[Products API] LoadProducts Fail',
 }
 
-export class LoadProducts implements Action {
-  readonly type = ProductsActionTypes.LoadProducts;
-}
-export class LoadProductsSuccess implements Action {
-  readonly type = ProductsActionTypes.LoadProductsSuccess;
-  constructor(public payload: any) {}
-}
+export const loadProducts = createAction(
+  ProductsActionTypes.LoadProducts
+);
 
-export class LoadProductsFail implements Action {
-  readonly type = ProductsActionTypes.LoadProductsFail;
-  constructor(public payload: any) {}
-}
+export const loadProductsSuccess = createAction(
+  ProductsActionTypes.LoadProductsSuccess,
+  props<{ payload: Product [] }>()
+);
 
-export type ProductsActions = LoadProducts | LoadProductsSuccess | LoadProductsFail;
-
+export const loadProductsFailure = createAction(
+  ProductsActionTypes.LoadProductsFail,
+  props<{ error: any }>()
+);
 ```
+
 {% endcode %}
 
 ## 3. Add default state and interface
@@ -59,9 +60,15 @@ export type ProductsActions = LoadProducts | LoadProductsSuccess | LoadProductsF
 * Update state interface
 
 {% code title="libs/products/src/lib/+state/products.reducer.ts" %}
+
 ```typescript
-import { ProductsActions, ProductsActionTypes } from './products.actions';
+import { createReducer, on, Action } from '@ngrx/store';
+import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
+import { ProductsEntity } from './products.models';
+import * as ProductsActions from './products.actions';
 import { Product } from '@demo-app/data-models';
+
+export const PRODUCTS_FEATURE_KEY = 'products';
 
 /**
  * Interface for the 'Products' data used in
@@ -82,41 +89,83 @@ export interface ProductsState {
   readonly products: ProductsData;
 }
 
-export const initialState: ProductsData = {
-  loading: false,
-  products: [],
-  error: ''
-};
+export interface State extends EntityState<ProductsEntity> {
+  selectedId?: string | number;
+  loaded: boolean;
+  error?: string | null;
+}
+
+export interface ProductsPartialState {
+  readonly [PRODUCTS_FEATURE_KEY]: State;
+}
+
+export const productsAdapter: EntityAdapter<ProductsEntity> = createEntityAdapter<ProductsEntity>();
+
+export const initialState: State = productsAdapter.getInitialState({
+  action: ProductsActions,
+  loaded: false,
+});
+
+export const productsReducer = createReducer(
+  initialState,
+  on(ProductsActions.loadProducts, (state) => ({
+    ...state,
+    loaded: false,
+    error: null,
+  })),
+  on(ProductsActions.loadProductsSuccess, (state, { payload: products }) => ({
+    ...state,
+    products: products,
+    loaded: true,
+  })),
+  on(ProductsActions.loadProductsFailure, (state, { error }) => ({
+    ...state,
+    error,
+  }))
+);
+
+export function reducer(state: State | undefined, action: Action) {
+  return productsReducer(state, action);
+}
 ```
+
 {% endcode %}
 
 ## 4. Make new Product interface
 
 {% code title="libs/data-models/product.d.ts" %}
+
 ```typescript
 export interface Product {
-    name: string;
-    category: string;
-    id: number;
+  name: string;
+  category: string;
+  id: number;
 }
 ```
+
 {% endcode %}
 
 {% code title="libs/data-models/index.ts" %}
+
 ```typescript
-export { Authenticate } from './authenticate';
-export { User } from './user';
-export { Product } from './product';
+export * from './lib/data-models.module';
 ```
+
 {% endcode %}
 
 ## 5. Make new ProductsService in products module
 
+When the CLI asks for the name of the service, add the path for it, and it will be created in the right place since we also provide the project in the command:
+
 ```text
-ng g service services/products/products --project=products
+> nx generate @nrwl/angular:service --project=products
+√ What name would you like to use for the service? · services/products/products
+CREATE libs/products/src/lib/products.service.spec.ts
+CREATE libs/products/src/lib/products.service.ts
 ```
 
 {% code title="libs/products/src/lib/services/products/products.service.ts" %}
+
 ```typescript
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -124,7 +173,7 @@ import { Product } from '@demo-app/data-models';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProductsService {
   constructor(private httpClient: HttpClient) {}
@@ -134,55 +183,60 @@ export class ProductsService {
   }
 }
 ```
+
 {% endcode %}
 
 ## 6. Add effect
 
 {% code title="libs/products/src/lib/+state/products.effects.ts" %}
+
 ```typescript
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { ProductsService } from './../services/products/products.service';
 import { ProductsActionTypes } from './../+state/products.actions';
-import { mergeMap, map, tap, catchError } from 'rxjs/operators';
-import * as productActions from './../+state/products.actions';
+import { mergeMap, map, catchError } from 'rxjs/operators';
+import * as ProductActions from './../+state/products.actions';
 import { of } from 'rxjs';
 import { Product } from '@demo-app/data-models';
 
 @Injectable()
 export class ProductsEffects {
-  @Effect()
-  login$ = this.actions$.pipe(
+  
+  login$ = createEffect(() => this.actions$.pipe(
     ofType(ProductsActionTypes.LoadProducts),
     mergeMap(() =>
-      this.productService
-        .getProducts()
-        .pipe(
-          map(
-            (products: Product[]) =>
-              new productActions.LoadProductsSuccess(products)
-          ),
-          catchError(error => of(new productActions.LoadProductsFail(error)))
-        )
+      this.productService.getProducts().pipe(
+        map(
+          (products: Product[]) =>
+            ProductActions.loadProductsSuccess({ payload: products })
+        ),
+        catchError((error) => of(ProductActions.loadProductsFailure({ error })))
+      )
     )
-  );
+  ));
 
   constructor(
     private actions$: Actions,
     private productService: ProductsService
   ) {}
 }
-
 ```
+
 {% endcode %}
 
 ## 7. Add reducer logic
 
 {% code title="libs/products/src/lib/+state/products.reducer.ts" %}
+
 ```typescript
-import { Action } from '@ngrx/store';
-import { ProductsActions, ProductsActionTypes } from './products.actions';
+import { createReducer, on, Action } from '@ngrx/store';
+import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
+import { ProductsEntity } from './products.models';
+import * as ProductsActions from './products.actions';
 import { Product } from '@demo-app/data-models';
+
+export const PRODUCTS_FEATURE_KEY = 'products';
 
 /**
  * Interface for the 'Products' data used in
@@ -203,79 +257,89 @@ export interface ProductsState {
   readonly products: ProductsData;
 }
 
-export const initialState: ProductsData = {
-  loading: false,
-  products: [],
-  error: ''
-};
-
-export function productsReducer(
-  state = initialState,
-  action: ProductsActions
-): ProductsData {
-  switch (action.type) {
-    case ProductsActionTypes.LoadProducts:
-      return { ...state, loading: true };
-
-    case ProductsActionTypes.LoadProductsSuccess: {
-      return { ...state, products: action.payload, loading: false, error: '' };
-    }
-    case ProductsActionTypes.LoadProductsFail: {
-      return {
-        ...state,
-        products: null,
-        loading: false,
-        error: action.payload
-      };
-    }
-    default:
-      return state;
-  }
+export interface State extends EntityState<ProductsEntity> {
+  selectedId?: string | number;
+  loaded: boolean;
+  error?: string | null;
 }
 
+export interface ProductsPartialState {
+  readonly [PRODUCTS_FEATURE_KEY]: State;
+}
+
+export const productsAdapter: EntityAdapter<ProductsEntity> = createEntityAdapter<ProductsEntity>();
+
+export const initialState: State = productsAdapter.getInitialState({
+  action: ProductsActions,
+  loaded: false,
+});
+
+export const productsReducer = createReducer(
+  initialState,
+  on(ProductsActions.loadProducts, (state) => ({
+    ...state,
+    loaded: false,
+    error: null,
+  })),
+  on(ProductsActions.loadProductsSuccess, (state, { payload: products }) => ({
+    ...state,
+    products: products,
+    loaded: true,
+  })),
+  on(ProductsActions.loadProductsFailure, (state, { error }) => ({
+    ...state,
+    error,
+  }))
+);
+
+export function reducer(state: State | undefined, action: Action) {
+  return productsReducer(state, action);
+}
 ```
+
 {% endcode %}
 
 ## 8. Dispatch and select products from the store into container component
 
 {% code title="libs/products/src/lib/containers/products/products.component.ts" %}
+
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { ProductsState } from './../../+state/products.reducer';
 import { Store, select } from '@ngrx/store';
-import { productsQuery } from './../../+state';
+import { productsQuery } from './../../+state/products.selectors';
 import { Observable } from 'rxjs';
 import { Product } from '@demo-app/data-models';
-import { LoadProducts } from './../../+state/products.actions';
+import { loadProducts } from './../../+state/products.actions';
 
 @Component({
   selector: 'demo-app-products',
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.css']
+  styleUrls: ['./products.component.scss'],
 })
 export class ProductsComponent implements OnInit {
   products$: Observable<Product[]>;
 
-  constructor(private store: Store<ProductsState>) { }
+  constructor(private store: Store<ProductsState>) {}
 
   ngOnInit() {
-    this.store.dispatch(new LoadProducts());
-    this.products$ = this.store.pipe(select(productsQuery.getProducts))
+    this.store.dispatch(loadProducts());
+    this.products$ = this.store.pipe(select(productsQuery.getProducts));
   }
-
 }
-
 ```
+
 {% endcode %}
 
 ## 9. Dump products as JSON onto the page
 
 {% code title="libs/products/src/lib/containers/products/products.component.html" %}
+
 ```markup
 <p>
   products works!
 </p>
 {{products$ | async | json}}
 ```
-{% endcode %}
 
+{% endcode %}
