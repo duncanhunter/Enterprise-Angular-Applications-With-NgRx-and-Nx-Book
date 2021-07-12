@@ -83,3 +83,30 @@ export interface AuthState {
 ```
 
 {% endcode %}
+
+* Also, update the create reducer function to this:
+
+{% code title="libs/auth/src/lib/+state/auth.reducer.ts" %}
+
+```typescript
+//----- ABBREVIATED-----//
+
+const authReducer = createReducer(
+  initialState,
+  on(AuthActions.login, (state) => ({ ...state, loading: true })),
+  on(AuthActions.loginSuccess, (state) => ({
+    ...state,
+    user: AuthActions.loginSuccess,
+    loading: false,
+  })),
+  on(AuthActions.loginFailure, (state) => ({
+    ...state,
+    user: null,
+    loading: false,
+  }))
+);
+
+//----- ABBREVIATED-----//
+```
+
+{% endcode %}

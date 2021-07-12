@@ -12,20 +12,15 @@ description: In this section we examine using selectors in NgRx.
 
 ```typescript
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { ProductsState, ProductsData } from './products.reducer';
-import * as fromProduct from './products.reducer';
+import { ProductsData } from './products.reducer';
 
 const getProductsState = createFeatureSelector<ProductsData>('products');
 
-const getProducts = createSelector(
-  getProductsState,
-  state => state.products
-);
+const getProducts = createSelector(getProductsState, (state) => state.products);
 
 export const productsQuery = {
   getProducts,
 };
-
 ```
 
 {% endcode %}
@@ -35,12 +30,18 @@ export const productsQuery = {
 {% code title="libs/auth/index.ts" %}
 
 ```typescript
+export * from './lib/+state/auth.actions';
+export * from './lib/+state/auth.effects';
+export * from './lib/+state/auth.reducer';
+export * from './lib/+state/auth.selectors';
+export * from './lib/+state/auth.models';
 export * from './lib/auth.module';
 export { AuthService } from './lib/services/auth/auth.service';
 export { AuthGuard } from './lib/guards/auth/auth.guard';
 export { AuthState } from './lib/+state/auth.reducer';
-export * from './lib/+state';
+
 ```
+
 {% endcode %}
 
 ## 2. Use selector in Layout component
@@ -49,26 +50,26 @@ export * from './lib/+state';
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { AuthState } from '@demo-app/auth';
+import { AuthService } from '@demo-app/auth';
+import { Observable } from 'rxjs';
 import { User } from '@demo-app/data-models';
-import { Observable } from 'rxjs/Observable';
-import { productsQuery } from '@demo-app/auth';
+
 @Component({
-  selector: 'app-layout',
+  selector: 'demo-app-layout',
   templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.scss']
+  styleUrls: ['./layout.component.scss'],
 })
 export class LayoutComponent implements OnInit {
   user$: Observable<User>;
 
-  constructor(private store: Store<AuthState>) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {
-    this.user$ = this.store.select(productsQuery.getUser);
+    this.user$ = this.authService.user$;
   }
 }
-
 ```
 
 {% endcode %}
+
+At this point, the app may not run properly until we update the products state in the next step.
